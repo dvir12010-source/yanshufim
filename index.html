@@ -169,8 +169,16 @@ details.fold[open] > summary::after { content: "−"; }
 .pick input { width: 22px; height: 22px; accent-color: #0b6e69; }
 
 footer { color: var(--muted); font-size: 15px; }
+.install { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 8px 14px; border-radius: 12px; background: var(--surface); box-shadow: var(--sheet); color: var(--fg); font-weight: 700; text-decoration: none; }
+.install svg { color: #0b6a7a; }
+.help { position: fixed; left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 32; max-width: 420px; margin-inline: auto; padding: 18px; border-radius: 16px; background: var(--surface); display: grid; gap: 10px; }
+.help h2 { font-size: 21px; }
+.help ol { margin: 0; padding-inline-start: 22px; display: grid; gap: 4px; }
+.help .btn { background: #0b6a7a; color: #fff; }
+.standalone [data-install] { display: none; }
 
 @media (min-width: 860px) {
+  [data-install] { display: none; }
   .tiles { grid-template-columns: minmax(0,1fr); }
   .tile-group { display: grid; grid-template-columns: 92px repeat(2, minmax(0,1fr)); gap: 12px; align-items: center; }
   .mode { display: grid; justify-items: center; gap: 2px; font-family: var(--hand); font-size: 25px; line-height: 1; color: var(--muted); }
@@ -373,9 +381,35 @@ function homeView() {
         <div class="list">${dues.map(({ c, d }) => soonRow(c, d, true)).join('')}</div>
       </section>` : ''}
     </div>
+    <a class="install" href="#install" data-install><svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.500-4.500M4 20h16"/></svg>הוספה למסך הבית</a>
     ${footer()}
   </main>`;
 }
+
+// Android can show its own install prompt. iPhone has none, and neither does an in-app browser, so those get the steps.
+let installPrompt = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installPrompt = e; });
+if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) document.documentElement.classList.add('standalone');
+function showInstallHelp() {
+  const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const steps = ios
+    ? ['פתחו את האתר בספארי, לא מתוך וואטסאפ', 'לחצו על כפתור השיתוף', 'בחרו "הוספה למסך הבית"']
+    : ['פתחו את האתר בכרום, לא מתוך וואטסאפ', 'לחצו על שלוש הנקודות למעלה', 'בחרו "הוספה למסך הבית"'];
+  overlay.innerHTML = `<div class="scrim" id="scrim"></div>
+    <div class="help" role="dialog" aria-label="הוספה למסך הבית">
+      <h2>הוספה למסך הבית</h2>
+      <ol>${steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+      <button class="btn" id="help-close" type="button">הבנתי</button>
+    </div>`;
+  document.getElementById('scrim').onclick = closeMenu;
+  document.getElementById('help-close').onclick = closeMenu;
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('[data-install]')) return;
+  e.preventDefault();
+  if (installPrompt) { installPrompt.prompt(); installPrompt = null; }
+  else showInstallHelp();
+});
 
 function pickView() {
   const mine = myCourses().map(c => c.id);
@@ -423,6 +457,7 @@ function openMenu(route) {
       ${myCourses().map(c => `<a href="#${c.id}" style="--c:${c.color}"${route === c.id ? ' aria-current="page"' : ''}><span class="icon-chip">${icon(c.id, 20)}</span>${esc(c.short)}${c.hold ? '<small>בהמתנה</small>' : ''}</a>`).join('')}
       <hr>
       <a href="#pick">בחירת הקורסים שלי</a>
+      <a href="#install" data-install>הוספה למסך הבית</a>
     </nav>`;
   document.getElementById('scrim').onclick = closeMenu;
   overlay.querySelectorAll('a').forEach(a => { a.onclick = closeMenu; });
