@@ -367,7 +367,7 @@ function courseView(c) {
   </main>`;
 }
 
-const footer = () => `<footer>עודכן ב-${full(data.updated)} · מצאת טעות? כתוב/כתבי בקבוצה של הקורס.</footer>`;
+const footer = () => `<footer>עודכן ב-${full(data.updated)} · מצאת טעות? כתוב/כתבי לי.</footer>`;
 
 // Summaries this phone has not opened the course to see yet. The first visit counts everything as seen.
 const summaryUrls = c => (c.lessons || []).flatMap(l => (l.summaries || []).map(s => s.url)).filter(Boolean);
