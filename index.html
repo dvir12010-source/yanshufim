@@ -92,6 +92,7 @@ h2 { font-family: var(--display); font-weight: 400; font-size: 23px; margin: 0; 
 .mode { display: none; }
 .tile { position: relative; display: grid; gap: 4px; justify-items: center; align-content: center; padding: 14px 10px; min-height: 136px; border-radius: 14px; text-align: center; text-decoration: none; background: var(--c); color: #ffffff; box-shadow: var(--sheet); transition: transform .15s; }
 .tile:hover { transform: translateY(-2px); }
+.tile-group:last-child .tile:last-child:nth-of-type(odd) { grid-column: 1 / -1; min-height: 112px; }
 .tile svg { width: 32px; height: 32px; }
 .tile b { font-family: var(--title); font-weight: 700; font-size: 21px; line-height: 1.2; text-wrap: balance; }
 .tile span { font-size: 15px; font-weight: 600; }
@@ -196,6 +197,8 @@ footer { color: var(--muted); font-size: 15px; }
   .mode { display: grid; justify-items: center; gap: 2px; font-family: var(--hand); font-size: 25px; line-height: 1; color: var(--muted); }
   .mode svg { width: 50px; height: 28px; }
   .tile { min-height: 156px; }
+  .tile-group .tile:nth-of-type(odd) { grid-column: 2; }
+  .tile-group .tile:last-child:nth-of-type(odd) { grid-column: 2 / -1; min-height: 124px; }
   .tile b { font-size: 25px; }
   .tile span { font-size: 16px; }
   .home-cols { grid-template-columns: minmax(0,1fr) 340px; }
