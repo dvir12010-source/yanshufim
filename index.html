@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Rubik:wght@500;700&family=Suez+One&display=swap">
 <style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(fonts/telaviv-modernistregular.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Tel Aviv Modernist"; src: url(fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
 /* Layout: a student's notebook. Warm paper with grain, white sheets laid over it, one solid color per course. Phone is one column; desktop puts the side column next to the main one. */
 :root {
   color-scheme: light;
@@ -26,7 +28,7 @@
   --soft: color-mix(in srgb, var(--course) 10%, var(--surface));
   --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
   --display: "Suez One", "Assistant", serif;
-  --title: "Rubik", "Assistant", Arial, sans-serif;
+  --title: "Tel Aviv Modernist", "Rubik", "Assistant", Arial, sans-serif;
   --hand: "Gveret Levin", "Assistant", cursive;
   --body: "Assistant", Arial, sans-serif;
   --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .38 0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -243,16 +245,13 @@ function soonRow(c, d, home) {
 
 function lessonRow(course, l) {
   const links = (l.summaries || []).map(s => s.url
-    ? `<a class="chip" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label.replace('הסיכום של ', ''))}</a>`
+    ? `<a class="chip" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label.replace('הסיכום של ', 'סיכום '))}</a>`
     : `<span class="ask">${esc(s.label)}</span>`).join('');
-  const ask = course.group
-    ? `<a class="chip" href="${esc(course.group)}" target="_blank" rel="noopener">יש לך סיכום? שלח/י בקבוצה</a>`
-    : '<span class="ask">יש לך סיכום? שלח/י בקבוצה</span>';
   return `
   <article class="lesson">
     <p class="lesson-head">שיעור ${l.n} · ${short(l.date)}</p>
     ${l.topic ? `<p class="topic">${esc(l.topic)}</p>` : ''}
-    <div class="links">${links || ask}</div>
+    ${links ? `<div class="links">${links}</div>` : ''}
   </article>`;
 }
 
