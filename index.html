@@ -583,6 +583,35 @@ function countCourse(c) {
 hit('visits');
 hit('day-' + new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' }));
 if (counting && !store.get('counted', false)) { hit('people'); store.set('counted', true); }
+if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) hit('from-homescreen');
+
+// מה עושים באתר: לחיצה על קישור החוצה נספרת לפי סוג היעד
+document.addEventListener('click', e => {
+  const a = e.target.closest('a, button');
+  if (!a) return;
+  if (a.id === 'copy') return hit('act-copy-mail');
+  if (a.hasAttribute('data-install')) return hit('act-install');
+  if (a.target !== '_blank') return;
+  const url = a.href;
+  const kind = /zoom\.us/.test(url) ? 'zoom'
+    : /calendar\.google|\.ics/.test(url) ? 'calendar'
+    : a.classList.contains('chip') ? 'summary'
+    : /\/folders\//.test(url) ? 'folder'
+    : a.closest('.rec, #units') ? 'recording'
+    : /lemida|biu\.ac\.il|moodle/.test(url) ? 'lemida'
+    : 'other';
+  hit('act-' + kind);
+}, true);
+
+// כמה זמן נשארו: נספר פעם אחת, כשיוצאים מהדף, לפי סל זמן
+const opened = Date.now();
+let timed = false;
+addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'hidden' || timed) return;
+  timed = true;
+  const s = (Date.now() - opened) / 1000;
+  hit('stay-' + (s < 15 ? '0-15s' : s < 60 ? '15-60s' : s < 180 ? '1-3m' : s < 600 ? '3-10m' : '10m-plus'));
+});
 
 addEventListener('hashchange', () => { closeMenu(); render(); });
 setInterval(() => {
