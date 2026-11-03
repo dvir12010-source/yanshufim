@@ -580,15 +580,27 @@ function countCourse(c) {
   try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (_) {}
   hit('course-' + String(c.id).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40));
 }
+const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' });
 hit('visits');
-hit('day-' + new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' }));
+hit('day-' + today);
 if (counting && !store.get('counted', false)) { hit('people'); store.set('counted', true); }
 if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) hit('from-homescreen');
 
-// מה עושים באתר: לחיצה על קישור החוצה נספרת לפי סוג היעד
+// מכשירים ביום, וחוזרים: מכשיר שכבר היה כאן ביום אחר
+const lastDay = store.get('last-day', null);
+if (counting && lastDay !== today) {
+  hit('uniq-' + today);
+  if (lastDay) { hit('returning'); hit('ret-' + today); }
+  store.set('last-day', today);
+}
+
+// מה עושים באתר: כל לחיצה נספרת לשימוש, וקישור החוצה גם לפי סוג היעד
+const slug = s => String(s).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 30);
+let clicks = 0;
 document.addEventListener('click', e => {
-  const a = e.target.closest('a, button');
+  const a = e.target.closest('a, button, summary, input');
   if (!a) return;
+  clicks++;
   if (a.id === 'copy') return hit('act-copy-mail');
   if (a.hasAttribute('data-install')) return hit('act-install');
   if (a.target !== '_blank') return;
@@ -601,17 +613,22 @@ document.addEventListener('click', e => {
     : /lemida|biu\.ac\.il|moodle/.test(url) ? 'lemida'
     : 'other';
   hit('act-' + kind);
+  const course = byId((location.hash || '').slice(1));
+  if (course && ['summary', 'recording', 'zoom'].includes(kind)) hit(`act-${kind}-${slug(course.id)}`);
 }, true);
 
-// כמה זמן נשארו: נספר פעם אחת, כשיוצאים מהדף, לפי סל זמן
+// סיכום השימוש ביציאה מהדף: כמה זמן (סל) וכמה לחיצות (סל). pagehide כגיבוי לאייפון
 const opened = Date.now();
-let timed = false;
-addEventListener('visibilitychange', () => {
-  if (document.visibilityState !== 'hidden' || timed) return;
-  timed = true;
+let reported = false;
+function reportVisit() {
+  if (reported) return;
+  reported = true;
   const s = (Date.now() - opened) / 1000;
-  hit('stay-' + (s < 15 ? '0-15s' : s < 60 ? '15-60s' : s < 180 ? '1-3m' : s < 600 ? '3-10m' : '10m-plus'));
-});
+  hit('stay2-' + (s < 10 ? '0-10s' : s < 30 ? '10-30s' : s < 60 ? '30-60s' : s < 120 ? '1-2m' : s < 300 ? '2-5m' : s < 600 ? '5-10m' : '10m-plus'));
+  hit('clicks-' + (clicks === 0 ? '0' : clicks === 1 ? '1' : clicks <= 3 ? '2-3' : clicks <= 6 ? '4-6' : '7-plus'));
+}
+addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') reportVisit(); });
+addEventListener('pagehide', reportVisit);
 
 addEventListener('hashchange', () => { closeMenu(); render(); });
 setInterval(() => {
