@@ -547,6 +547,7 @@ function render() {
   document.getElementById('menu').onclick = () => overlay.innerHTML ? closeMenu() : openMenu(route);
   window.scrollTo(0, 0);
   if (course) {
+    countCourse(course);
     markSeen(course);
     renderSteps(course);
     renderUnits(course);
@@ -561,6 +562,23 @@ function render() {
     box.onchange = () => store.set('my-courses', [...app.querySelectorAll('.pick input:checked')].map(i => i.value));
   });
 }
+
+// מונה שימוש אנונימי: בלי עוגיות ובלי פרטים, רק מספרים. ?nocount מסמן מכשיר שלא נספר (של דביר).
+const COUNTER = 'https://abacus.jasoncameron.dev/hit/yanshufim-orot/';
+if (/[?&]nocount/.test(location.search)) store.set('no-count', true);
+const counting = !store.get('no-count', false);
+function hit(key) {
+  if (!counting) return;
+  try { fetch(COUNTER + key, { keepalive: true }).catch(() => {}); } catch (_) {}
+}
+function countCourse(c) {
+  const key = 'seen-' + c.id;
+  try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (_) {}
+  hit('course-' + String(c.id).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40));
+}
+hit('visits');
+hit('day-' + new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' }));
+if (counting && !store.get('counted', false)) { hit('people'); store.set('counted', true); }
 
 addEventListener('hashchange', () => { closeMenu(); render(); });
 setInterval(() => {
