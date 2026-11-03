@@ -563,14 +563,18 @@ function render() {
   });
 }
 
-// מונה שימוש אנונימי: בלי עוגיות ובלי פרטים, רק מספרים. ?nocount מסמן מכשיר שלא נספר (של דביר).
+// מונה שימוש אנונימי: בלי עוגיות ובלי פרטים, רק מספרים.
+// ?me=<שם> מסמן מכשיר של דביר: הוא נספר בנפרד (owner-<שם>) ולא בספירה הכללית.
 const COUNTER = 'https://abacus.jasoncameron.dev/hit/yanshufim-orot/';
-if (/[?&]nocount/.test(location.search)) store.set('no-count', true);
-const counting = !store.get('no-count', false);
+const meParam = new URLSearchParams(location.search).get('me');
+if (meParam) store.set('owner-device', meParam.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 20) || 'device');
+const owner = store.get('owner-device', null);
+const counting = !owner;
 function hit(key) {
   if (!counting) return;
   try { fetch(COUNTER + key, { keepalive: true }).catch(() => {}); } catch (_) {}
 }
+if (owner) try { fetch(COUNTER + 'owner-' + owner, { keepalive: true }).catch(() => {}); } catch (_) {}
 function countCourse(c) {
   const key = 'seen-' + c.id;
   try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (_) {}
