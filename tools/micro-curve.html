@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>עקומת תמורה של שני גורמי ייצור</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF2F4; --surface:#FFFFFF; --ink:#1B2A3A; --muted:#5D6B78;
+  --grid:#DCE3E9; --axis:#7A8894; --line:#C9D3DB;
+  --a:#2F6DB5; --a-soft:rgba(47,109,181,.10); --a-strong:rgba(47,109,181,.20);
+  --b:#C2413A; --b-soft:rgba(194,65,58,.09); --b-strong:rgba(194,65,58,.19);
+  --focus:#D99A00; --hl:#FFF4CC;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#121A22; --surface:#1A242E; --ink:#E4EAF0; --muted:#98A6B3;
+    --grid:#24303B; --axis:#6E7D8A; --line:#2E3B47;
+    --a:#72A8EA; --a-soft:rgba(114,168,234,.10); --a-strong:rgba(114,168,234,.22);
+    --b:#EE7D73; --b-soft:rgba(238,125,115,.09); --b-strong:rgba(238,125,115,.21);
+    --focus:#F2C14E; --hl:#3A3320;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Assistant",system-ui,sans-serif; font-size:17px; line-height:1.55;
+  font-variant-numeric:tabular-nums;
+}
+h1,h2,h3{font-family:"Frank Ruhl Libre",Georgia,serif; font-weight:700; line-height:1.2; margin:0}
+h1{font-size:clamp(1.9rem,3.6vw,2.7rem)}
+h2{font-size:1.35rem; margin-bottom:.6rem}
+h3{font-size:1.08rem; margin-bottom:.35rem}
+p{margin:.3rem 0 .6rem}
+.wrap{max-width:1240px; margin:0 auto; padding:0 20px}
+header{padding:34px 0 18px}
+header p{color:var(--muted); max-width:62ch; margin-top:.5rem}
+.n{direction:ltr; unicode-bidi:isolate; font-weight:600}
+.muted{color:var(--muted)}
+:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+/* stage */
+.stage{display:grid; gap:18px; grid-template-columns:280px minmax(0,1fr) 300px; align-items:start}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:16px}
+@media (max-width:1180px){
+  .stage{grid-template-columns:270px minmax(0,1fr)}
+  .readout{grid-column:1 / -1}
+}
+@media (max-width:760px){
+  .stage{grid-template-columns:1fr}
+}
+
+/* controls */
+.controls label{display:block; font-size:.9rem; color:var(--muted); margin:.5rem 0 .15rem}
+.controls input[type=text]{width:100%}
+input[type=text],input[type=number],select{
+  font:inherit; color:var(--ink); background:var(--paper); border:1px solid var(--line);
+  border-radius:4px; padding:5px 8px;
+}
+input[type=number]{width:78px; direction:ltr; text-align:center}
+.names{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.factor{border:0; border-inline-start:4px solid var(--c); padding:2px 12px 6px; margin:16px 0 0}
+.factor legend{padding:0; font-weight:700}
+.factor .nameIn{font-weight:600}
+.rangeRow{display:flex; gap:8px; align-items:center}
+.rangeRow input[type=range]{flex:1; accent-color:var(--c)}
+.presets{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; padding-top:14px; border-top:1px solid var(--line)}
+button{
+  font:inherit; font-size:.92rem; font-weight:600; cursor:pointer;
+  color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:4px; padding:5px 10px;
+}
+button:hover{background:var(--paper)}
+button.primary{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+
+/* graph */
+.graphPanel{padding:10px 10px 14px}
+svg#g{width:100%; height:auto; display:block; touch-action:pan-y; cursor:crosshair; user-select:none}
+svg text{font-family:"Assistant",system-ui,sans-serif; fill:var(--ink)}
+.slider{display:flex; gap:10px; align-items:center; padding:4px 12px 0}
+.slider input{flex:1; accent-color:var(--ink)}
+.hint{font-size:.88rem; color:var(--muted); padding:2px 12px 0; margin:0}
+
+/* readout */
+.coord{font-family:"Frank Ruhl Libre",Georgia,serif; font-size:2.1rem; font-weight:700; direction:ltr; text-align:right; margin:.1rem 0 .2rem}
+.where{font-size:.95rem; padding:8px 10px; border-radius:4px; background:var(--paper); margin:.4rem 0 .8rem}
+table{border-collapse:collapse; width:100%}
+th,td{padding:5px 6px; text-align:right; border-bottom:1px solid var(--line)}
+th{font-size:.85rem; color:var(--muted); font-weight:600}
+tr.total td{font-weight:700; border-bottom:0}
+.chip{display:inline-block; width:10px; height:10px; border-radius:2px; background:var(--c); margin-inline-end:6px; vertical-align:middle}
+.block{margin-top:14px}
+.kv{display:flex; justify-content:space-between; gap:10px; padding:3px 0}
+.kv b{font-size:1.15rem}
+.small{font-size:.86rem; color:var(--muted)}
+
+/* lower sections */
+.lower{display:grid; gap:18px; grid-template-columns:1fr 1fr; margin:18px auto 50px}
+@media (max-width:900px){.lower{grid-template-columns:1fr}}
+ol.steps{padding-inline-start:1.3rem; margin:.4rem 0}
+ol.steps li{margin:.35rem 0}
+.calcRow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:.4rem 0 .6rem}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:4px; overflow:hidden}
+.seg button{border:0; border-radius:0}
+.seg button[aria-pressed=true]{background:var(--ink); color:var(--surface)}
+.result{padding:10px 12px; background:var(--hl); border-radius:4px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+.err{color:var(--b); font-weight:600}
+.note{border-inline-start:3px solid var(--line); padding-inline-start:10px; color:var(--muted); font-size:.93rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1>עקומת תמורה של שני גורמי ייצור</h1>
+  <p>שנו את כושר הייצור של כל גורם, ועברו עם העכבר על העקומה כדי לראות בכל נקודה את הכמויות, את הקצאת גורמי הייצור ואת העלות השולית.</p>
+</header>
+
+<main class="wrap">
+  <div class="stage">
+    <!-- controls -->
+    <section class="panel controls" aria-labelledby="ctlTitle">
+      <h2 id="ctlTitle">נתוני המשק</h2>
+      <div class="names">
+        <div><label for="xName">מוצר X</label><input type="text" id="xName"></div>
+        <div><label for="yName">מוצר Y</label><input type="text" id="yName"></div>
+      </div>
+      <div id="factorCtl"></div>
+      <div class="presets">
+        <button type="button" data-preset="b">דוגמת השיעור, סעיף ב</button>
+        <button type="button" data-preset="a">סעיף א (עלויות שוות)</button>
+      </div>
+    </section>
+
+    <!-- graph -->
+    <section class="panel graphPanel" aria-label="גרף עקומת התמורה">
+      <svg id="g" viewBox="0 0 640 470" direction="ltr" role="img" aria-label="עקומת תמורה"></svg>
+      <div class="slider">
+        <label for="xSlider" class="small" id="sliderLbl">X מיוצר</label>
+        <input type="range" id="xSlider" min="0" max="300" step="1">
+      </div>
+      <p class="hint">גררו את הנקודה, לחצו על הגרף או השתמשו בסרגל. בנקודת החיבור הנקודה נצמדת.</p>
+    </section>
+
+    <!-- readout -->
+    <section class="panel readout" aria-live="polite" id="readout"></section>
+  </div>
+
+  <div class="lower">
+    <section class="panel" id="compare"></section>
+    <section class="panel" id="calc">
+      <h2>חישוב נקודה מנתונים חלקיים</h2>
+      <p class="muted">נותנים כמות של מוצר אחד, ומוצאים את הכמות של השני לפי שיטת השיעור.</p>
+      <div class="calcRow">
+        <div class="seg" role="group" aria-label="איזה נתון ידוע">
+          <button type="button" id="givenX" aria-pressed="true">נתון X</button>
+          <button type="button" id="givenY" aria-pressed="false">נתון Y</button>
+        </div>
+        <label for="calcVal" class="small" id="calcLbl">כמות</label>
+        <input type="number" id="calcVal" value="200" min="0">
+      </div>
+      <div id="calcOut"></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const S = {
+  xName:'קוקוס', yName:'אורז',
+  f:[{name:'עובדים',xMax:100,yMax:100},{name:'עובדות',xMax:200,yMax:600}],
+  x:200, given:'x'
+};
+const PRESETS = {
+  b:[{name:'עובדים',xMax:100,yMax:100},{name:'עובדות',xMax:200,yMax:600}],
+  a:[{name:'עובדים',xMax:100,yMax:300},{name:'עובדות',xMax:200,yMax:600}]
+};
+const COL = ['var(--a)','var(--b)'], SOFT=['var(--a-soft)','var(--b-soft)'], STRONG=['var(--a-strong)','var(--b-strong)'];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => !isFinite(n) ? '—' : (Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});
+const N = v => `<span class="n">${typeof v==='number'?fmt(v):v}</span>`;
+const gcd = (a,b)=> b ? gcd(b,a%b) : a;
+function ratio(num,den){
+  if(Number.isInteger(num)&&Number.isInteger(den)&&den>0){
+    const g=gcd(num,den), n=num/g, d=den/g;
+    return d===1 ? `${n}` : `${n}/${d} ≈ ${fmt(n/d)}`;
+  }
+  return fmt(num/den);
+}
+const fn = i => `<span style="--c:${COL[i]}"><span class="chip"></span>${esc(S.f[i].name)}</span>`;
+const X = () => esc(S.xName), Y = () => esc(S.yName);
+
+function model(){
+  const f=S.f, mc=f.map(g=>g.yMax/g.xMax);
+  const first = mc[0]<=mc[1]?0:1, second=1-first;
+  return {mc,first,second,equal:Math.abs(mc[0]-mc[1])<1e-9,
+    Xa:f[first].xMax, Yb:f[second].yMax,
+    Xtot:f[0].xMax+f[1].xMax, Ytot:f[0].yMax+f[1].yMax};
+}
+const yAt=(M,x)=> x<=M.Xa ? M.Ytot-x*M.mc[M.first] : M.Yb-(x-M.Xa)*M.mc[M.second];
+function alloc(M,x){
+  const a=[{},{}], F=M.first, G=M.second;
+  if(x<=M.Xa){ a[F]={x, y:S.f[F].yMax-x*M.mc[F]}; a[G]={x:0,y:M.Yb}; }
+  else { a[F]={x:M.Xa,y:0}; a[G]={x:x-M.Xa, y:M.Yb-(x-M.Xa)*M.mc[G]}; }
+  return a;
+}
+
+/* ---------- controls ---------- */
+function buildControls(){
+  $('factorCtl').innerHTML = S.f.map((g,i)=>`
+    <fieldset class="factor" style="--c:${COL[i]}">
+      <legend>גורם ייצור ${i+1}</legend>
+      <label for="nm${i}">שם</label>
+      <input type="text" class="nameIn" id="nm${i}" data-i="${i}" data-k="name">
+      <label for="xr${i}">ייצור מקסימלי של <span class="xn"></span></label>
+      <div class="rangeRow">
+        <input type="range" id="xr${i}" min="1" max="1000" data-i="${i}" data-k="xMax">
+        <input type="number" min="1" max="10000" data-i="${i}" data-k="xMax" aria-label="ייצור מקסימלי X, גורם ${i+1}">
+      </div>
+      <label for="yr${i}">ייצור מקסימלי של <span class="yn"></span></label>
+      <div class="rangeRow">
+        <input type="range" id="yr${i}" min="1" max="1000" data-i="${i}" data-k="yMax">
+        <input type="number" min="1" max="10000" data-i="${i}" data-k="yMax" aria-label="ייצור מקסימלי Y, גורם ${i+1}">
+      </div>
+    </fieldset>`).join('');
+  document.querySelectorAll('#factorCtl input').forEach(el=>{
+    el.addEventListener('input',()=>{
+      const i=+el.dataset.i, k=el.dataset.k;
+      if(k==='name'){ S.f[i].name=el.value||`גורם ${i+1}`; }
+      else{
+        let v=Math.round(+el.value); if(!(v>=1)) return; v=Math.min(v,10000);
+        S.f[i][k]=v;
+        document.querySelectorAll(`#factorCtl input[data-i="${i}"][data-k="${k}"]`).forEach(o=>{ if(o!==el) o.value=v; });
+      }
+      render();
+    });
+  });
+  syncControls();
+}
+function syncControls(){
+  $('xName').value=S.xName; $('yName').value=S.yName;
+  document.querySelectorAll('#factorCtl input').forEach(el=>{ el.value=S.f[+el.dataset.i][el.dataset.k]; });
+}
+$('xName').addEventListener('input',e=>{S.xName=e.target.value||'X'; render();});
+$('yName').addEventListener('input',e=>{S.yName=e.target.value||'Y'; render();});
+document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{
+  S.f=PRESETS[b.dataset.preset].map(o=>({...o})); S.xName='קוקוס'; S.yName='אורז'; S.x=200;
+  syncControls(); render();
+}));
+
+/* ---------- graph ---------- */
+const W=640,H=470,m={l:62,r:26,t:22,b:54}, PW=W-m.l-m.r, PH=H-m.t-m.b;
+let ax={xMax:1,yMax:1,xs:1,ys:1};
+function niceStep(range){
+  const raw=range/6, mag=Math.pow(10,Math.floor(Math.log10(raw))), n=raw/mag;
+  return (n<1.5?1:n<3?2:n<7?5:10)*mag;
+}
+const sx=x=>m.l+x/ax.xMax*PW, sy=y=>m.t+PH-y/ax.yMax*PH;
+
+function drawGraph(M){
+  ax.xs=niceStep(M.Xtot*1.05); ax.xMax=Math.ceil(M.Xtot*1.06/ax.xs)*ax.xs;
+  ax.ys=niceStep(M.Ytot*1.05); ax.yMax=Math.ceil(M.Ytot*1.06/ax.ys)*ax.ys;
+  const F=M.first,G=M.second, x=S.x, y=yAt(M,x);
+  const atKink=Math.abs(x-M.Xa)<1e-9, owner = atKink?-1 : (x<M.Xa?F:G);
+  let s='';
+  // grid
+  for(let v=0; v<=ax.xMax+1e-9; v+=ax.xs){
+    s+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${m.t}" y2="${m.t+PH}" stroke="var(--grid)"/>`;
+    s+=`<text x="${sx(v)}" y="${m.t+PH+20}" text-anchor="middle" font-size="12" style="fill:var(--muted)">${fmt(v)}</text>`;
+  }
+  for(let v=0; v<=ax.yMax+1e-9; v+=ax.ys){
+    s+=`<line x1="${m.l}" x2="${m.l+PW}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--grid)"/>`;
+    s+=`<text x="${m.l-8}" y="${sy(v)+4}" text-anchor="end" font-size="12" style="fill:var(--muted)">${fmt(v)}</text>`;
+  }
+  s+=`<line x1="${m.l}" x2="${m.l+PW}" y1="${sy(0)}" y2="${sy(0)}" stroke="var(--axis)" stroke-width="1.5"/>`;
+  s+=`<line x1="${m.l}" x2="${m.l}" y1="${m.t}" y2="${sy(0)}" stroke="var(--axis)" stroke-width="1.5"/>`;
+  s+=`<text x="${m.l+PW}" y="${H-8}" text-anchor="end" font-size="14" font-weight="700">X: ${X()}</text>`;
+  s+=`<text x="${m.l+6}" y="${m.t+14}" font-size="14" font-weight="700">Y: ${Y()}</text>`;
+
+  // production triangles of each factor
+  const tri=(i,p1,p2,p3,dy,dx)=>{
+    const on = owner===i || owner===-1;
+    s+=`<polygon points="${p1.map(String)} ${p2} ${p3}" fill="${on?STRONG[i]:SOFT[i]}"/>`;
+    // leg labels (vertical leg at corner p2, horizontal leg p2->p3)
+    const vx=p2[0], vy=(p1[1]+p2[1])/2, hx=(p2[0]+p3[0])/2, hy=p2[1];
+    if(Math.abs(p1[1]-p2[1])>34) s+=`<text x="${vx+6}" y="${vy+4}" font-size="12" font-weight="700" style="fill:${COL[i]}">ΔY=${fmt(dy)}</text>`;
+    if(Math.abs(p3[0]-p2[0])>70) s+=`<text x="${hx}" y="${hy-6}" text-anchor="middle" font-size="12" font-weight="700" style="fill:${COL[i]}">ΔX=${fmt(dx)}</text>`;
+  };
+  tri(F,[sx(0),sy(M.Ytot)],[sx(0),sy(M.Yb)],[sx(M.Xa),sy(M.Yb)],S.f[F].yMax,S.f[F].xMax);
+  tri(G,[sx(M.Xa),sy(M.Yb)],[sx(M.Xa),sy(0)],[sx(M.Xtot),sy(0)],S.f[G].yMax,S.f[G].xMax);
+
+  // curve
+  s+=`<line x1="${sx(0)}" y1="${sy(M.Ytot)}" x2="${sx(M.Xa)}" y2="${sy(M.Yb)}" stroke="${COL[F]}" stroke-width="4" stroke-linecap="round"/>`;
+  s+=`<line x1="${sx(M.Xa)}" y1="${sy(M.Yb)}" x2="${sx(M.Xtot)}" y2="${sy(0)}" stroke="${COL[G]}" stroke-width="4" stroke-linecap="round"/>`;
+  [[0,M.Ytot],[M.Xa,M.Yb],[M.Xtot,0]].forEach(([a,b])=>{
+    s+=`<circle cx="${sx(a)}" cy="${sy(b)}" r="4" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/>`;
+  });
+  // kink label
+  const kx=sx(M.Xa), ky=sy(M.Yb), kRight = kx < m.l+PW-150;
+  s+=`<text x="${kRight?kx+10:kx-10}" y="${ky-10}" text-anchor="${kRight?'start':'end'}" font-size="12.5" font-weight="600" style="fill:var(--muted)">(${fmt(M.Xa)}, ${fmt(M.Yb)}) נקודת החיבור</text>`;
+
+  // selected point
+  const px=sx(x), py=sy(y), pc= owner===-1?'var(--ink)':COL[owner];
+  s+=`<line x1="${px}" y1="${py}" x2="${px}" y2="${sy(0)}" stroke="${pc}" stroke-dasharray="5 4" stroke-width="1.5"/>`;
+  s+=`<line x1="${px}" y1="${py}" x2="${m.l}" y2="${py}" stroke="${pc}" stroke-dasharray="5 4" stroke-width="1.5"/>`;
+  const tag=(tx,ty,txt,anchor)=>{
+    const w=txt.length*7.4+12;
+    const rx= anchor==='middle'? tx-w/2 : anchor==='end'? tx-w : tx;
+    s+=`<rect x="${rx}" y="${ty-13}" width="${w}" height="19" rx="3" fill="${pc}"/>`;
+    s+=`<text x="${rx+w/2}" y="${ty+1}" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--surface)">${txt}</text>`;
+  };
+  tag(px, sy(0)+38, fmt(x), 'middle');
+  tag(m.l-4, py, fmt(y), 'end');
+  s+=`<circle cx="${px}" cy="${py}" r="11" fill="${pc}" opacity=".18"/>`;
+  s+=`<circle cx="${px}" cy="${py}" r="6.5" fill="var(--surface)" stroke="${pc}" stroke-width="3"/>`;
+  // label of point
+  const lRight = px < m.l+PW-130;
+  s+=`<text x="${lRight?px+14:px-14}" y="${py+22}" text-anchor="${lRight?'start':'end'}" font-size="14" font-weight="700">(${fmt(x)}, ${fmt(y)})</text>`;
+  $('g').innerHTML=s;
+}
+
+/* pointer → nearest point on curve */
+const svg=$('g'); let dragging=false;
+function toSvg(e){ const p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY; return p.matrixTransform(svg.getScreenCTM().inverse()); }
+function nearest(M,p){
+  const segs=[[[sx(0),sy(M.Ytot)],[sx(M.Xa),sy(M.Yb)]],[[sx(M.Xa),sy(M.Yb)],[sx(M.Xtot),sy(0)]]];
+  let best={d:1e9};
+  segs.forEach(([a,b])=>{
+    const vx=b[0]-a[0], vy=b[1]-a[1], L=vx*vx+vy*vy||1;
+    let t=((p.x-a[0])*vx+(p.y-a[1])*vy)/L; t=Math.max(0,Math.min(1,t));
+    const qx=a[0]+t*vx, qy=a[1]+t*vy, d=Math.hypot(p.x-qx,p.y-qy);
+    if(d<best.d) best={d,qx,qy};
+  });
+  let xv=(best.qx-m.l)/PW*ax.xMax;
+  const step=M.Xtot>=50?1:0.1;
+  if(Math.hypot(best.qx-sx(M.Xa),best.qy-sy(M.Yb))<10) xv=M.Xa;
+  else xv=Math.round(xv/step)*step;
+  return {x:Math.max(0,Math.min(M.Xtot,xv)), d:best.d};
+}
+function pick(e,force){
+  const M=model(), r=nearest(M,toSvg(e));
+  if(force || r.d<26){ if(r.x!==S.x){ S.x=r.x; renderPoint(); } }
+}
+svg.addEventListener('pointerdown',e=>{ dragging=true; svg.setPointerCapture(e.pointerId); pick(e,true); });
+svg.addEventListener('pointermove',e=>pick(e,dragging));
+svg.addEventListener('pointerup',()=>dragging=false);
+svg.addEventListener('pointercancel',()=>dragging=false);
+$('xSlider').addEventListener('input',e=>{ S.x=+e.target.value; renderPoint(); });
+
+/* ---------- readout ---------- */
+function drawReadout(M){
+  const x=S.x, y=yAt(M,x), a=alloc(M,x), F=M.first, G=M.second;
+  const atKink=Math.abs(x-M.Xa)<1e-9;
+  let where;
+  if(x===0) where=`נקודת קיצון: כל המשק מייצר רק ${Y()}.`;
+  else if(Math.abs(x-M.Xtot)<1e-9) where=`נקודת קיצון: כל המשק מייצר רק ${X()}.`;
+  else if(atKink) where=`נקודת החיבור: כל גורם ייצור מייצר רק את המוצר שיש לו בו יתרון יחסי.`;
+  else{
+    const o = x<M.Xa?F:G, other=1-o;
+    where=`הנקודה על החלק של ${fn(o)}. רק גורם זה מייצר משני המוצרים; ${fn(other)} ${o===F?`מייצרים רק ${Y()}`:`מייצרים רק ${X()}`}.`;
+  }
+  // marginal costs
+  let mcX, mcY, mcNote;
+  if(atKink){
+    mcX={i:F}; mcY={i:G};
+    mcNote=`בנקודת החיבור העלות השולית של ${X()} נלקחת מ${fn(F)} (משמאל לנקודה), ושל ${Y()} מ${fn(G)} (מימין לנקודה).`;
+  } else {
+    const o=(x<M.Xa)?F:G; mcX={i:o}; mcY={i:o};
+    mcNote=`העלות השולית היא שיפוע החלק של ${fn(o)}: ΔY/ΔX = ${N(S.f[o].yMax+'/'+S.f[o].xMax)}.`;
+  }
+  const totX=M.Ytot-y, totY=M.Xtot-x;
+  $('readout').innerHTML=`
+    <h2>הנקודה על העקומה</h2>
+    <div class="coord">(${fmt(x)}, ${fmt(y)})</div>
+    <div class="small">${N(fmt(x))} ${X()} ו־${N(fmt(y))} ${Y()}</div>
+    <div class="where">${where}</div>
+
+    <h3>הקצאת גורמי הייצור</h3>
+    <table>
+      <thead><tr><th>גורם</th><th>${X()}</th><th>${Y()}</th></tr></thead>
+      <tbody>
+        ${[0,1].map(i=>`<tr><td>${fn(i)}</td><td>${N(a[i].x)}</td><td>${N(a[i].y)}</td></tr>`).join('')}
+        <tr class="total"><td>סה״כ</td><td>${N(x)}</td><td>${N(y)}</td></tr>
+      </tbody>
+    </table>
+
+    <div class="block">
+      <h3>עלות שולית בנקודה</h3>
+      <div class="kv"><span>של ${X()} (ביחידות ${Y()})</span><b class="n" style="color:${COL[mcX.i]}">${ratio(S.f[mcX.i].yMax,S.f[mcX.i].xMax)}</b></div>
+      <div class="kv"><span>של ${Y()} (ביחידות ${X()})</span><b class="n" style="color:${COL[mcY.i]}">${ratio(S.f[mcY.i].xMax,S.f[mcY.i].yMax)}</b></div>
+      <p class="small">${mcNote}</p>
+    </div>
+
+    <div class="block">
+      <h3>עלות אלטרנטיבית כוללת וממוצעת</h3>
+      <div class="kv"><span>כוללת ל־${X()}</span><span>${N(`${fmt(M.Ytot)} − ${fmt(y)} = ${fmt(totX)}`)}</span></div>
+      <div class="kv"><span>ממוצעת ל־${X()}</span><span>${x>0?N(`${fmt(totX)} / ${fmt(x)} = ${fmt(totX/x)}`):'—'}</span></div>
+      <div class="kv"><span>כוללת ל־${Y()}</span><span>${N(`${fmt(M.Xtot)} − ${fmt(x)} = ${fmt(totY)}`)}</span></div>
+      <div class="kv"><span>ממוצעת ל־${Y()}</span><span>${y>0?N(`${fmt(totY)} / ${fmt(y)} = ${fmt(totY/y)}`):'—'}</span></div>
+      <p class="small">${M.equal?'בעקומה ליניארית העלות הממוצעת שווה לעלות השולית.':`הזיזו את הנקודה ימינה: העלות הממוצעת של ${X()} עולה, כי ככל שמייצרים יותר ממנו מוותרים על יותר ${Y()}.`}</p>
+    </div>`;
+}
+
+/* ---------- comparison ---------- */
+function drawCompare(M){
+  const f=S.f, F=M.first, G=M.second;
+  const absWin=(k)=> f[0][k]===f[1][k] ? 'לאף גורם אין יתרון מוחלט' : `יתרון מוחלט ל${fn(f[0][k]>f[1][k]?0:1)}`;
+  $('compare').innerHTML=`
+    <h2>השוואת גורמי הייצור</h2>
+    <table>
+      <thead><tr><th>גורם</th><th>${X()} מקס׳</th><th>${Y()} מקס׳</th><th>שולית ל־${X()}<br><span class="n">ΔY/ΔX</span></th><th>שולית ל־${Y()}<br><span class="n">ΔX/ΔY</span></th></tr></thead>
+      <tbody>
+      ${[0,1].map(i=>`<tr><td>${fn(i)}</td><td>${N(f[i].xMax)}</td><td>${N(f[i].yMax)}</td>
+        <td>${N(ratio(f[i].yMax,f[i].xMax))}</td><td>${N(ratio(f[i].xMax,f[i].yMax))}</td></tr>`).join('')}
+      <tr class="total"><td>סה״כ משק</td><td>${N(M.Xtot)}</td><td>${N(M.Ytot)}</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="block">
+      <h3>יתרון מוחלט</h3>
+      <p>ב${X()}: ${absWin('xMax')}. ב${Y()}: ${absWin('yMax')}.</p>
+      <h3>יתרון יחסי</h3>
+      <p>${M.equal
+        ? `לשני הגורמים אותה עלות שולית, ולכן לאף אחד אין יתרון יחסי והעקומה ליניארית (כמו בסעיף א בשיעור).`
+        : `ל${fn(F)} יתרון יחסי ב${X()} (עלות שולית ${N(fmt(M.mc[F]))} לעומת ${N(fmt(M.mc[G]))}), ול${fn(G)} יתרון יחסי ב${Y()}. העקומה קמורה לראשית.`}</p>
+      <p class="note">כדאיות הייצור נקבעת לפי היתרון היחסי ולא לפי היתרון המוחלט.</p>
+    </div>
+    <div class="block">
+      <h3>איך בנינו את העקומה</h3>
+      <ol class="steps">
+        <li>מתחילים מכמות ${Y()} המקסימלית של כל המשק: ${N(`(0, ${fmt(M.Ytot)})`)}.</li>
+        <li>${fn(F)}${M.equal?'':` (יתרון יחסי ב${X()})`} מוותרים על כל ה־${Y()} שלהם (${N(f[F].yMax)}) ומוסיפים את כל ה־${X()} שהם יכולים (${N(f[F].xMax)}). מגיעים ל־${N(`(${fmt(M.Xa)}, ${fmt(M.Yb)})`)}.</li>
+        <li>${fn(G)} מוותרים על ${N(f[G].yMax)} ${Y()} ומוסיפים ${N(f[G].xMax)} ${X()}. מגיעים ל־${N(`(${fmt(M.Xtot)}, 0)`)}.</li>
+      </ol>
+    </div>`;
+}
+
+/* ---------- partial-data calculator ---------- */
+function setGiven(g){ S.given=g; $('givenX').setAttribute('aria-pressed',g==='x'); $('givenY').setAttribute('aria-pressed',g==='y'); drawCalc(model()); }
+$('givenX').addEventListener('click',()=>setGiven('x'));
+$('givenY').addEventListener('click',()=>setGiven('y'));
+$('calcVal').addEventListener('input',()=>drawCalc(model()));
+
+function drawCalc(M){
+  const v=+$('calcVal').value, F=M.first, G=M.second, fF=S.f[F], fG=S.f[G];
+  const mcF=M.mc[F], mcS=M.mc[G];
+  $('calcLbl').textContent = `כמות ${S.given==='x'?S.xName:S.yName}`;
+  const lim = S.given==='x'?M.Xtot:M.Ytot;
+  if($('calcVal').value==='' || !(v>=0) || v>lim+1e-9){
+    $('calcOut').innerHTML=`<p class="err">הכמות צריכה להיות בין 0 ל־${N(lim)}.</p>`; return;
+  }
+  let steps=[], rx, ry;
+  if(S.given==='x'){
+    rx=v;
+    if(v<=M.Xa){
+      const give=v*mcF, yF=fF.yMax-give; ry=yF+M.Yb;
+      steps=[
+        `${N(`${fmt(v)} ≤ ${fmt(M.Xa)}`)}, כלומר הכמות לא עוברת את כל ה־${X()} ש${fn(F)} יכולים לייצר, ולכן הנקודה על החלק שלהם. ${fn(G)} מייצרים רק ${Y()}: ${N(M.Yb)}.`,
+        `מסתכלים רק על המשולש של ${fn(F)}: הם מייצרים ${N(v)} ${X()}, וכל יחידה עולה ${N(fmt(mcF))} ${Y()}. הוויתור: ${N(`${fmt(v)} × ${fmt(mcF)} = ${fmt(give)}`)}.`,
+        `${fn(F)} מייצרים ${N(`${fmt(fF.yMax)} − ${fmt(give)} = ${fmt(yF)}`)} ${Y()}.`,
+        `מחברים לשאר המשק: ${N(`${fmt(yF)} + ${fmt(M.Yb)} = ${fmt(ry)}`)} ${Y()}.`];
+    } else {
+      const xs=v-M.Xa, give=xs*mcS; ry=M.Yb-give;
+      steps=[
+        `${N(`${fmt(v)} > ${fmt(M.Xa)}`)}, ולכן הנקודה על החלק של ${fn(G)}. ${fn(F)} מייצרים את כל ה־${X()} שלהם (${N(M.Xa)}) ולא מייצרים ${Y()}.`,
+        `${fn(G)} מייצרים ${N(`${fmt(v)} − ${fmt(M.Xa)} = ${fmt(xs)}`)} ${X()}.`,
+        `כל יחידת ${X()} עולה להם ${N(fmt(mcS))} ${Y()}, ולכן הוויתור: ${N(`${fmt(xs)} × ${fmt(mcS)} = ${fmt(give)}`)}.`,
+        `${fn(G)} מייצרים ${N(`${fmt(M.Yb)} − ${fmt(give)} = ${fmt(ry)}`)} ${Y()}, וזו כל כמות ה־${Y()} במשק.`];
+    }
+  } else {
+    ry=v;
+    if(v>=M.Yb){
+      const yF=v-M.Yb, give=fF.yMax-yF; rx=give/mcF;
+      steps=[
+        `${N(`${fmt(v)} ≥ ${fmt(M.Yb)}`)}, כלומר צריך יותר ${Y()} ממה ש${fn(G)} יכולים לייצר לבד, ולכן הנקודה על החלק של ${fn(F)}. ${fn(G)} מייצרים ${N(M.Yb)} ${Y()} ולא מייצרים ${X()}.`,
+        `${fn(F)} צריכים לייצר ${N(`${fmt(v)} − ${fmt(M.Yb)} = ${fmt(yF)}`)} ${Y()}, כלומר הם מוותרים על ${N(`${fmt(fF.yMax)} − ${fmt(yF)} = ${fmt(give)}`)} ${Y()}.`,
+        `כל יחידת ${X()} עולה להם ${N(fmt(mcF))} ${Y()}, ולכן הם מייצרים ${N(`${fmt(give)} ÷ ${fmt(mcF)} = ${fmt(rx)}`)} ${X()}, וזו כל כמות ה־${X()} במשק.`];
+    } else {
+      const give=M.Yb-v, xG=give/mcS; rx=M.Xa+xG;
+      steps=[
+        `${N(`${fmt(v)} < ${fmt(M.Yb)}`)}, ולכן הנקודה על החלק של ${fn(G)}. ${fn(F)} מייצרים את כל ה־${X()} שלהם (${N(M.Xa)}) ולא מייצרים ${Y()}.`,
+        `${fn(G)} מייצרים ${N(v)} ${Y()}, כלומר מוותרים על ${N(`${fmt(M.Yb)} − ${fmt(v)} = ${fmt(give)}`)} ${Y()}.`,
+        `כל יחידת ${X()} עולה להם ${N(fmt(mcS))} ${Y()}, ולכן הם מייצרים ${N(`${fmt(give)} ÷ ${fmt(mcS)} = ${fmt(xG)}`)} ${X()}.`,
+        `מחברים לשאר המשק: ${N(`${fmt(M.Xa)} + ${fmt(xG)} = ${fmt(rx)}`)} ${X()}.`];
+    }
+  }
+  $('calcOut').innerHTML=`<ol class="steps">${steps.map(t=>`<li>${t}</li>`).join('')}</ol>
+    <div class="result"><span>הנקודה: <b class="n">(${fmt(rx)}, ${fmt(ry)})</b></span>
+    <button type="button" class="primary" id="showPt">הצג על הגרף</button></div>`;
+  $('showPt').addEventListener('click',()=>{ S.x=Math.round(rx*100)/100; renderPoint(); svg.scrollIntoView({behavior:'smooth',block:'center'}); });
+}
+
+/* ---------- render ---------- */
+function renderPoint(){
+  const M=model();
+  S.x=Math.max(0,Math.min(M.Xtot,S.x));
+  const sl=$('xSlider'); sl.max=M.Xtot; sl.step=M.Xtot>=50?1:0.1; sl.value=S.x;
+  $('sliderLbl').textContent=`${S.xName} מיוצר`;
+  drawGraph(M); drawReadout(M);
+}
+function render(){
+  document.querySelectorAll('.xn').forEach(e=>e.textContent=S.xName);
+  document.querySelectorAll('.yn').forEach(e=>e.textContent=S.yName);
+  const M=model();
+  renderPoint(); drawCompare(M); drawCalc(M);
+}
+buildControls(); render();
+</script>
+</body>
+</html>
