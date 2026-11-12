@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסיכום של שי · ניהול שינויים</title>
+<meta name="theme-color" content="#0b6a7a">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Suez+One&display=swap">
+<style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(../fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --course: #0b6a7a;
+  --bg: #f6f1e7; --surface: #fffdf8; --fg: #2a2520; --muted: #6b6256; --line: #e6dece;
+  --soft: color-mix(in srgb, var(--course) 12%, var(--surface));
+  --display: "Suez One", "Assistant", serif;
+  --title: "Tel Aviv Modernist", "Assistant", Arial, sans-serif;
+  --hand: "Gveret Levin", "Assistant", cursive;
+  --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 118px; }
+body { margin: 0; color: var(--fg); font-family: "Assistant", Arial, sans-serif; font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+/* top: who wrote it + lesson rail */
+.top { position: sticky; top: 0; z-index: 10; background: var(--course); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 6px 16px -12px rgba(0,0,0,.5); }
+.head { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.back { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; text-decoration: none; font-size: 22px; flex: none; }
+.back:hover { background: rgba(255,255,255,.14); }
+.who { min-width: 0; }
+.who b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; }
+.who span { font-size: 14px; opacity: .85; }
+.orig { margin-inline-start: auto; font-size: 14px; opacity: .85; white-space: nowrap; }
+.rail { display: flex; gap: 6px; padding-block: 0 10px; overflow-x: auto; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail a { flex: none; height: 40px; padding-inline: 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; text-decoration: none;
+  font-family: var(--title); font-weight: 700; font-size: 16px; background: rgba(255,255,255,.16); color: #fff; transition: background .2s, color .2s; }
+.rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
+.rail a.on { background: #fff; color: var(--course); }
+
+/* lesson divider */
+.lesson { padding-block: 22px 8px; }
+.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
+.divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
+.divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.divider .topic:empty { display: none; }
+
+/* pdf pages */
+.pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
+.pages img { width: 100%; height: auto; display: block; }
+
+.next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
+.next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
+  color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
+.end { text-align: center; color: var(--muted); font-size: 15px; padding: 26px 0 60px; }
+
+/* ===== notebook theme (Nicole) ===== */
+.notebook body, body.notebook { --rule: 34px; }
+body.notebook .lesson { padding-top: 26px; }
+body.notebook .divider { position: relative; padding: 12px 16px 12px 16px; margin-bottom: 0; background: color-mix(in srgb, var(--course) 9%, #fffef9);
+  border-radius: 10px 10px 0 0; border: 1px solid color-mix(in srgb, var(--course) 22%, #e8dfcc); border-bottom: 0; }
+body.notebook .divider .num { font-family: var(--hand); font-size: 40px; }
+body.notebook .note {
+  position: relative; background-color: #fffef9; border: 1px solid #e8dfcc; border-radius: 0 0 10px 10px; box-shadow: var(--sheet);
+  padding: 8px 52px 26px 18px; line-height: var(--rule); font-size: 17px;
+  background-image:
+    linear-gradient(to left, transparent 38px, #e88c8c 38px, #e88c8c 39.5px, transparent 39.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), #d6e4ef calc(var(--rule) - 1px), #d6e4ef var(--rule));
+  background-position: 0 8px;
+}
+body.notebook .note::before { content: ""; position: absolute; top: 18px; bottom: 18px; right: 12px; width: 14px;
+  background: radial-gradient(circle at 7px 7px, #e9e1cf 5px, transparent 5.5px) 0 0 / 14px 68px repeat-y; }
+body.notebook .note h3 { margin: 0; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--course); line-height: var(--rule); }
+body.notebook .note h3 b, body.notebook .note h3 u { font-weight: 400; }
+body.notebook .note p { margin: 0; }
+body.notebook .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.notebook .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: calc(var(--rule) / 2 - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.notebook .note b { color: #1d2b33; }
+body.notebook .tbl { overflow-x: auto; margin: 6px 0; }
+body.notebook table { border-collapse: collapse; line-height: 1.4; font-size: 15px; background: #fff; }
+body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.notebook .note { padding-right: 44px; } }
+</style>
+</head>
+<body class="plain">
+<div class="top">
+  <div class="wrap">
+    <div class="head">
+      <a class="back" href="../#change" aria-label="חזרה לקורס">→</a>
+      <div class="who"><b>הסיכום של שי</b><span>ניהול שינויים · שיעורים 1 עד 4</span></div>
+    </div>
+    <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a><a href="#l4" data-n="4">4</a></nav>
+  </div>
+</div>
+<main class="wrap">
+<section class="lesson" id="l1" data-n="1">
+  <header class="divider"><span class="num">שיעור 1</span><span class="date">16/10</span><span class="topic">פתיחת הקורס והסבר על התרגיל, תר&quot;ש גדעון, מהות השינוי הארגוני</span></header>
+  <div class="pages"><img src="img/change-shay-p01a.webp" width="1100" height="1374" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l2" data-n="2">
+  <header class="divider"><span class="num">שיעור 2</span><span class="date">23/10</span><span class="topic">סוגי שינויים ארגוניים, סיבות לכישלון שינויים, ניהול ומינהל</span></header>
+  <div class="pages"><img src="img/change-shay-p02a.webp" width="1100" height="1424" loading="lazy" alt=""><img src="img/change-shay-p03a.webp" width="1100" height="1400" loading="lazy" alt=""><img src="img/change-shay-p04a.webp" width="1100" height="1400" loading="lazy" alt=""><img src="img/change-shay-p05a.webp" width="1100" height="1386" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l3" data-n="3">
+  <header class="divider"><span class="num">שיעור 3</span><span class="date">30/10</span><span class="topic">משתנים עיקריים בשינוי, חקר ארגונים, הסביבה החיצונית והפנימית</span></header>
+  <div class="pages"><img src="img/change-shay-p06a.webp" width="1100" height="1398" loading="lazy" alt=""><img src="img/change-shay-p07a.webp" width="1100" height="1424" loading="lazy" alt=""><img src="img/change-shay-p08a.webp" width="1100" height="1416" loading="lazy" alt=""><img src="img/change-shay-p09a.webp" width="1100" height="1398" loading="lazy" alt=""><img src="img/change-shay-p10a.webp" width="1100" height="1400" loading="lazy" alt=""><img src="img/change-shay-p11a.webp" width="1100" height="1374" loading="lazy" alt=""><img src="img/change-shay-p12a.webp" width="1100" height="686" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l4" data-n="4">
+  <header class="divider"><span class="num">שיעור 4</span><span class="date">6/11</span><span class="topic"></span></header>
+  <div class="pages"><img src="img/change-shay-p12b.webp" width="1100" height="688" loading="lazy" alt=""><img src="img/change-shay-p13a.webp" width="1100" height="1398" loading="lazy" alt=""><img src="img/change-shay-p14a.webp" width="1100" height="1398" loading="lazy" alt=""></div>
+</section>
+<p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>
+</main>
+<script>
+const secs = [...document.querySelectorAll('.lesson')];
+const pills = [...document.querySelectorAll('.rail a')];
+// "next lesson" button at the end of every lesson but the last
+secs.forEach((s, i) => { if (secs[i + 1]) s.insertAdjacentHTML('beforeend', `<div class="next"><a href="#${secs[i + 1].id}">לשיעור ${secs[i + 1].dataset.n} ←</a></div>`); });
+const key = 'read:' + location.pathname;
+const mark = n => { pills.forEach(p => p.classList.toggle('on', p.dataset.n === n)); const on = pills.find(p => p.dataset.n === n); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); try { localStorage.setItem(key, n); } catch (e) {} };
+// the lesson being read = the last one whose header has passed under the top bar
+let last = null, raf = 0;
+const sync = () => { raf = 0; const line = innerHeight * 0.45; let cur = secs[0]; for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s; if (cur.dataset.n !== last) { last = cur.dataset.n; mark(last); } };
+addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+addEventListener('hashchange', sync);
+// back to where this reader stopped
+if (!location.hash) { let n = null; try { n = localStorage.getItem(key); } catch (e) {} const t = n && document.getElementById('l' + n); if (t && n !== secs[0].dataset.n) t.scrollIntoView(); }
+sync(); setTimeout(sync, 300);
+</script>
+</body>
+</html>

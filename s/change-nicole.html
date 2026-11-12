@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסיכום של ניקול · ניהול שינויים</title>
+<meta name="theme-color" content="#0b6a7a">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Suez+One&display=swap">
+<style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(../fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --course: #0b6a7a;
+  --bg: #f6f1e7; --surface: #fffdf8; --fg: #2a2520; --muted: #6b6256; --line: #e6dece;
+  --soft: color-mix(in srgb, var(--course) 12%, var(--surface));
+  --display: "Suez One", "Assistant", serif;
+  --title: "Tel Aviv Modernist", "Assistant", Arial, sans-serif;
+  --hand: "Gveret Levin", "Assistant", cursive;
+  --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 118px; }
+body { margin: 0; color: var(--fg); font-family: "Assistant", Arial, sans-serif; font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+/* top: who wrote it + lesson rail */
+.top { position: sticky; top: 0; z-index: 10; background: var(--course); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 6px 16px -12px rgba(0,0,0,.5); }
+.head { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.back { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; text-decoration: none; font-size: 22px; flex: none; }
+.back:hover { background: rgba(255,255,255,.14); }
+.who { min-width: 0; }
+.who b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; }
+.who span { font-size: 14px; opacity: .85; }
+.orig { margin-inline-start: auto; font-size: 14px; opacity: .85; white-space: nowrap; }
+.rail { display: flex; gap: 6px; padding-block: 0 10px; overflow-x: auto; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail a { flex: none; height: 40px; padding-inline: 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; text-decoration: none;
+  font-family: var(--title); font-weight: 700; font-size: 16px; background: rgba(255,255,255,.16); color: #fff; transition: background .2s, color .2s; }
+.rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
+.rail a.on { background: #fff; color: var(--course); }
+
+/* lesson divider */
+.lesson { padding-block: 22px 8px; }
+.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
+.divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
+.divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.divider .topic:empty { display: none; }
+
+/* pdf pages */
+.pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
+.pages img { width: 100%; height: auto; display: block; }
+
+.next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
+.next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
+  color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
+.end { text-align: center; color: var(--muted); font-size: 15px; padding: 26px 0 60px; }
+
+/* ===== notebook theme (Nicole) ===== */
+.notebook body, body.notebook { --rule: 34px; }
+body.notebook .lesson { padding-top: 26px; }
+body.notebook .divider { position: relative; padding: 12px 16px 12px 16px; margin-bottom: 0; background: color-mix(in srgb, var(--course) 9%, #fffef9);
+  border-radius: 10px 10px 0 0; border: 1px solid color-mix(in srgb, var(--course) 22%, #e8dfcc); border-bottom: 0; }
+body.notebook .divider .num { font-family: var(--hand); font-size: 40px; }
+body.notebook .note {
+  position: relative; background-color: #fffef9; border: 1px solid #e8dfcc; border-radius: 0 0 10px 10px; box-shadow: var(--sheet);
+  padding: 8px 52px 26px 18px; line-height: var(--rule); font-size: 17px;
+  background-image:
+    linear-gradient(to left, transparent 38px, #e88c8c 38px, #e88c8c 39.5px, transparent 39.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), #d6e4ef calc(var(--rule) - 1px), #d6e4ef var(--rule));
+  background-position: 0 8px;
+}
+body.notebook .note::before { content: ""; position: absolute; top: 18px; bottom: 18px; right: 12px; width: 14px;
+  background: radial-gradient(circle at 7px 7px, #e9e1cf 5px, transparent 5.5px) 0 0 / 14px 68px repeat-y; }
+body.notebook .note h3 { margin: 0; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--course); line-height: var(--rule); }
+body.notebook .note h3 b, body.notebook .note h3 u { font-weight: 400; }
+body.notebook .note p { margin: 0; }
+body.notebook .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.notebook .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: calc(var(--rule) / 2 - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.notebook .note b { color: #1d2b33; }
+body.notebook .tbl { overflow-x: auto; margin: 6px 0; }
+body.notebook table { border-collapse: collapse; line-height: 1.4; font-size: 15px; background: #fff; }
+body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.notebook .note { padding-right: 44px; } }
+</style>
+</head>
+<body class="notebook">
+<div class="top">
+  <div class="wrap">
+    <div class="head">
+      <a class="back" href="../#change" aria-label="חזרה לקורס">→</a>
+      <div class="who"><b>הסיכום של ניקול</b><span>ניהול שינויים · שיעורים 1 עד 2</span></div>
+    </div>
+    <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a></nav>
+  </div>
+</div>
+<main class="wrap">
+<section class="lesson" id="l1" data-n="1">
+  <header class="divider"><span class="num">שיעור 1</span><span class="date">16/10</span><span class="topic">פתיחת הקורס והסבר על התרגיל, תר&quot;ש גדעון, מהות השינוי הארגוני</span></header>
+  <div class="note"><h3><u><b>ניהול שינויים בארגונים</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור 1</b></u></h3>
+<p class="li" style="--l:0"><b>רקע</b></p>
+<p class="li" style="--l:0">יש בלמדה הרבה מאוד חומרים, צריך להסתכל ולקרוא אותם בין השיעור.</p>
+<p class="li" style="--l:0">קורס סמסטריאלי.</p>
+<p class="li" style="--l:0">הוא אומר כשהדברים הם רלוונטיים למבחן, בסוף הסילבוס של שקפים רלוונטיים למבחן.</p>
+<p class="li" style="--l:0">בדיקת נוכחות אקראית בכל שיעור.</p>
+<p class="li" style="--l:0">יותר זמין במייל האישי - </p>
+<p class="li" style="--l:0">10:15-11:45, 12:00-13:30 באמצע הפסקה של רבע שעה.</p>
+<p class="li" style="--l:0">בסילבוס יש טבלה, איפה שכתוב מקורות קריאה וכתוב חובה החומר יהיה בתוך השיעור עצמו.</p>
+<p class="li" style="--l:0">ציון סופי בחינה 70%, תרגיל 30%. (מבחן 03/02, מועד ב&#x27; 07/03)</p>
+<p class="li" style="--l:0">מבחן אמריקאי – 33 שאלות</p>
+<p class="li" style="--l:0">ספרים מומלצים לקריאה </p>
+<p class="li" style="--l:0">כהנמן, ד. , סיבוני, א., סאנסטיין, ק. (2022), <u>רעש</u>, ת&quot;א, מטר, כנרת.</p>
+<p class="li" style="--l:0">לוי, ע. (2008), <u>ניהול ומנהיגות - שינוי וחדשנות</u>, רימונים.</p>
+<p class="li" style="--l:0">פוקס, ש. (1998), <u>הפסיכולוגיה של ההתנגדות לשינוי</u>, אוניברסיטת בר-אילן.</p>
+<p class="li" style="--l:0">קוטר, ג. (2003), <u>להוביל לשינוי</u>, ת&quot;א, מטר.</p>
+<p class="li" style="--l:0">שלום, ד. (1995), <u>איך עושים חידוש ארגוני, הקמת מפח&quot;ש בצה&quot;ל</u>, ספריית המינהל, ת&quot;א. </p>
+<h3> </h3>
+<p class="li" style="--l:0">המאמרים שיש באנגלית הם העשרה ומומלצים לקריאה, חלקם יהיה צריך לעבודה.</p>
+<p class="li" style="--l:0"><b>עבודה</b></p>
+<p class="li" style="--l:0">ביצוע ניתוח על שינוי ארגוני שקורה / קרה בארגון שאתם מכירים <b>באופן אישי</b>.</p>
+<p class="li" style="--l:0">צריך לשלוח למרצה את ההצעה של העבודה לפני שמתחילים לעבוד, יש פורמט בלמדה.</p>
+<p class="li" style="--l:0">בסוף הקורס אפשר לעשות מצגת על העבודה ולהציג – מוסיף 5 נקודות בונוס.</p>
+<p class="li" style="--l:0">הגשת העבודה שבוע לפני המבחן, אם לא מגישים בזמן אי אפשר לגשת –עד 24/01.</p>
+<p class="li" style="--l:0">ניתן לשלוח את העבודה פעם אחת להערות למרצה – מה11/01.</p>
+<p class="li" style="--l:0">העבודה היא 11 עמודים,  לא כולל הכותרות וביבליוגרפיה שבפורמט.</p>
+<p class="li" style="--l:0"><b>דוגמאות לשינויים בארגונים</b></p>
+<p class="li" style="--l:0">שינוי ארגוני בצה&quot;ל – תוכנית רב שנתית גדעון 2016</p>
+<p class="li" style="--l:0">קיצוץ מערכים, תקנים, סגירת חטיבות </p>
+<p class="li" style="--l:0">קיצור שירות חובה, מודל קבע צעיר</p>
+<p class="li" style="--l:0">הקמת חטיבות.</p>
+<p class="li" style="--l:0">צמצום כפילויות ובירוקרטיה. </p>
+<p class="li" style="--l:0">תוכנית ישראייר – יוזמה להפעלת טיסות ליעדים רחוקים.</p>
+<p class="li" style="--l:0">בנייה וארגון מבצעי הטיסה – מחלקת אחזקה, הכשרת צוותי אוויר.</p>
+<p class="li" style="--l:0">שינוי במבנה כ&quot;א – הגדרת תפקודים חדשים לדיילות, גיוס צוותי קרקע ביעדים החדשים, הסכמי עבודה חדשים .</p>
+<p class="li" style="--l:0">פיתוח אגף מסחרי ושיווק – שיווק בין לאומי, שת&quot;פ עם חברות נוספות.</p>
+<p class="li" style="--l:0">שדרוג מערכות טכנולוגיות ותפעול – מערכות מידע, לוגיסטיקה.</p>
+<p class="li" style="--l:0">דוגמאות נוספות –</p>
+<p class="li" style="--l:0">רשות מקרקעי ישראל.</p>
+<p class="li" style="--l:0">טבע</p>
+<p class="li" style="--l:0">דואר ישראל</p>
+<p class="li" style="--l:0">לקחי חיל האוויר מה7.10 – יש כתבה של N12 שהוא ממליץ לקרוא</p>
+<p class="li" style="--l:0">הגדלת כוננות מינימום.</p>
+<p class="li" style="--l:0">הרחבת חופש הפעולה של הטייסים לתקיפה עצמאית.</p>
+<p class="li" style="--l:0">חיזוק ורכש מסוקי אפצ&#x27;י.</p>
+<p class="li" style="--l:0">הצלחה של שינוי בארגון נמדדת בעמידה ביעדים שהוצבו לארגון, רתימת האנשים לארגון ולשינוי.</p>
+<p class="li" style="--l:0"><b>שינוי ארגוני מתוכנן</b> – פעילויות מכוונות המעבירות את הארגון ממצבו עכשווי למצב עתידי רצוי.</p>
+<p class="li" style="--l:0">ע&quot;פ מחקרים מנהלים בכירים <u>מאמינים</u> שרק שליש מהשינויים הארגוניים המתוכננים מצליחים.</p>
+<p class="li" style="--l:0">באנגליה – 38% מהמנהלים <u>מאמינים</u> שהשינויים הובילו להתנהלות מוצלחת יותר של הארגונים.</p>
+<p class="li" style="--l:0"><u><b>למבחן !</b></u></p>
+<p class="li" style="--l:0"><u><b>שינוי ארגוני</b></u> – אימוץ של רעיון חדש או התנהגות חדשה ע&quot;י הארגון, הטמעה <b>אבולוציוני</b><b>ת</b>.</p>
+<p class="li" style="--l:0"><u><b>חידוש ארגוני</b></u><u><b> </b></u>– תהליך של הבאת רעיון חדש, הא לפתור בעיה ארגונית, לידי מימוש. (רפורמה, רה-ארגון, שנינדוס) – <b>שינוי מהותי</b><b>, </b>תהליך <b>רבולוציונ</b><b>י</b> – מהפכה גדולה.</p>
+<p><u><b>דוגמא</b></u>: <b> </b>אדם שרוצה לרדת במשקל יכול לעשות כושר וירידה במשקל (תהליך אבולוציוני, הדרגתי), או לעשות ניתוח לקיצור קיבה (תהליך חד).</p>
+<p class="li" style="--l:0">כל חידוש ארגוני הוא גם שינוי ארגוני, <b>לא כל</b> שינוי ארגוני הוא חידוש ארגוני.</p>
+<p>כי חידוש הוא תהליך גדול שכולל שינוים הדרגתיים, אבל תהליך קטן הוא לא בהכרח שינוי מהותי.</p>
+<p><u><b>דוגמא 2:</b></u> אפל רוצה לעדכן את המכשיר לגרסה חדשה זה שינוי אבל אם היא בוחרת לעבור לתחום הAI אז זה חידוש ארגוני.</p>
+<p class="li" style="--l:0"><u>בדרך כלל</u> לחידוש תהיה השפעה יותר גדולה משינוי.</p>
+<p class="li" style="--l:0">חידוש ארגוני – יישום שיטה חדשה בשגרה הארגונית – בסביבה הארגונית או ביחסי הגומלין עם הסביבה החיצונית.</p>
+<p>רעיון הופך לחידוש כשהוא מוצג בהצלחה בשוק או מופיע בהצלחה בהתנהלות ארגונית.</p>
+<p>רעיון + המצאה + פעפוע / חלחול = חידוש (הצלחה בתפקוד).</p>
+<p>עד שהתהליך לא מסתיים ומצליח הוא לא חידוש.</p>
+<p><u><b>דוגמא 3</b></u>: אם מקימים ועד עובדים בחברה אבל הוא לא מצליח לממש את תפקידו הוא לא חידוש.</p>
+<p class="li" style="--l:0"><u><b>למבחן!</b></u></p>
+<p class="li" style="--l:0"><b>חידוש סגור</b> – תהליך פנים ארגוני.</p>
+<p class="li" style="--l:0"><b>חידוש </b><b>פתוח/המוני</b> – טכנולוגיה, מוצר, שירות.</p>
+<p>חידוש סגור (ארגוני) יכול לגרום גם לחידוש פתוח / המוני.</p>
+<p><u><b>לדוגמא:</b></u> גף בזוס (אמזון) בהתחלה היה מוכר רק ספרים, כשהוא עשה חידוש למכירה של מוצרים נוספים הוא גרם לחידוש המוני לעולמות הרכישה באינטרנט.</p>
+<p><u><b>דוגמא 2:</b></u> החלפת שם של חברה יכול להיות חידוש אם הוא משפיע / מוביל לחידוש התחומי העבודה בחברה, אם שינוי השם הוא רק תצוגתי (סמלי) אז הוא שינוי.</p>
+<p>שינוי יכול להיות חידוש ולהפך כתלות בסוג הארגון – אם מוקמת חטיבה חדשה בארגון קטן זה יכול להיות חידוש בשבילו ואם החטיבה החדשה מוקמת בארגון גדול וההקמה לא משפיעה על תחומי הפעילות שלו (לא מוסיפה משנה עוד תחום פעילות) אז בשביל הארגון הגדול זה יהיה שינוי.</p></div>
+</section>
+<section class="lesson" id="l2" data-n="2">
+  <header class="divider"><span class="num">שיעור 2</span><span class="date">23/10</span><span class="topic">סוגי שינויים ארגוניים, סיבות לכישלון שינויים, ניהול ומינהל</span></header>
+  <div class="note"><h3><u><b>ניהול שינויים בארגונים</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור </b></u><u><b>2</b></u></h3>
+<h3><b>סוגים של שינויים ארגוניים </b><b>–</b><b> טיפולוגיה (סיווג)</b></h3>
+<p class="li" style="--l:0"><b>בבחינת האופי </b><b>–</b><b> </b></p>
+<p class="li" style="--l:0"><b>שינוי מתוכנן</b> – מטרות ברורות, לו&quot;ז, חלוקת עבודה.</p>
+<p class="li" style="--l:0"><b>שינוי לא מתוכנן</b> – תכנון כיווני, הנחיה על כיוון כללי והשתנות תוך כדי תנועה.</p>
+<p class="li" style="--l:0"><b>מידת ההתערבות בניהול השינוי</b> – השינוי כפוי, הדוק, לוחץ (לוחות זמנים), גמיש.</p>
+<p class="li" style="--l:0"><b>קצב ניהול השינוי</b> – איטי, מהיר, משתנה</p>
+<p class="li" style="--l:0"><b>בבחינת ה</b><b>תוכן</b><b></b><b> </b><b>–</b></p>
+<p class="li" style="--l:0"><b>שינוי אסטרטגי</b> – מיזוגים, התרחבות, צמצומים (לדוג&#x27; רכישה של וואצאפ ע&quot;י פייסבוק).</p>
+<p class="li" style="--l:0"><b>שינויי טכנולוגי</b> – עבודה מהבית, עבודה עם AI, ללמד בZOOM.</p>
+<p class="li" style="--l:0"><b>ערכים ארגונים/שיפור איכות</b> -שיפורים באיכות, שיפורים בשירות</p>
+<p class="li" style="--l:0">TQM – ניהול איכות כוללת, Total Quality Management.</p>
+<p class="li" style="--l:0">JIT – בדיוק בזמן, Just-in-Time.</p>
+<p class="li" style="--l:0">MBO – ניהול לפי הישגים, Management by objectives</p>
+<p class="li" style="--l:0">ISO – בקרת איכות (עמידה בתקן בין לאומי, מכון התקנים אחראי בארץ), International Organization for Standardization.</p>
+<p class="li" style="--l:0">זמן עבודה גמיש.</p>
+<p class="li" style="--l:0"><b>מבנה ארגוני</b> – סמכויות, תפקידים, אחריות, איחוד.</p>
+<p class="li" style="--l:0"><b>אופי הניהול</b> – תהליכי עבודה, ביזור, צמצום בקרה, ניהול עצמי.</p>
+<p class="li" style="--l:0"><b>שינוי מוצר או שירות</b></p>
+<p class="li" style="--l:0"><b>כוח אדם</b>.</p>
+<p class="li" style="--l:0"><b>מבנה פיזי</b> – OPEN SPACE, שינוי מיקום.</p>
+<p class="li" style="--l:0"><b>מבחינת התוצר</b></p>
+<p class="li" style="--l:0"><b>שינוי וריאציה</b> – שינוי שולי, גרסה חדשה, שיפורים.</p>
+<p class="li" style="--l:0"><b>שינוי ריאוריינטציה</b> – שינוי משמעותי, מהפיכה במטרות, בערכים, בתפקוד הארגון.</p>
+<p><b>רמות של שינוי ארגוני לבניית ארגוני בעלי פוטנציאל עתידי </b>(מחקר של Krajcsak &amp; Bakacsi 2025)</p>
+<p class="li" style="--l:0">כשאנחנו עושים שינוי ארגוני יש לנו אחריות לא רק לשיפור הביצועים והרווחים, אלא יש לנו אחריות לעתיד הארגון וליכולת התחדשות והקיום שלו בעתיד.</p>
+<p class="li" style="--l:0">לכל ארגון יש 3 רמות וערך מרכזי שנדרש לשמור עליו בתהליך השינוי. למבחן!</p>
+<p class="li" style="--l:0"><b>רמת מקרו </b><b>–</b><b> הנהל</b><b>ה</b><b> </b><b>–</b><b> ערך אחריות וקיימות</b></p>
+<p class="li" style="--l:0">מה שצריך להוביל את ההנהלה הוא אחריות לשינוי ולסביבה, המשמעות שאנחנו צריכים להיות עם אחריות לחברה (לא רק לארגון) ועם ערכיות, הגישה היא זאת שתשפיע שהשינוי יגרום למשהו בריא לארגון והחוצה.</p>
+<p class="li" style="--l:0"><b>רמת ביניים </b><b>–</b><b> מנהלי ביניים </b><b>–</b><b> ערך מתינות</b></p>
+<p class="li" style="--l:0">מנהלי הביניים רוצים להצליח ולייצר הישגים מהירים, הערך שצריך להוביל אותם הוא מתינות, לא לחפש הישגים/רווחים/הצלחות בלי חשיבה הגיונית, להסתכל על הוצאות לטווח ארוך, איזון בין צורכי הלקוח לצורכי הארגון.</p>
+<p class="li" style="--l:0"><b>רמת המיקרו </b><b>–</b><b> העובדים </b><b>–</b><b> ערך ההוגנות</b></p>
+<p class="li" style="--l:0">האחריות כלפי העובדים מטעם ההנהלה הוא לשמור על ערך ההוגנות, לשמור על ההוגנות מול יכולות העובדים ולהתאים את השינוי </p>
+<h3><b>אי סדר &#x27;&#x27;כאוס&#x27;&#x27; בשינוי ארגוני </b><b>–</b><b> מתי קורה, משתנים עיקרים</b></h3>
+<p class="li" style="--l:0">הסביבה משתנה – מושפע מגורם סביבתי (קורונה, מלחמה, בחירות..)</p>
+<p class="li" style="--l:0">מקבץ של שינויים במקביל </p>
+<p class="li" style="--l:0">קושי בניבוי השינויים – אי ודאות.</p>
+<p class="li" style="--l:0">קושי בשליטה ופיקוח.</p>
+<p class="li" style="--l:0">התנגדות של העובדים.</p>
+<p class="li" style="--l:0">מנהיגות חלשה ולא יציבה.</p>
+<p class="li" style="--l:0">התנגדות של בעלי עניין שונים.</p>
+<p>הכישלון קשה להגדרה – אי השגת תוצאות, עיכוב, אי הסמכה, חוסר מחויבות, עוצמות ההתנגדויות, אי הטמעה... לכל גורם יש הגדרה שונה לכישלון/הצלחה – בעלים, מנהלים, עובדים, לקוחות...</p>
+<p><b>שינויים בארגונים ציבורים קשים יותר להשגה מאשר בארגונים פרטיים </b><b>–</b><b> נגרם מההשפעות הפוליטיות והאופי הבירוקרטי של הארגונים.</b></p>
+<h3><b>למה השינוי נכשל </b></h3>
+<p class="li" style="--l:0">זמן  - חוסר, לחץ, תכנון זמן לקוי</p>
+<p class="li" style="--l:0">חוסר תכנון של מרכיבים בלתי צפויים</p>
+<p class="li" style="--l:0">חוסר תיאום</p>
+<p class="li" style="--l:0">&#x27;תחרות&#x27; על הזמן בניהול השוטף (משימות שוטפות)</p>
+<p class="li" style="--l:0">מנהיגות – היכולת להנהיג את השינוי ולא רק לנהל אותו</p>
+<p class="li" style="--l:0">יכולות מוגבלות של סוכני השינוי – סמכות ואחריות</p>
+<p class="li" style="--l:0">הדרכה חסרה ולא מספקת </p>
+<p class="li" style="--l:0">גורמים חיצוניים בלתי נשלטים.</p>
+<h3><b>כוחות משפיעים בשינוי </b><b>למבחן</b><b>!</b></h3>
+<div class="tbl"><table><tr><td>כוחות מעודדי שינוי</td><td>כוחות לשמירת הקיים</td></tr><tr><td>טכנולוגיה/מחשוב – AI</td><td>טכנולוגיה – הרגל לטכנולוגיה ישנה</td></tr><tr><td>רצון הממונים</td><td>נורמות ייצור – הרגל לשיטות עבודה, כמויות, מלאים</td></tr><tr><td>לחצים פנימיים – מנהלי מחלקות, לחצי עובדים</td><td>שיגרה / הרגל </td></tr><tr><td>תחרות ארגונית</td><td>נהלים / כללים </td></tr><tr><td>משבר – פער בהופעה של הארגון (כישלון של ארגון)
+המשבר יכול להיות פנימי וחיצוני</td><td>חשש משינוי – חשש טבעי</td></tr><tr><td>-</td><td>סמכויות / יוקרה – החשש לפגיעה אישית בסמכויות.</td></tr></table></div>
+<h3><b>כוחות </b><b>יצירה והרס </b></h3>
+<div class="tbl"><table><tr><td>יצירה -  מעודדי שינוי</td><td>הרס -  מעכב שינוי</td></tr><tr><td>התלהבות והנעה מהרעיון</td><td>מחויבות ארגונית למטרות ולזמנים</td></tr><tr><td>שליטה / /הנהגה</td><td>שגרות</td></tr><tr><td>הערכה לרעיון</td><td>חיפוש מרכיבים בטוחים</td></tr><tr><td>הבהרת התרומה להצלחת הארגון</td><td>יריבויות קודמות</td></tr><tr><td>הבהרת התרומה לקריירה ולהתפתחות האישית</td><td>חששות אישים מסיכון</td></tr><tr><td>שיווק פנים וחוץ</td><td>תקציב</td></tr><tr><td>אסטרטגיה ארגונית</td><td>סדרי קדימויות</td></tr><tr><td>פיתוח ארגוני OD</td><td>-</td></tr><tr><td>שווקים חדשים / הזדמנויות חדשות </td><td>-</td></tr></table></div>
+<h3><b>מינהל = </b><b>בני אדם </b></h3>
+<p class="li" style="--l:0">3 הגדרות למינהל:</p>
+<p class="li" style="--l:0">שיזור של בני אדם בארגונים, לשם פעולה משותפת להשגת מטרות משותפת.</p>
+<p class="li" style="--l:0">פעולה / תהליך בו משתתפים שני אנשים או יותר לאיזו מטרה שהיא ובאופן שיש בה קביעות.</p>
+<p class="li" style="--l:0">פעולות שיטתיות של קבוצות המתאחדות להשגת מטרות משותפות.</p>
+<h3><b>בכולם יש בני אדם פעולה ומטרה</b></h3>
+<p class="li" style="--l:0"><b>כשאנחנו מבצעים שינוי ארגוני יש דברים שנדרש לעשות:</b></p>
+<p class="li" style="--l:0">תשומת לב.</p>
+<p class="li" style="--l:0">לתת יותר זמן – פנוי לתהליך.</p>
+<p class="li" style="--l:0">להקשיב – לכל הגורמים.</p>
+<p class="li" style="--l:0">ללמוד – מכל מי שאפשר ללמוד.</p>
+<p class="li" style="--l:0">בחינת השיפור – מה אפשר לשפר.</p>
+<p class="li" style="--l:0">לא הצגת יחיד.</p>
+<h3><b>מקור המילה ניהול -</b><b>MANAGEMENT</b></h3>
+<p class="li" style="--l:0">ניהול- תפקידו של המנהל, כיוון והדרכה של פעולות מסוימות.</p>
+<p class="li" style="--l:0">מנהל – מי שעומד בראש מוסד, חברה או עסק. מנהיג / מדריך.</p>
+<p class="li" style="--l:0">אחד שיודע להחליט מה צריך לעשות ואז לגרום לאנשים לעשות את זה.</p></div>
+</section>
+<p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>
+</main>
+<script>
+const secs = [...document.querySelectorAll('.lesson')];
+const pills = [...document.querySelectorAll('.rail a')];
+// "next lesson" button at the end of every lesson but the last
+secs.forEach((s, i) => { if (secs[i + 1]) s.insertAdjacentHTML('beforeend', `<div class="next"><a href="#${secs[i + 1].id}">לשיעור ${secs[i + 1].dataset.n} ←</a></div>`); });
+const key = 'read:' + location.pathname;
+const mark = n => { pills.forEach(p => p.classList.toggle('on', p.dataset.n === n)); const on = pills.find(p => p.dataset.n === n); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); try { localStorage.setItem(key, n); } catch (e) {} };
+// the lesson being read = the last one whose header has passed under the top bar
+let last = null, raf = 0;
+const sync = () => { raf = 0; const line = innerHeight * 0.45; let cur = secs[0]; for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s; if (cur.dataset.n !== last) { last = cur.dataset.n; mark(last); } };
+addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+addEventListener('hashchange', sync);
+// back to where this reader stopped
+if (!location.hash) { let n = null; try { n = localStorage.getItem(key); } catch (e) {} const t = n && document.getElementById('l' + n); if (t && n !== secs[0].dataset.n) t.scrollIntoView(); }
+sync(); setTimeout(sync, 300);
+</script>
+</body>
+</html>
