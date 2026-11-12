@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>מונה האתר · ינשופים</title>
+<style>
+:root { --bg: #f5f1e8; --card: #fffdf8; --fg: #1f2a24; --muted: #66706a; --line: #e4ddcf; --a: #0b6a7a; --b: #7fb6bf; --warn: #b23a48; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 Assistant, system-ui, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 20px max(16px, env(safe-area-inset-right)) 40px max(16px, env(safe-area-inset-left)); }
+h1 { font-size: 26px; margin: 0; }
+h2 { font-size: 19px; margin: 0 0 4px; }
+.stamp { color: var(--muted); font-size: 14px; margin: 2px 0 20px; }
+.stamp.old { color: var(--warn); font-weight: 700; }
+section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+.sub { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+.nums { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.num b { display: block; font-size: 32px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.num span { color: var(--muted); font-size: 14px; }
+.num em { font-style: normal; font-size: 14px; font-weight: 700; }
+.up { color: #2f7d3b; } .down { color: var(--warn); }
+.days { display: flex; align-items: flex-end; gap: 3px; height: 130px; direction: ltr; }
+.day { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; height: 100%; }
+.day i { display: block; background: var(--b); border-radius: 3px 3px 0 0; }
+.day i.r { background: var(--a); border-radius: 0; }
+.dlabels { display: flex; gap: 3px; direction: ltr; font-size: 11px; color: var(--muted); margin-top: 4px; }
+.dlabels span { flex: 1; text-align: center; min-width: 0; overflow: hidden; }
+.legend { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 4px; vertical-align: -1px; }
+.bars .row { display: grid; grid-template-columns: minmax(90px, 140px) 1fr 40px; gap: 10px; align-items: center; margin: 6px 0; }
+.track { height: 14px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.fill { height: 100%; background: var(--a); border-radius: 4px; }
+.n { text-align: left; font-variant-numeric: tabular-nums; }
+.wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th { text-align: right; color: var(--muted); font-size: 13px; font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+td { padding: 7px 8px; border-bottom: 1px solid var(--line); }
+td:first-child { white-space: nowrap; }
+.foot { color: var(--muted); font-size: 13px; }
+.err { color: var(--warn); }
+</style>
+</head>
+<body>
+<main>
+  <h1>מונה האתר</h1>
+  <p class="stamp" id="stamp">טוען…</p>
+
+  <section>
+    <h2>האם האתר בשימוש</h2>
+    <p class="sub">7 הימים האחרונים מול 7 הימים שלפניהם. היום עדיין לא נגמר.</p>
+    <div class="nums">
+      <div class="num"><b id="dev">—</b><span>מכשירים (סכום יומי)</span> <em id="dev-d"></em></div>
+      <div class="num"><b id="ret">—</b><span>חזרות ביום אחר</span> <em id="ret-d"></em></div>
+      <div class="num"><b id="vis">—</b><span>כניסות</span> <em id="vis-d"></em></div>
+    </div>
+    <div class="days" id="days"></div>
+    <div class="dlabels" id="dlabels"></div>
+    <p class="legend"><i style="background:var(--a)"></i>חוזרים מיום אחר &nbsp; <i style="background:var(--b)"></i>מכשירים חדשים ביום</p>
+  </section>
+
+  <section>
+    <h2>מה הכי שמיש</h2>
+    <p class="sub">לחיצות לפי כפתור, מתחילת הספירה.</p>
+    <div class="bars" id="acts"></div>
+    <p class="sub" id="done" style="margin-top:10px"></p>
+  </section>
+
+  <section>
+    <h2>לפי קורס</h2>
+    <p class="sub">פתיחות של עמוד הקורס, ולחיצות בתוכו.</p>
+    <div class="wrap"><table><thead><tr><th>קורס</th><th>פתיחות</th><th>סיכומים</th><th>הקלטות</th><th>זום</th></tr></thead><tbody id="courses"></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>כמה זמן נשארים</h2>
+    <p class="sub" id="bounce"></p>
+    <div class="bars" id="stay"></div>
+  </section>
+
+  <p class="foot" id="foot"></p>
+</main>
+<script>
+const URL_ = 'https://raw.githubusercontent.com/dvir12010-source/yanshufim/stats/stats.json';
+const $ = id => document.getElementById(id);
+const ACTS = { summary: 'סיכום', lemida: 'למדה', folder: 'תיקיית סיכומים', recording: 'הקלטה', calendar: 'הוספה ליומן', other: 'קישור אחר', 'copy-mail': 'העתקת מייל', zoom: 'זום', install: 'הוספה למסך הבית', gmail: 'שליחה ב-Gmail' };
+const STAY = { '0-10s': 'עד 10 שניות', '10-30s': '10–30 שניות', '30-60s': 'חצי דקה עד דקה', '1-2m': '1–2 דקות', '2-5m': '2–5 דקות', '5-10m': '5–10 דקות', '10m-plus': 'יותר מ-10 דקות' };
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function bars(box, pairs) {
+  const max = Math.max(1, ...pairs.map(p => p[1]));
+  box.replaceChildren(...pairs.map(([label, n]) => {
+    const row = el('div', 'row'); const t = el('div', 'track'); const f = el('div', 'fill');
+    f.style.width = (100 * n / max) + '%'; t.append(f);
+    row.append(el('span', '', label), t, el('span', 'n', n)); return row;
+  }));
+}
+function delta(node, a, b) {
+  if (!b) { node.textContent = ''; return; }
+  const p = Math.round(100 * (a - b) / b);
+  node.textContent = (p >= 0 ? '+' : '') + p + '%'; node.className = p >= 0 ? 'up' : 'down';
+}
+function ago(iso) {
+  const m = Math.round((Date.now() - new Date(iso)) / 60000);
+  return m < 60 ? `לפני ${m} דקות` : m < 1440 ? `לפני ${Math.round(m / 60)} שעות` : `לפני ${Math.round(m / 1440)} ימים`;
+}
+
+fetch(URL_ + '?t=' + Date.now()).then(r => r.json()).then(s => {
+  const hrs = (Date.now() - new Date(s.updated)) / 3600000;
+  $('stamp').textContent = 'עודכן ' + ago(s.updated) + (hrs > 6 ? '. העדכון האוטומטי כנראה נתקע.' : '');
+  if (hrs > 6) $('stamp').classList.add('old');
+
+  const days = s.days, last = days.slice(-7), prev = days.slice(-14, -7);
+  const sum = (ds, k) => ds.reduce((a, d) => a + (d[k] || 0), 0);
+  $('dev').textContent = sum(last, 'devices'); delta($('dev-d'), sum(last, 'devices'), sum(prev, 'devices'));
+  $('ret').textContent = sum(last, 'returning'); delta($('ret-d'), sum(last, 'returning'), sum(prev, 'returning'));
+  $('vis').textContent = sum(last, 'visits'); delta($('vis-d'), sum(last, 'visits'), sum(prev, 'visits'));
+
+  const shown = days.slice(-21), max = Math.max(1, ...shown.map(d => d.devices || 0));
+  $('days').replaceChildren(...shown.map(d => {
+    const col = el('div', 'day'); col.title = `${d.date.slice(8)}/${d.date.slice(5, 7)}: ${d.devices} מכשירים, ${d.returning} חוזרים, ${d.visits} כניסות`;
+    const ret = Math.min(d.returning || 0, d.devices || 0);
+    const n = el('i'); n.style.height = (100 * ((d.devices || 0) - ret) / max) + '%';
+    const r = el('i', 'r'); r.style.height = (100 * ret / max) + '%';
+    col.append(n, r); return col;
+  }));
+  $('dlabels').replaceChildren(...shown.map((d, i) => el('span', '', i % 3 === shown.length % 3 ? d.date.slice(8) + '/' + d.date.slice(5, 7) : '')));
+
+  bars($('acts'), Object.entries(s.acts).sort((a, b) => b[1] - a[1]).map(([k, n]) => [ACTS[k] || k, n]));
+  $('done').textContent = `סימוני "הגשתי" במטלות: ${s.totals['act-task-done']}. נפתח מאייקון במסך הבית: ${s.totals['from-homescreen']}.`;
+
+  $('courses').replaceChildren(...[...s.courses].sort((a, b) => b.opens - a.opens).map(c => {
+    const tr = el('tr'); [c.name, c.opens, c.summaries, c.recordings, c.zoom].forEach(v => tr.append(el('td', '', v))); return tr;
+  }));
+
+  bars($('stay'), Object.entries(STAY).map(([k, label]) => [label, s.stay[k] || 0]));
+  const used = Object.values(s.clicks).reduce((a, b) => a + b, 0);
+  $('bounce').textContent = used ? `${Math.round(100 * s.clicks['0'] / used)}% מהשימושים נגמרו בלי אף לחיצה.` : '';
+
+  $('foot').textContent = `מאז 3 בנובמבר: ${s.totals.people} מכשירים שונים, ${s.totals.visits} כניסות. הספירה אנונימית, בלי המכשירים של דביר. באייפון זמן השהות לפעמים לא נספר.`;
+}).catch(() => { $('stamp').textContent = 'הנתונים לא נטענו. נסו לרענן בעוד כמה דקות.'; $('stamp').classList.add('err'); });
+</script>
+</body>
+</html>

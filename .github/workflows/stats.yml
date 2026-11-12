@@ -1,0 +1,37 @@
+name: usage snapshot
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: usage-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: site
+      - uses: actions/checkout@v4
+        with:
+          ref: stats
+          path: stats
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python site/.github/scripts/snapshot.py site stats/stats.json
+      - name: commit if changed
+        working-directory: stats
+        run: |
+          git config user.name "usage-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stats.json
+          git diff --cached --quiet || (git commit -m "snapshot $(date -u +%FT%H:%MZ)" && git push)
