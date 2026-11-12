@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-12T15:47+02:00",
+ "updated": "2026-11-12T23:30+02:00",
  "failures": 0,
  "totals": {
-  "people": 139,
-  "visits": 274,
-  "returning": 59,
-  "from-homescreen": 55,
-  "scrolled": 140,
-  "act-task-done": 41
+  "people": 146,
+  "visits": 287,
+  "returning": 61,
+  "from-homescreen": 58,
+  "scrolled": 144,
+  "act-task-done": 43
  },
  "days": [
   {
@@ -66,9 +66,9 @@
   },
   {
    "date": "2026-11-12",
-   "visits": 20,
-   "devices": 9,
-   "returning": 3
+   "visits": 33,
+   "devices": 18,
+   "returning": 5
   }
  ],
  "acts": {
@@ -81,34 +81,34 @@
   "gmail": 1,
   "copy-mail": 5,
   "install": 3,
-  "other": 11
+  "other": 12
  },
  "stay": {
-  "0-10s": 101,
-  "10-30s": 70,
-  "30-60s": 37,
-  "1-2m": 23,
-  "2-5m": 14,
+  "0-10s": 108,
+  "10-30s": 71,
+  "30-60s": 39,
+  "1-2m": 24,
+  "2-5m": 15,
   "5-10m": 4,
   "10m-plus": 1
  },
  "clicks": {
-  "0": 119,
-  "1": 26,
-  "2-3": 62,
+  "0": 126,
+  "1": 29,
+  "2-3": 64,
   "4-6": 18,
   "7-plus": 21
  },
  "os": {
-  "ios": 154,
+  "ios": 157,
   "android": 18,
-  "desktop": 54
+  "desktop": 64
  },
  "courses": [
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 48,
+   "opens": 51,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -124,7 +124,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 54,
+   "opens": 56,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -132,7 +132,7 @@
   {
    "id": "decisions",
    "name": "קבלת החלטות",
-   "opens": 87,
+   "opens": 89,
    "summaries": 19,
    "recordings": 0,
    "zoom": 0
@@ -174,12 +174,12 @@
   {
    "date": "2026-11-12",
    "totals": {
-    "people": 139,
-    "visits": 274,
-    "returning": 59,
-    "from-homescreen": 55,
-    "scrolled": 140,
-    "act-task-done": 41
+    "people": 146,
+    "visits": 287,
+    "returning": 61,
+    "from-homescreen": 58,
+    "scrolled": 144,
+    "act-task-done": 43
    },
    "acts": {
     "summary": 104,
@@ -191,13 +191,13 @@
     "gmail": 1,
     "copy-mail": 5,
     "install": 3,
-    "other": 11
+    "other": 12
    },
    "opens": {
-    "micro": 48,
+    "micro": 51,
     "change": 34,
-    "ob": 54,
-    "decisions": 87,
+    "ob": 56,
+    "decisions": 89,
     "ai": 37,
     "labor": 40,
     "ketubah": 34,
