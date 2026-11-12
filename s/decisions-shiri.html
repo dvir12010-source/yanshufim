@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסיכום של שירי · קבלת החלטות</title>
+<meta name="theme-color" content="#6d4aa3">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Suez+One&display=swap">
+<style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(../fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --course: #6d4aa3;
+  --bg: #f6f1e7; --surface: #fffdf8; --fg: #2a2520; --muted: #6b6256; --line: #e6dece;
+  --soft: color-mix(in srgb, var(--course) 12%, var(--surface));
+  --display: "Suez One", "Assistant", serif;
+  --title: "Tel Aviv Modernist", "Assistant", Arial, sans-serif;
+  --hand: "Gveret Levin", "Assistant", cursive;
+  --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 118px; }
+body { margin: 0; color: var(--fg); font-family: "Assistant", Arial, sans-serif; font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+/* top: who wrote it + lesson rail */
+.top { position: sticky; top: 0; z-index: 10; background: var(--course); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 6px 16px -12px rgba(0,0,0,.5); }
+.head { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.back { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; text-decoration: none; font-size: 22px; flex: none; }
+.back:hover { background: rgba(255,255,255,.14); }
+.who { min-width: 0; }
+.who b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; }
+.who span { font-size: 14px; opacity: .85; }
+.orig { margin-inline-start: auto; font-size: 14px; opacity: .85; white-space: nowrap; }
+.rail { display: flex; gap: 6px; padding-block: 0 10px; overflow-x: auto; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail a { flex: none; height: 40px; padding-inline: 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; text-decoration: none;
+  font-family: var(--title); font-weight: 700; font-size: 16px; background: rgba(255,255,255,.16); color: #fff; transition: background .2s, color .2s; }
+.rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
+.rail a.on { background: #fff; color: var(--course); }
+
+/* lesson divider */
+.lesson { padding-block: 22px 8px; }
+.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
+.divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
+.divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.divider .topic:empty { display: none; }
+
+/* pdf pages */
+.pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
+.pages img { width: 100%; height: auto; display: block; }
+
+/* word documents, plain theme: a clean white sheet like the pdf pages */
+body.plain .note { background: #fff; border-radius: 6px; box-shadow: var(--sheet); padding: 22px 24px; line-height: 1.7; }
+body.plain .note h3 { margin: 18px 0 6px; font-size: 19px; color: var(--course); }
+body.plain .note h3:first-child { margin-top: 0; }
+body.plain .note p { margin: 0 0 6px; }
+body.plain .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.plain .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.plain .tbl { overflow-x: auto; margin: 8px 0; }
+body.plain table { border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+body.plain td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.plain .note { padding: 16px; } }
+
+.next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
+.next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
+  color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
+.end { text-align: center; color: var(--muted); font-size: 15px; padding: 26px 0 60px; }
+
+/* ===== notebook theme (Nicole) ===== */
+.notebook body, body.notebook { --rule: 34px; }
+body.notebook .lesson { padding-top: 26px; }
+body.notebook .divider { position: relative; padding: 12px 16px 12px 16px; margin-bottom: 0; background: color-mix(in srgb, var(--course) 9%, #fffef9);
+  border-radius: 10px 10px 0 0; border: 1px solid color-mix(in srgb, var(--course) 22%, #e8dfcc); border-bottom: 0; }
+body.notebook .divider .num { font-family: var(--hand); font-size: 40px; }
+body.notebook .note {
+  position: relative; background-color: #fffef9; border: 1px solid #e8dfcc; border-radius: 0 0 10px 10px; box-shadow: var(--sheet);
+  padding: 8px 52px 26px 18px; line-height: var(--rule); font-size: 17px;
+  background-image:
+    linear-gradient(to left, transparent 38px, #e88c8c 38px, #e88c8c 39.5px, transparent 39.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), #d6e4ef calc(var(--rule) - 1px), #d6e4ef var(--rule));
+  background-position: 0 8px;
+}
+body.notebook .note::before { content: ""; position: absolute; top: 18px; bottom: 18px; right: 12px; width: 14px;
+  background: radial-gradient(circle at 7px 7px, #e9e1cf 5px, transparent 5.5px) 0 0 / 14px 68px repeat-y; }
+body.notebook .note h3 { margin: 0; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--course); line-height: var(--rule); }
+body.notebook .note h3 b, body.notebook .note h3 u { font-weight: 400; }
+body.notebook .note p { margin: 0; }
+body.notebook .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.notebook .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: calc(var(--rule) / 2 - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.notebook .note b { color: #1d2b33; }
+body.notebook .tbl { overflow-x: auto; margin: 6px 0; }
+body.notebook table { border-collapse: collapse; line-height: 1.4; font-size: 15px; background: #fff; }
+body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.notebook .note { padding-right: 44px; } }
+</style>
+</head>
+<body class="plain">
+<div class="top">
+  <div class="wrap">
+    <div class="head">
+      <a class="back" href="../#decisions" aria-label="חזרה לקורס">→</a>
+      <div class="who"><b>הסיכום של שירי</b><span>קבלת החלטות · שיעורים 1 עד 4</span></div>
+    </div>
+    <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a><a href="#l4" data-n="4">4</a></nav>
+  </div>
+</div>
+<main class="wrap">
+<section class="lesson" id="l1" data-n="1">
+  <header class="divider"><span class="num">שיעור 1</span><span class="date">21/10</span><span class="topic">קבלת החלטות מול חשיבת מכונה</span></header>
+  <div class="pages"><img src="img/decisions-shiri-0-p01a.webp" width="1101" height="1422" loading="lazy" alt=""><img src="img/decisions-shiri-0-p02a.webp" width="1101" height="517" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l2" data-n="2">
+  <header class="divider"><span class="num">שיעור 2</span><span class="date">28/10</span><span class="topic">טכניקות התחמקות מקבלת החלטות</span></header>
+  <div class="pages"><img src="img/decisions-shiri-0-p03a.webp" width="1101" height="980" loading="lazy" alt=""><img src="img/decisions-shiri-0-p04a.webp" width="1101" height="1482" loading="lazy" alt=""><img src="img/decisions-shiri-0-p05a.webp" width="1101" height="267" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l3" data-n="3">
+  <header class="divider"><span class="num">שיעור 3</span><span class="date">4/11</span><span class="topic">מודלים התנהגותיים לקבלת החלטות</span></header>
+  <div class="pages"><img src="img/decisions-shiri-0-p05b.webp" width="1101" height="1432" loading="lazy" alt=""><img src="img/decisions-shiri-0-p06a.webp" width="1101" height="1454" loading="lazy" alt=""><img src="img/decisions-shiri-0-p07a.webp" width="1101" height="460" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l4" data-n="4">
+  <header class="divider"><span class="num">שיעור 4</span><span class="date">11/11</span><span class="topic">המשך מודלים התנהגותיים, עיקרון פארטו</span></header>
+  <div class="note"><h3><u><b>קבלת החלטות</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור</b></u><u><b> </b></u><u><b>4</b></u></h3>
+<p>(המשך מודלים התנהגותיים לקבלת החלטות)</p>
+<p class="li" style="--l:0"><b>עיקרון פארטו (1923):</b></p>
+<p class="li" style="--l:0">בתופעות רבות 80% מהפעילות מקורם ב20% מהגורמים הפעילים.</p>
+<p class="li" style="--l:0">כלכלן איטלקי שפעל במאה ה20, במחקריו מצא עיקרון של 80% 20%. </p>
+<p class="li" style="--l:0">אם אני רוצה להסביר 80% מתופעה מסוימת, מכל הגורמים והמשתנים שיכולות להסביר 80% מהתופעה, 20% הם הגורמים הפעילים, בהם אני צריכה להשקיע.
+ברגע שהבנתי מהם הגורמים הפעילים – פתרתי 80% מהבעיה.</p>
+<p class="li" style="--l:0">סיבה שחוזרת על עצמה כמו למשל שילוט מתאים – זוהי סיבה שחוזרת על עצמה במרבית תאונות הדרכים. אם אשקיע בשילוט מתאים – אמנע את שיעור תאונות הדרכים ואפתור את רוב הבעיה שלי.</p>
+<p class="li" style="--l:0">צריך לזהות את ה20%. </p>
+<p class="li" style="--l:0"><b>שיקול דעת מקצועי</b><b>:</b></p>
+<p class="li" style="--l:0">מה שמצופה בכל תפקיד – לא משנה התחום.</p>
+<p class="li" style="--l:0">שני מקבלי החלטות שהכשרתם מקצועית וארוכה מאוד, אין ביטחון מלא שהאנשים הללו לא יטעו – אנליסטים ורופאים (מחקר ילדים וניתוח להוצאת שקדים).</p>
+<p class="li" style="--l:0"><u>הטיית שיעור הבסיס</u> – משפיעה לרעה על שיקול הדעת שלנו. מצב שבו אנחנו שופטים דברים כדומים על בסיס של תכונות שטחיות. אנחנו עושים זאת כל הזמן.</p>
+<p class="li" style="--l:0">אם עושים השוואות, צריך לקבל החלטות אחרות לחלוטין. לא להשוות את אותו אדם ביחס לאחרים הדומים לו. </p>
+<p class="li" style="--l:0">שיקול הדעת המקצועי נבנה בהתאם להשוואות ונדרש להיזהר.</p>
+<p class="li" style="--l:0"><b>שיקול דעת בניהול הזמן (</b><b>covey</b><b>,2004)</b><b>:</b></p>
+<p class="li" style="--l:0">להקדיש זמן לארבע הפעולות הבאות: </p>
+<p class="li" style="--l:0">פעולות דחופות וחשובות</p>
+<p class="li" style="--l:0">פעולות חשובות ולא דחופות</p>
+<p class="li" style="--l:0">פעולות דחופות ולא חשובות</p>
+<p class="li" style="--l:0">פעולות לא חשובות ולא דחופות</p>
+<p class="li" style="--l:0">ככל שאשקיע יותר בפעולות חשובות ולא דחופות, אני מונעת מהפעולה החשובה להפוך לדחופה. זהו ניהול זמן נכון.</p>
+<p class="li" style="--l:0"><b>שיקול דעת מקצועי (</b><b>Tichy ,Bennis</b><b>, 2007)</b>:</p>
+<p class="li" style="--l:0">בדקו אנשים בדרגים שונים, ראיינו אותם, עשו עליהם תצפיות ובדקו איך אותם אנשים בדרג סמכות בתוך הארגון מפעילים שיקול דעת מקצועי?</p>
+<p class="li" style="--l:0"><u>שני ממצאים</u> לניסוי:</p>
+<p class="li" style="--l:0">מהם הנושאים בהם נדרשת הפעלת שיקול דעת מקצועית? 
+<u>שלושה נושאים:</u></p>
+<p class="li" style="--l:0"><b>החלטות שנוגעות לאנשים</b> – קידום, פיטורים, עבודת צוות וכו&#x27;.</p>
+<p class="li" style="--l:0"><b>אסטרטגיה</b> – תוכניות עבודה אסטרטגיות.</p>
+<p class="li" style="--l:0"><b>ניהול משברים</b> – היעדר כוח אדם, משבר תדמיתי, תקציבי ועוד.</p>
+<p class="li" style="--l:0">אם נקבל החלטות שגויות לגבי אנשים – לא נוכל ליצור תוכניות עבודה אסטרטגיות ולא נדע לנהל משברים.</p>
+<p class="li" style="--l:0">לקבל החלטות חשובות לגבי אנשים – החשוב ביותר.</p>
+<p class="li" style="--l:0">איך למעשה להפעיל שיקול דעת מקצועי? איך לעשות את זה נכון?</p>
+<p><u>שלושה שלבים:</u></p>
+<p class="li" style="--l:0"><b>שלב ההכנה</b> – מצריך ראש גדול ופתוח. לקלוט אותות מהסביבה בתוך ומחוץ לארגון, לדעת לאיפה רוצים להגיע, מה העתיד אליו רוצים שהיחידה/הארגון יגיע, להיות מונעים מזה. דבר נוסף, לעשות הבחנה בין עיקר לטפל, לחתוך דרך מורכבות העניין. אם לא תהיה הפרדה, לא יינתן מענה לעיקר. לקבוע אבני דרך עיקריות. לגייס שותפים, בעלי עניין, לדאוג לדבר באותה השפה, לתמרץ ולהניע עובדים וכן לא להיות מקובע, לנצל רעיונות טובים מכל מקום.</p>
+<p class="li" style="--l:0"><b>שלב ההכרעה</b> – קבלת החלטה ברורה – כן או לא ולדעת להסביר מדוע קיבלתי את החלטה זו.</p>
+<p class="li" style="--l:0"><b>שלב הביצוע</b> – המנהלים צריכים להישאר מעורבים, לא מתערבים. לתת תמיכה, לבדוק מה קורה עם אבני הדרך שנקבעו, תקציבים, עמידה בלוחות זמנים וכן הזמנת משובים תוך כדי ולעשות התאמות נדרשות בהתאם.</p>
+<p class="li" style="--l:0">החשוב ביותר הוא השלב הראשון – ההכנה.</p>
+<p class="li" style="--l:0"><u>תהליך הפעלת שיקול דעת מקצועי:</u></p>
+<p class="li" style="--l:0"><b>לחוש ולזהות</b> – חושים מחודדים.</p>
+<p class="li" style="--l:0"><b>למסגר ולקרוא בשם</b> – מסגור חשוב מאוד.</p>
+<p class="li" style="--l:0"><b>לגייס ולהיערך</b> – לגייס משאבים ולהיערך לקראת קבלת ההחלטה. אם מתקשה לגייס משאבים, כוח אדם וכו&#x27; זה אומר שכנראה לא עשיתי נכון את השלב הקודם. לא גייסתי נכון ולא נערכתי נכון. </p>
+<p class="li" style="--l:0"><b>הכרעה</b> – קבלת ההחלטה והסבר מדוע קיבלתי אותה.</p>
+<p class="li" style="--l:0"><b>נעשה שזה יקרה</b> – לוודא שזה יקרה, על אף עיכובים. אם לא קורה כנראה שלא הסברתי דחיפות, לא הבנתי למה חשוב, לא עשיתי נכון את השלב הקודם.</p>
+<p class="li" style="--l:0"><b>למד והתאם את עצמך</b><b>.</b></p>
+<p class="li" style="--l:0"><b>הטייס האוטומטי (תיאור מצב ולא מודל </b><b>–</b><b> ארנולד, 2018):</b></p>
+<p class="li" style="--l:0">העדפות לא מודעות</p>
+<p class="li" style="--l:0">יעילות מנטאלית</p>
+<p class="li" style="--l:0">היעדר שליטה</p>
+<p class="li" style="--l:0">היעדר כוונה מודעת</p>
+<p class="li" style="--l:0">אנחנו לא חושבים על מה שאנחנו עושים.</p>
+<p class="li" style="--l:0">היומיום שלנו מורכב מהרבה טייסים אוטומטיים. הטייס האוט&#x27; זה חזרתיות על אותן התנהגותיות.</p>
+<p class="li" style="--l:0">החזרתיות נוחה. המוח עצלן ולא רוצה להתאמץ.</p>
+<p class="li" style="--l:0">משתמשים בו כי זה עוזר לנו לייעל את השימוש במשאבים קוגניטיביים. באפס מאמץ.</p>
+<p class="li" style="--l:0">מדובר בהרגל, הרבה פעמים לא מודעים לחזרתיות הזו ולא חושבים על זה.</p>
+<p class="li" style="--l:0">המוח מתנגד לשינויים, הדרך להתגבר על הטייס אוט&#x27; עוברת דרך מיקרו החלטות.</p>
+<h3><b>מיקרו החלטות</b></h3>
+<p class="li" style="--l:0">החלטה קטנה מזערית שלא מפעילה את ההתנגדות של המוח. לא מפעילה כוח רצון. עוברת מתחת לרדאר של המוח.</p></div>
+</section>
+<p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>
+</main>
+<script>
+const secs = [...document.querySelectorAll('.lesson')];
+const pills = [...document.querySelectorAll('.rail a')];
+// "next lesson" button at the end of every lesson but the last
+secs.forEach((s, i) => { if (secs[i + 1]) s.insertAdjacentHTML('beforeend', `<div class="next"><a href="#${secs[i + 1].id}">לשיעור ${secs[i + 1].dataset.n} ←</a></div>`); });
+const key = 'read:' + location.pathname;
+const mark = n => { pills.forEach(p => p.classList.toggle('on', p.dataset.n === n)); const on = pills.find(p => p.dataset.n === n); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); try { localStorage.setItem(key, n); } catch (e) {} };
+// the lesson being read = the last one whose header has passed under the top bar
+let last = null, raf = 0;
+const sync = () => { raf = 0; const line = innerHeight * 0.45; let cur = secs[0]; for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s; if (cur.dataset.n !== last) { last = cur.dataset.n; mark(last); } };
+addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+addEventListener('hashchange', sync);
+// back to where this reader stopped
+if (!location.hash) { let n = null; try { n = localStorage.getItem(key); } catch (e) {} const t = n && document.getElementById('l' + n); if (t && n !== secs[0].dataset.n) t.scrollIntoView(); }
+sync(); setTimeout(sync, 300);
+</script>
+</body>
+</html>

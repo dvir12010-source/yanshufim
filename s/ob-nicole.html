@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסיכום של ניקול · התנהגות ארגונית</title>
+<meta name="theme-color" content="#2f7d3b">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Suez+One&display=swap">
+<style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(../fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --course: #2f7d3b;
+  --bg: #f6f1e7; --surface: #fffdf8; --fg: #2a2520; --muted: #6b6256; --line: #e6dece;
+  --soft: color-mix(in srgb, var(--course) 12%, var(--surface));
+  --display: "Suez One", "Assistant", serif;
+  --title: "Tel Aviv Modernist", "Assistant", Arial, sans-serif;
+  --hand: "Gveret Levin", "Assistant", cursive;
+  --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 118px; }
+body { margin: 0; color: var(--fg); font-family: "Assistant", Arial, sans-serif; font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+/* top: who wrote it + lesson rail */
+.top { position: sticky; top: 0; z-index: 10; background: var(--course); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 6px 16px -12px rgba(0,0,0,.5); }
+.head { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.back { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; text-decoration: none; font-size: 22px; flex: none; }
+.back:hover { background: rgba(255,255,255,.14); }
+.who { min-width: 0; }
+.who b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; }
+.who span { font-size: 14px; opacity: .85; }
+.orig { margin-inline-start: auto; font-size: 14px; opacity: .85; white-space: nowrap; }
+.rail { display: flex; gap: 6px; padding-block: 0 10px; overflow-x: auto; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail a { flex: none; height: 40px; padding-inline: 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; text-decoration: none;
+  font-family: var(--title); font-weight: 700; font-size: 16px; background: rgba(255,255,255,.16); color: #fff; transition: background .2s, color .2s; }
+.rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
+.rail a.on { background: #fff; color: var(--course); }
+
+/* lesson divider */
+.lesson { padding-block: 22px 8px; }
+.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
+.divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
+.divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.divider .topic:empty { display: none; }
+
+/* pdf pages */
+.pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
+.pages img { width: 100%; height: auto; display: block; }
+
+/* word documents, plain theme: a clean white sheet like the pdf pages */
+body.plain .note { background: #fff; border-radius: 6px; box-shadow: var(--sheet); padding: 22px 24px; line-height: 1.7; }
+body.plain .note h3 { margin: 18px 0 6px; font-size: 19px; color: var(--course); }
+body.plain .note h3:first-child { margin-top: 0; }
+body.plain .note p { margin: 0 0 6px; }
+body.plain .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.plain .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.plain .tbl { overflow-x: auto; margin: 8px 0; }
+body.plain table { border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+body.plain td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.plain .note { padding: 16px; } }
+
+.next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
+.next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
+  color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
+.end { text-align: center; color: var(--muted); font-size: 15px; padding: 26px 0 60px; }
+
+/* ===== notebook theme (Nicole) ===== */
+.notebook body, body.notebook { --rule: 34px; }
+body.notebook .lesson { padding-top: 26px; }
+body.notebook .divider { position: relative; padding: 12px 16px 12px 16px; margin-bottom: 0; background: color-mix(in srgb, var(--course) 9%, #fffef9);
+  border-radius: 10px 10px 0 0; border: 1px solid color-mix(in srgb, var(--course) 22%, #e8dfcc); border-bottom: 0; }
+body.notebook .divider .num { font-family: var(--hand); font-size: 40px; }
+body.notebook .note {
+  position: relative; background-color: #fffef9; border: 1px solid #e8dfcc; border-radius: 0 0 10px 10px; box-shadow: var(--sheet);
+  padding: 8px 52px 26px 18px; line-height: var(--rule); font-size: 17px;
+  background-image:
+    linear-gradient(to left, transparent 38px, #e88c8c 38px, #e88c8c 39.5px, transparent 39.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), #d6e4ef calc(var(--rule) - 1px), #d6e4ef var(--rule));
+  background-position: 0 8px;
+}
+body.notebook .note::before { content: ""; position: absolute; top: 18px; bottom: 18px; right: 12px; width: 14px;
+  background: radial-gradient(circle at 7px 7px, #e9e1cf 5px, transparent 5.5px) 0 0 / 14px 68px repeat-y; }
+body.notebook .note h3 { margin: 0; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--course); line-height: var(--rule); }
+body.notebook .note h3 b, body.notebook .note h3 u { font-weight: 400; }
+body.notebook .note p { margin: 0; }
+body.notebook .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.notebook .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: calc(var(--rule) / 2 - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.notebook .note b { color: #1d2b33; }
+body.notebook .tbl { overflow-x: auto; margin: 6px 0; }
+body.notebook table { border-collapse: collapse; line-height: 1.4; font-size: 15px; background: #fff; }
+body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.notebook .note { padding-right: 44px; } }
+</style>
+</head>
+<body class="notebook">
+<div class="top">
+  <div class="wrap">
+    <div class="head">
+      <a class="back" href="../#ob" aria-label="חזרה לקורס">→</a>
+      <div class="who"><b>הסיכום של ניקול</b><span>התנהגות ארגונית · שיעורים 1, 4, 5</span></div>
+    </div>
+    <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l4" data-n="4">4</a><a href="#l5" data-n="5">5</a></nav>
+  </div>
+</div>
+<main class="wrap">
+<section class="lesson" id="l1" data-n="1">
+  <header class="divider"><span class="num">שיעור 1</span><span class="date">14/10</span><span class="topic">פתיחה, ראיה מערכתית, תחומי הפסיכולוגיה הארגונית</span></header>
+  <div class="note"><h3><u><b>התנהגות ארגונית</b></u><u><b> א&#x27;</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור 1</b></u></h3>
+<p class="li" style="--l:0">כללי</p>
+<p class="li" style="--l:0">בחינה</p>
+<p class="li" style="--l:0"> 19.01 יום ג&#x27; 16:00.</p>
+<p class="li" style="--l:0">שאלות רב ברירה.</p>
+<p class="li" style="--l:0">חומר פתוח.</p>
+<p class="li" style="--l:0">בחינה מרחוק.</p>
+<p class="li" style="--l:0">30 שאלות.</p>
+<p class="li" style="--l:0">סמינריון שנה ב&#x27; – ד&quot;ר דביר קווה בנושא פסיכולוגיה חיובית, ועוד 3 מרצים.</p>
+<p class="li" style="--l:0"><b>הקדמה</b></p>
+<p class="li" style="--l:0"><b>יישום הידע</b> – ראיה והבנה מערכתית, גישור על צורכי הפרט ביחס לצורכי הארגון.</p>
+<p class="li" style="--l:0">פסיכולוג ארגוני ויועץ ארגוני עושה אותו הדבר, הבדלים:</p>
+<p class="li" style="--l:0">תהליך הכשרה של פסיכולוג שונה מתהליך ההכשרה של היועץ.</p>
+<p class="li" style="--l:0">ליועץ לא נדרש הכשרה, התחום לא מפוקח ע&quot;י המדינה אז אין דרישות.</p>
+<p class="li" style="--l:0">התחום של ייעוץ כולל כמה תחומי עיסוק – הדרכה ופיתוח ארגוני, הנחיית קבוצות, אימון אישי/עסקי, הנחיית קבוצות, משאבי אנוש ועוד.</p>
+<p class="li" style="--l:0"><b>עיקרון הקיפוד</b> – איך למצוא את המקום הנכון בעסקים ובעשייה.</p>
+<p class="li" style="--l:0">מה אני אוהבת לעשות </p>
+<p class="li" style="--l:0">ממה אני יכולה להרוויח.</p>
+<p class="li" style="--l:0">במה יש לי יתרון יחסי על אחרים.</p>
+<p>החיבור של 3 החלקים הוא מה הכי טוב לי לעשות – עזרה למיקוד אנשים מעולם הקואצ&#x27;ינג.</p>
+<p class="li" style="--l:0">התמחות של פסיכולוגים ארגונים </p>
+<p class="li" style="--l:0"><b>מיון וברירה</b> – ברירה=מי מתאים לארגון, מיון= באיזה תפקיד לשים אותו בארגון (השמה)</p>
+<p class="li" style="--l:0"><b>OD</b><b> פיתוח ארגוני</b>:</p>
+<p class="li" style="--l:0">תחום אישי למנהלים חדשים/בכירים – שיח על הארגון ועל הקונפליקטים, דורש הבנה קלינית.</p>
+<p class="li" style="--l:0">התחום הארגוני – בחינת המבנה הארגוני, פיתוח תרבות ארגונית, סגנון הניהול.</p>
+<p class="li" style="--l:0"><b>הדרכה / הכשרה</b> – פיתוח מערכות הדרכה, פיתוח מיומנויות ניהול.</p>
+<p class="li" style="--l:0"><b>מחקר</b> – ביצוע מחקר שוק, ביצוע בחינת שביעות רצון בתוך הארגון, המחקר הוא החלק החשוב.</p>
+<p class="li" style="--l:0"><b>נושאים בסמסטר</b></p>
+<p class="li" style="--l:0"><b>ארגון</b> – תאוריות, מבנים ותהליכים בארגון.</p>
+<p class="li" style="--l:0"><b>למידה</b> – מודלים של למידה ארגונית ואישית, איך אני מבין את העולם ואיך אני מקבל החלטות.</p>
+<p class="li" style="--l:0"><b>מוטיבציה</b> – אילו צרכים מניעים אותנו להתנהגות, תאוריות לשימור, מוטיבציה כתהליך.</p>
+<p class="li" style="--l:0"><b>משימת אמצע בקורס</b> – תרגיל ייעוץ.</p>
+<p class="li" style="--l:0"><b>2 ספרים משלימי קורס</b>:</p>
+<p class="li" style="--l:0">התנהגות ארגונית – כל הספר חוץ מ2.6, 2.7.</p>
+<p class="li" style="--l:0">ניהול משאבי אנוש – יחידה 5 בלבד.</p>
+<p class="li" style="--l:0"><b>תאוריה</b></p>
+<p class="li" style="--l:0">המקצוע מורכב מהתנהגות ומארגון ומוקד המחקר והלמידה ינדוד בין שניהם.</p>
+<p class="li" style="--l:0">הפסיכולוגיה החברתית היא זרם שמנשה להבין את ההתנהגות של הבן אדם היא פונקציה של האדם והסביבה שלו.</p>
+<p class="li" style="--l:0">אחד הפסיכולוגים החברתיים והראשונים הוא קורט לוין.</p>
+<p class="li" style="--l:0">בא לידי ביטוי בארגונים שמישהו לא מצליח להביא את היכולות שלו לידי ביטוי בתוך הארגון אולי בגלל הסביבה ואולי בגלל המנהל – נדרשת התאמה.</p>
+<p class="li" style="--l:0">חוקרים נוספים בולטים:</p>
+<p class="li" style="--l:0">סולומון אש – חקר קונפורמיות.</p>
+<p class="li" style="--l:0">מילגרם – ציות לסמכות (שוקים חשמלים)</p>
+<p class="li" style="--l:0">פיליפ זימברדו– ניסוי הכלא בסטודנטים.</p>
+<p class="li" style="--l:0">מאיזה תחומים שואב המקצוע התנהגות ארגונית מהידע :</p>
+<p class="li" style="--l:0">פסיכולוגיה</p>
+<p class="li" style="--l:0">סוציולוגיה חברתית</p>
+<p class="li" style="--l:0">אנטרופולוגיה</p>
+<p class="li" style="--l:0">מדע המדינה</p>
+<p class="li" style="--l:0">תקשורת </p>
+<p class="li" style="--l:0">מונחים חשובים</p>
+<p class="li" style="--l:0">מדעי הטבע </p>
+<div class="tbl"><table><tr><td></td><td>מדע ניוטוני</td><td>מדע פוסט ניוטוני</td></tr><tr><td>אמפיריקה</td><td>חוק המדידה, מה שניתן למדוד (הכנסות, הוצאות..) מתייחסים מול מה שלא ניתן למדוד (רגשות, מדד ביטחון).
+</td><td>התנגדות לאמפיריקה – מה שלא מדיד הוא כזה רק כי אין לנו איך למדוד אותו, אבל הוא חשוב.
+</td></tr><tr><td>מסה</td><td>הגודל של משהו במרחב, ככל שהמסה יותר גדולה יש לו יותר השפעה על המרחב.
+</td><td>התנגדות למסה – לפעמים דברים קטנים הם בעלי השפעה הרבה יותר מאשר דברים גדולים.
+</td></tr></table></div></div>
+</section>
+<section class="lesson" id="l4" data-n="4">
+  <header class="divider"><span class="num">שיעור 4</span><span class="date">4/11</span><span class="topic">בירוקרטיה</span></header>
+  <div class="note"><h3><u><b>התנהגות ארגונית</b></u><u><b> א&#x27;</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור </b></u><u><b>4</b></u></h3>
+<h3><b>בירוקרטיה</b></h3>
+<p class="li" style="--l:0"><b>בירוקרטיה אידיאלית </b></p>
+<p class="li" style="--l:0"><b>חוקים וכללים פורמליים</b> – שימוש<b> </b>בקווי יסוד כתובים ע&quot;מ לשלוט בהתנהגות של כלל העובדים</p>
+<p class="li" style="--l:0"><b>טיפול אחיד ובלתי פרטני</b> – ללא פרוטקציות</p>
+<p class="li" style="--l:0"><b>חלוקת עבודה</b> <b>–</b> חלוקת משימות וביצוע ע&quot;י עובדים בעלי הכשרה מתאימה</p>
+<p class="li" style="--l:0"><b>מבנה היררכי</b> <b>–</b><b> </b>מסודר ע&quot;פ רמות סמכות ברורות.</p>
+<p class="li" style="--l:0"><b>חלוקת סמכויות</b> <b>–</b><b> </b>ע&quot;פ הרמה ההיררכית של אותו עובד</p>
+<p class="li" style="--l:0"><b>מחויבות ארוכת טווח למקום העבודה</b> – מחויבות בשאיפה לאורך כל חיי העובדים</p>
+<p class="li" style="--l:0"><b>רציונאליות</b> <b>–</b><b> </b>ארגון המחויב לקדם את יעדיו באופן אפקטיבי ויעיל.</p>
+<p>ארגון מופרט הוא יעיל יותר, ארגון ממשלתי הוא בהכרח פחות יעיל.</p>
+<p class="li" style="--l:0"><b>בירוקרטיה בישראל </b></p>
+<p class="li" style="--l:0"><b>עודף בירוקרטיה</b><b> </b><b>–</b><b> עומס  וכפילות בירוקרטי</b><b>ה</b><b>.</b></p>
+<p class="li" style="--l:0"><b>עודף </b><b>רגולציה </b><b>–</b><b> שיפור הרגולציה (צמצום) יוסיף לתוצר הלאומי, גורם לייעו</b><b>ל</b><b>.</b></p>
+<p class="li" style="--l:0"><b>עודפי גבייה</b> – כדאי לגופים האלה לייצר עודף = הממשלה יכולה להשתמש בכסף בסוף השנה.</p>
+<p class="li" style="--l:0"><b>תיאוריות להסבר לפגעי</b><b> הבירוקרטיה</b><b> </b><b>–</b><b> חוסר היעילות </b></p>
+<p class="li" style="--l:0"><b>עמוס כץ/ מבוא לתורת הפעילות</b> – פעילת + ביצוע = עבודה</p>
+<p class="li" style="--l:0">ביצוע – הרכיב החיובי, כל דבר שמקדם את הארגון לעבר המטרה</p>
+<p class="li" style="--l:0">פעילות – הרכיב השלילי, כל מה שלא קשור לאפקטיביות הארגון וקשור לקידום אינטרסים, יוקרה וכדו&#x27;.</p>
+<h3><b>תמיד יהיה מתח בין העובדים להנהלה </b><b>–</b><b> העובדים ירצו יותר </b><b>פעילות </b><b>והנהלה יותר </b><b>ביצוע</b><b>.</b></h3>
+<h3><b>האינטרס הסמוי של הפעילות הוא תקציבים ומשאבים.</b></h3>
+<p class="li" style="--l:0">עקרונות לפעילות מוגברת </p>
+<p class="li" style="--l:0"><b>עקרון הכתיבה</b> – לא תיתן בירוקרטיה ללא ניירת, ולא תיתכן פעילות ללא בירוקרטיה.</p>
+<p class="li" style="--l:0"><b>עקרון הכפילות</b> – כפל בביצוע המשימה, כפל בטיפול, כפל בתפקידים.</p>
+<p class="li" style="--l:0"><b>עקרון ההיסוס</b> – ברגע שיש שאלה בנוגע לפירוש של ההנחיות, צריך לעצור ולהעביר את ההיסוס למעלה.</p>
+<p class="li" style="--l:0">טכניקות ליצירת פעילות </p>
+<p class="li" style="--l:0"><b>ועדות</b> – חוסר פתרון בעיות תוך הגדלת כמות הניירת.</p>
+<p class="li" style="--l:0"><b>ישיבות והדרכות </b>– כל זמן שצריך לתאם, להסביר, להנחות, לדווח.</p>
+<p class="li" style="--l:0"><b>סיורים וביקורות</b></p>
+<p class="li" style="--l:0"><b>סקרים ודו&quot;חות </b><b>–</b><b> </b>מגביר חומר כתוב, מעכב ביצוע ומגביר פעילות.</p>
+<p class="li" style="--l:0"><b>חוק פרקינסון</b> – הפירמידה המתרוממת</p>
+<p class="li" style="--l:0"><b>מהות החוק - העבודה מתרחבת בהתאם למידת הזמן המוקצב להשלמתה מלכתחילה.</b></p>
+<p>בהנחה שהעבודה גמישה ביחס לזמן הנדרש לעשות אותה אז קיים יחס מועט (אם בכלל) בין העבודה שצריך לעשות למספר העובדים שבידיהם היא מופקדת.</p>
+<p class="li" style="--l:0">הטבע האנושי הא דחייני – דחוף / חשוב.</p>
+<p class="li" style="--l:0"><b>עקרונות מניעים לחוק</b><b> </b></p>
+<p class="li" style="--l:0">רצון הפקיד להגדיל את מספר הכפופים לו אך לא את מספר המתחרים לו – <b>הורדת העומס בלי חשש לפגיעה בקידום.</b></p>
+<p class="li" style="--l:0">ביזור המשימות לכפופים של ההפקיד גורם להגדלת מספר הפקידים שמבצעים את המשימה (שמירת הקרדיט לביצוע).</p>
+<p class="li" style="--l:0">בקשת עזרה מעמית לעבודה יכול לגרום ל&#x27;ירידה בערך&#x27; שהפקיד בעיניי הממונים.</p>
+<p class="li" style="--l:0">טיבם של פקידים שהם מייצרים עבודה זה לזה.</p>
+<p class="li" style="--l:0"><b>העיקרון הפיטרי</b></p>
+<p class="li" style="--l:0"><b>מהות העיקרון </b><b>–</b><b> בהיררכיה נוטה כל עובד לעלות לדרגת חוסר הכישרון שלו.</b></p>
+<p>למעלה – יש חוסר יעילות, חוסר כישרון, ניהול וביצוע לקויים של הארגון.</p>
+<p class="li" style="--l:0">מי שמוכשר לתפקיד שהוא עושה – יקודם הלאה | מי שלא מוכשר לתפקיד יישאר שם.</p>
+<p class="li" style="--l:0">מקדם היעילות של הארגון:</p>
+<p class="li" style="--l:0"><b>נוספים:</b></p>
+<p class="li" style="--l:0">המנהל קובע את מידת הכישרון.</p>
+<p class="li" style="--l:0">כשמגיעים לראש הארגון ועדים מוכשרים – עוברים לארגון אחר.</p>
+<p class="li" style="--l:0">פיטורים מגיעים או בחוסר כישרון מוחלט או בכישרון מאוד (פיטורים בגלל פחד של המנהל מתחרות).</p>
+<h3><b>העקרון הפיטרי אומר שאי אפשר לברוח מחוסר היעילות </b></h3></div>
+</section>
+<section class="lesson" id="l5" data-n="5">
+  <header class="divider"><span class="num">שיעור 5</span><span class="date">11/11</span><span class="topic">שיטות ניהול ישנות מול חדשות, ניהול מדעי</span></header>
+  <div class="note"><h3><u><b>התנהגות ארגונית</b></u><u><b> א&#x27;</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור </b></u><u><b>5</b></u></h3>
+<h3><b>תפיסות ניהול ישנות מול חדשות</b></h3>
+<p><b>תחושת בטן טובה </b>– הטיה לטובת העצמי/ סטיית האישוש – אנחנו זוכרים יותר טוב את המקרים שבהם תחושת הבטן הייתה חיובית.</p>
+<p class="li" style="--l:0"><b>ניהול מדעי</b>, פרדריק טיילור – סבר כי יש ליישם את הגישה המדעית בתחומי הניהול והיצור. שיטה ישנה.    מדע – עקרון ניוטוני, מה שמדיד נחשב. </p>
+<p class="li" style="--l:0">עקרונות הניהול המדעי הם:</p>
+<p class="li" style="--l:0">מנהלים צריכים להיות אחראים ולנהל את העבודה כולה – להשאיר את העובד את החלק הביצועי בלבד.</p>
+<p class="li" style="--l:0">בגלל שהעובד הוא רק מבצע על המנהל להיות למומחה בעבודתם של כפיפיהם.</p>
+<p class="li" style="--l:0">תצפית – מדידה – ניתוח. לצורך מדידה יש לבצע תצפית, לאחר קבלת המדידה היא מנותחת (ניתוח זמן ותנועה).</p>
+<p class="li" style="--l:0">לבחור את האדם המתאים ביותר לתפקיד.</p>
+<p class="li" style="--l:0">יש להכשיר את העובד לבצע את תפקידו כהלכה.</p>
+<p class="li" style="--l:0">יש לעקוב אחר תפקוד העובדים בשביל לוודא את רמת הביצוע, ולאוג בהעלמת הסחות הדעת והמכשולים.</p>
+<p class="li" style="--l:0">שכר דיפרנציאלי – מי שטוב יקבל יותר, תמריץ תמידי להשתפר.</p>
+<p>טיילור היה בעד לייעל את התהליך – ביצוע בלבד ללא פעילות.</p>
+<p class="li" style="--l:0">הנרי פורד היה מתומכי הניהול המדעי &quot;כשאתם מגיעים תשאירו את המוח בחוץ&quot; (לפועלים ולא למנהלים).</p>
+<p class="li" style="--l:0"><b>ניסוי הות&#x27;ורן</b> – ניסוי לבחינת הניהול המדעי</p>
+<p class="li" style="--l:0">הניסוי בחן את השפעות הגורמים הפיזיים על התפוקה (טמפרטורה, לחות, לוחות זמנים).</p>
+<p class="li" style="--l:0">ההשערה הייתה שיש השפעות לשינויים בגורמים האלה.</p>
+<p class="li" style="--l:0">התוצאות היו הפוכות מההשערה = <b>אפקט הות&#x27;ורן</b><b>, </b>בלי קשר לשינויים בתנאים התפוקה רק גדלה.</p>
+<p class="li" style="--l:0">כל שינוי גורם לאנרגיה חדשה במערכת, גם שינוי לרעה. יוצר צורך לאדפטציה מצד העובדות ועליית המורל.</p>
+<p class="li" style="--l:0"><b>הניסוי נוגד את טיילור</b>, כי אותם עובדים שנגרמה להם שינוי לרעה בתנאים היו יותר פרודוקטיביים, והציר האנושי החיבור בין העובדות גרם לפרודוקטיביות העובדים (ולא רק שכר).</p>
+<p class="li" style="--l:0"><b>קורט לוין </b><b>–</b><b> ניסוי בניהול סגנונות </b><b>עבודה</b>, בחינת אפקטיביות הסגנונות.</p>
+<p class="li" style="--l:0"><b>סמכותי</b> – מחליט לבד, לא לוקח חלק בפעילות הקבוצה.</p>
+<p class="li" style="--l:0"><b>דמוקרטי</b> – עודד את הקבוצה לתכנן ביחד איתם ולהגיע להחלטה משותפת, נטל חלק בפעילות הקבוצה.</p>
+<p class="li" style="--l:0"><b></b><b>לא מתערב (שב ונח)</b> – הענקת חופש מוחלט לתכנן ולבצע, ללא השתתפות.</p>
+<p class="li" style="--l:0">לכל סגנון יש יתרונות וחסרונות.</p>
+<p class="li" style="--l:0"><b>אסכולת יחסי האנוש</b><b>, </b>מקגרגור – הזנחת שיטות הניהול הישנות (סמכותניות) ומעבר לשיטות דמוקרטיות.</p>
+<p class="li" style="--l:0"><b>גישת תאוריי</b><b>ת</b><b> </b><b>X</b><b> -</b>אנשים עצלים ועובדים רק בשביל הכסף, נדרש לבדוק את העובדים בכל הזמן.</p>
+<p class="li" style="--l:0"><b></b><b>גישת תאוריית </b><b>Y</b><b> </b><b>–</b><b> </b>לאנשים יש צורך במימוש עצמי, יש לעובדים צרכים נוספים מלבד כסף, צריך להעצים את העובדים כדי שיעבדו הכי טוב.</p></div>
+</section>
+<p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>
+</main>
+<script>
+const secs = [...document.querySelectorAll('.lesson')];
+const pills = [...document.querySelectorAll('.rail a')];
+// "next lesson" button at the end of every lesson but the last
+secs.forEach((s, i) => { if (secs[i + 1]) s.insertAdjacentHTML('beforeend', `<div class="next"><a href="#${secs[i + 1].id}">לשיעור ${secs[i + 1].dataset.n} ←</a></div>`); });
+const key = 'read:' + location.pathname;
+const mark = n => { pills.forEach(p => p.classList.toggle('on', p.dataset.n === n)); const on = pills.find(p => p.dataset.n === n); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); try { localStorage.setItem(key, n); } catch (e) {} };
+// the lesson being read = the last one whose header has passed under the top bar
+let last = null, raf = 0;
+const sync = () => { raf = 0; const line = innerHeight * 0.45; let cur = secs[0]; for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s; if (cur.dataset.n !== last) { last = cur.dataset.n; mark(last); } };
+addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+addEventListener('hashchange', sync);
+// back to where this reader stopped
+if (!location.hash) { let n = null; try { n = localStorage.getItem(key); } catch (e) {} const t = n && document.getElementById('l' + n); if (t && n !== secs[0].dataset.n) t.scrollIntoView(); }
+sync(); setTimeout(sync, 300);
+</script>
+</body>
+</html>

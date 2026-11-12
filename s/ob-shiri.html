@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסיכום של שירי · התנהגות ארגונית</title>
+<meta name="theme-color" content="#2f7d3b">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Suez+One&display=swap">
+<style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(../fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --course: #2f7d3b;
+  --bg: #f6f1e7; --surface: #fffdf8; --fg: #2a2520; --muted: #6b6256; --line: #e6dece;
+  --soft: color-mix(in srgb, var(--course) 12%, var(--surface));
+  --display: "Suez One", "Assistant", serif;
+  --title: "Tel Aviv Modernist", "Assistant", Arial, sans-serif;
+  --hand: "Gveret Levin", "Assistant", cursive;
+  --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 118px; }
+body { margin: 0; color: var(--fg); font-family: "Assistant", Arial, sans-serif; font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+/* top: who wrote it + lesson rail */
+.top { position: sticky; top: 0; z-index: 10; background: var(--course); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 6px 16px -12px rgba(0,0,0,.5); }
+.head { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.back { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; text-decoration: none; font-size: 22px; flex: none; }
+.back:hover { background: rgba(255,255,255,.14); }
+.who { min-width: 0; }
+.who b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; }
+.who span { font-size: 14px; opacity: .85; }
+.orig { margin-inline-start: auto; font-size: 14px; opacity: .85; white-space: nowrap; }
+.rail { display: flex; gap: 6px; padding-block: 0 10px; overflow-x: auto; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail a { flex: none; height: 40px; padding-inline: 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; text-decoration: none;
+  font-family: var(--title); font-weight: 700; font-size: 16px; background: rgba(255,255,255,.16); color: #fff; transition: background .2s, color .2s; }
+.rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
+.rail a.on { background: #fff; color: var(--course); }
+
+/* lesson divider */
+.lesson { padding-block: 22px 8px; }
+.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
+.divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
+.divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.divider .topic:empty { display: none; }
+
+/* pdf pages */
+.pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
+.pages img { width: 100%; height: auto; display: block; }
+
+/* word documents, plain theme: a clean white sheet like the pdf pages */
+body.plain .note { background: #fff; border-radius: 6px; box-shadow: var(--sheet); padding: 22px 24px; line-height: 1.7; }
+body.plain .note h3 { margin: 18px 0 6px; font-size: 19px; color: var(--course); }
+body.plain .note h3:first-child { margin-top: 0; }
+body.plain .note p { margin: 0 0 6px; }
+body.plain .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.plain .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.plain .tbl { overflow-x: auto; margin: 8px 0; }
+body.plain table { border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+body.plain td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.plain .note { padding: 16px; } }
+
+.next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
+.next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
+  color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
+.end { text-align: center; color: var(--muted); font-size: 15px; padding: 26px 0 60px; }
+
+/* ===== notebook theme (Nicole) ===== */
+.notebook body, body.notebook { --rule: 34px; }
+body.notebook .lesson { padding-top: 26px; }
+body.notebook .divider { position: relative; padding: 12px 16px 12px 16px; margin-bottom: 0; background: color-mix(in srgb, var(--course) 9%, #fffef9);
+  border-radius: 10px 10px 0 0; border: 1px solid color-mix(in srgb, var(--course) 22%, #e8dfcc); border-bottom: 0; }
+body.notebook .divider .num { font-family: var(--hand); font-size: 40px; }
+body.notebook .note {
+  position: relative; background-color: #fffef9; border: 1px solid #e8dfcc; border-radius: 0 0 10px 10px; box-shadow: var(--sheet);
+  padding: 8px 52px 26px 18px; line-height: var(--rule); font-size: 17px;
+  background-image:
+    linear-gradient(to left, transparent 38px, #e88c8c 38px, #e88c8c 39.5px, transparent 39.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), #d6e4ef calc(var(--rule) - 1px), #d6e4ef var(--rule));
+  background-position: 0 8px;
+}
+body.notebook .note::before { content: ""; position: absolute; top: 18px; bottom: 18px; right: 12px; width: 14px;
+  background: radial-gradient(circle at 7px 7px, #e9e1cf 5px, transparent 5.5px) 0 0 / 14px 68px repeat-y; }
+body.notebook .note h3 { margin: 0; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--course); line-height: var(--rule); }
+body.notebook .note h3 b, body.notebook .note h3 u { font-weight: 400; }
+body.notebook .note p { margin: 0; }
+body.notebook .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.notebook .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: calc(var(--rule) / 2 - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.notebook .note b { color: #1d2b33; }
+body.notebook .tbl { overflow-x: auto; margin: 6px 0; }
+body.notebook table { border-collapse: collapse; line-height: 1.4; font-size: 15px; background: #fff; }
+body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.notebook .note { padding-right: 44px; } }
+</style>
+</head>
+<body class="plain">
+<div class="top">
+  <div class="wrap">
+    <div class="head">
+      <a class="back" href="../#ob" aria-label="חזרה לקורס">→</a>
+      <div class="who"><b>הסיכום של שירי</b><span>התנהגות ארגונית · שיעורים 1 עד 5</span></div>
+    </div>
+    <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a><a href="#l4" data-n="4">4</a><a href="#l5" data-n="5">5</a></nav>
+  </div>
+</div>
+<main class="wrap">
+<section class="lesson" id="l1" data-n="1">
+  <header class="divider"><span class="num">שיעור 1</span><span class="date">14/10</span><span class="topic">פתיחה, ראיה מערכתית, תחומי הפסיכולוגיה הארגונית</span></header>
+  <div class="pages"><img src="img/ob-shiri-0-p01a.webp" width="1101" height="1359" loading="lazy" alt=""><img src="img/ob-shiri-0-p02a.webp" width="1101" height="433" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l2" data-n="2">
+  <header class="divider"><span class="num">שיעור 2</span><span class="date">21/10</span><span class="topic">מונחים ממדעי הטבע, מדע ניוטוניאני ופוסט ניוטוניאני</span></header>
+  <div class="pages"><img src="img/ob-shiri-0-p02b.webp" width="1101" height="989" loading="lazy" alt=""><img src="img/ob-shiri-0-p03a.webp" width="1101" height="1048" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l3" data-n="3">
+  <header class="divider"><span class="num">שיעור 3</span><span class="date">28/10</span><span class="topic">מהנדסה: תורת המערכות הכללית</span></header>
+  <div class="pages"><img src="img/ob-shiri-0-p04a.webp" width="1101" height="1265" loading="lazy" alt=""><img src="img/ob-shiri-0-p05a.webp" width="1101" height="1484" loading="lazy" alt=""><img src="img/ob-shiri-0-p06a.webp" width="1101" height="1639" loading="lazy" alt=""><img src="img/ob-shiri-0-p07a.webp" width="1101" height="293" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l4" data-n="4">
+  <header class="divider"><span class="num">שיעור 4</span><span class="date">4/11</span><span class="topic">בירוקרטיה</span></header>
+  <div class="pages"><img src="img/ob-shiri-0-p08a.webp" width="1101" height="680" loading="lazy" alt=""><img src="img/ob-shiri-0-p09a.webp" width="1101" height="1412" loading="lazy" alt=""><img src="img/ob-shiri-0-p10a.webp" width="1101" height="662" loading="lazy" alt=""></div>
+</section>
+<section class="lesson" id="l5" data-n="5">
+  <header class="divider"><span class="num">שיעור 5</span><span class="date">11/11</span><span class="topic">שיטות ניהול ישנות מול חדשות, ניהול מדעי</span></header>
+  <div class="note"><h3><u><b>התנהגות ארגונית א&#x27;</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור</b></u><u><b> </b></u><u><b>5</b></u></h3>
+<h3><u><b>שיטות ניהול ישנות מול שיטות ניהול חדשות:</b></u></h3>
+<p class="li" style="--l:0"><u>ניהול מדעי </u><u>–</u><u>  </u><u>(Scientific Management)</u><u>:</u></p>
+<p class="li" style="--l:0">פרדריק טיילור סבר כי יש ליישם את הגישה המדעית בתחומי הניהול והייצור, כלומר לקח את המדע וגייס אותו לתעשייה.</p>
+<p class="li" style="--l:0">נדרש לבצע תצפית ומדידה – וכך על סמך נתונים נוכל לקחת החלטות מושכלות יותר.</p>
+<p class="li" style="--l:0">משהו לא צפוי שקורה בניסוי – נקרא רעש. חוקר יכול לתצפת על אותו רעש ולהפוך ניסוי לאחר בהתאם לממצאים שמקבל (כמו מה שקרה בגילוי אנטיביוטיקה).</p>
+<p class="li" style="--l:0">חוקר טוב הוא חוקר שמתצפת, לוקח תופעה ששווה לבדוק אותה ומודד.</p>
+<p class="li" style="--l:0"><b>עקרונות הניהול המדעי:</b></p>
+<p class="li" style="--l:0">מנהלים צריכים להיות אחראיים על ארגון העבודה כולה. להשאיר בידי העובד רק את החלק הביצועי. (מנהל שעובד לפי השיטה של טיילור, לא ירצה לדוג&#x27; הצעות לייעול מהעובד שלו).</p>
+<p class="li" style="--l:0">מנהלים צריכים להיות מומחים בעבודתם של כפיפיהם.</p>
+<p class="li" style="--l:0">שימוש בשיטות מדעיות על מנת למדוד ולקבוע את הדרך לבצע כל מטלת עבודה (ניתוח זמן ותנועה).</p>
+<p class="li" style="--l:0">לבחור את האדם המתאים ביותר לביצוע התפקיד.</p>
+<p class="li" style="--l:0">יש להכשיר את העובד לבצע את תפקידו כהלכה.</p>
+<p class="li" style="--l:0">לעקוב אחר תפקוד העובדים על מנת לוודא שהביצוע כמצופה ולדאוג להעלמת הסחות ומכשולים.</p>
+<p class="li" style="--l:0">לתגמל עובדים בשכר דיפרנציאלי ולא בשכר שווה וגלובאלי. מי שטוב – יקבל יותר וכך יהיה להם תמריץ תמידי להשתפר.</p>
+<p class="li" style="--l:0">בדיקות שעשו אל מול העקרון של טיילור:</p>
+<p class="li" style="--l:0"><b>הנרי פורד (1863-1947) </b><b>–</b> &quot;כשאתם מגיעים לעבודה, תחנו את המוח בחוץ&quot;. <u>מסכים עם טיילור.</u></p>
+<p class="li" style="--l:0"><b>ניסויי </b><b>הות</b><b>&#x27;</b><b>ורן</b><b> (1927-1932)</b> -  חברת החשמל המערבית לציוד חשמלי הרכיבה מכשירי טלפון וסיפקה אותם לחברת האם שלה – בל.</p>
+<p class="li" style="--l:0">הניסוי הראשון בוצע על קבוצה של חמש פועלות אשר הופרדו לצורך המחקר מן המחלקה שעבדו בה. </p>
+<p class="li" style="--l:0">מחקרים אלו באו מכיוון טיילוריסטי והמשיכו מחקר קודם שבדק את השפעתם של גורמים שונים על תהליך הייצור והתפוקה כגון: טמפרטורה, לחות, זמני מנוחה וכו&#x27;.</p>
+<p class="li" style="--l:0">ההשערות היו ששינוי בתנאים הפיזיים ישפיע לטובה או לרעה על תפוקת העובדות לפי כיוון השינוי.</p>
+<p class="li" style="--l:0">תוצאות – הביאו למונח אפקט הות&#x27;ורן. התברר כי בלי קשר לשינויים שהונהגו, גדלה התפוקה כל הזמן ועמה מורל העובדות.</p>
+<p class="li" style="--l:0">היו אצלן פחות היעדרויות, יותר שביעות רצון מהעבודה והחברות, גילו נכונות שהלכה וגדלה לעזרה הדדית וקיימו מפגשים חברתיים גם לאחר שעות העבודה.</p>
+<p class="li" style="--l:0">ניסוי זה היה <u>נגד העיקרון של טיילור.</u></p>
+<p class="li" style="--l:0">מלאכתו של טיילור &quot;חיה ובועטת&quot; עד היום... שכר דיפרנציאלי, תנאים אופטימליים ועוד.</p>
+<p class="li" style="--l:0"><u>סגנונות ניהול</u><u>:</u></p>
+<p class="li" style="--l:0">משתף (דמוקרטי) אל מול קובע עצמאית (סמכותני).</p>
+<p class="li" style="--l:0"><u>קורט לוין ושות&#x27; </u><u>–</u><u> בדקו שלושה סגנונות:</u></p>
+<p class="li" style="--l:0"><b>סמכותי</b> - מחליט לבד, חילק הוראות לילדים ולא השתתף בפעילות הקבוצה.</p>
+<p class="li" style="--l:0"><b>דמוקרטי</b> – עודד את הקבוצה לתכנן יחד איתו ולהגיע להחלטה משותפת, נטל חלק בפעולות הקבוצה.</p>
+<p class="li" style="--l:0"><b>לא מתערב, שב והנח</b> - העניק לילדים חופש מלא לתכנן ולהחליט בעצמם, מיעט להשתתף בפעילותם.</p>
+<p class="li" style="--l:0">תוצאות הניסוי במילות המרצה:</p>
+<p class="li" style="--l:0">אם אתה רוצה תפוקות בזמן הקצר ואין לך ברירה אתה צריך להיות סמכותני ונעים כמובן.</p>
+<p class="li" style="--l:0">המחיר – להשקיע בטיפוח, לטפל באקלים תוקפני וכו&#x27;.</p>
+<p class="li" style="--l:0">אם יש זמן – אתה יכול לעשות את זה בצורה דמוקרטית וכך לקבל עובדים מעורבים ובעלי דעות.</p>
+<p class="li" style="--l:0"><u>The Human Side of Enterprise</u><u> (דאגלס מקגרגור, 1960):</u></p>
+<p class="li" style="--l:0">לימד בMIT וקידם את <b>אסכולת יחסי האנוש</b>.</p>
+<p class="li" style="--l:0">כבר משם סיפרו שניתן לראות מהו הדגש שמקגרגור מבקש לשים בפנייתו אל מנהלים וראשי מפעלים/ארגונים.</p>
+<p class="li" style="--l:0">למרות העדפתו הברורה של מקגרגור בתיאוריה Y ניתן לראות כי עדיין קיימים מנהלים רבים המתנהגים לפי תיאוריה X, וייתכן כי עם עובדים מסוימים או בתחומי תעשייה שונים, יש עדיין מקום לפעול על פיה. </p>
+<p class="li" style="--l:0"><u></u><u>דאגלס מקגרגור</u><u> </u><u>–</u><u> תיאוריה </u><u>X</u><u> ותיאוריה </u><u>Y</u></p>
+<p class="li" style="--l:0">שיטה דמוקרטית יותר. </p>
+<p class="li" style="--l:0"><b>תאוריה </b><b>X</b><b> </b><b>(מסורתית)</b><b> </b><b>–</b> תקופה שבה המהפכה התעשייתית פעלה והתחילו להעסיק יותר אנשים. התאגיד מקדם אג&#x27;נדה אבל העובד עושה משהו קטן ופשוט, אין מוטיבציה למעט המשכורת.</p>
+<p>תאוריה שאומרת שאנשים עצלנים מטבעם. גישה של חוסר אמון. תמיד צריך לבדוק את העובדים.</p>
+<p class="li" style="--l:0"><b>תאוריה </b><b>Y</b><b> (מודרנית)</b> – לאנשים יש צרכים וחלק מהם זה מימוש עצמי. הגישה כולה אומרת כי יש עניין גבוה בעבודה, אחרת העובד היה הולך. הארגון עוזר לך להגשים את עצמך. הגישה מקבלת ומקדמת. המנהל צריך להעצים את העובדים שלו, הם יעבדו טוב כשהוא ייתן הכרה וכלים לעבוד איתם.</p>
+<p><u>לסיכום:</u></p>
+<p class="li" style="--l:0">טיילור – מדעי. ליצור תצפית ומדידה על העובדים כדי שתדע לנהל כמו שצריך ולתמרץ בשכר דיפרנציאלי.</p>
+<p class="li" style="--l:0">קורט לוין – סמכותני מול דמוקרטי. להשתמש בשיטה לפי טווח זמנים שיש לך.</p>
+<p class="li" style="--l:0">X וY – מסורתי אל מול מודרני.</p></div>
+</section>
+<p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>
+</main>
+<script>
+const secs = [...document.querySelectorAll('.lesson')];
+const pills = [...document.querySelectorAll('.rail a')];
+// "next lesson" button at the end of every lesson but the last
+secs.forEach((s, i) => { if (secs[i + 1]) s.insertAdjacentHTML('beforeend', `<div class="next"><a href="#${secs[i + 1].id}">לשיעור ${secs[i + 1].dataset.n} ←</a></div>`); });
+const key = 'read:' + location.pathname;
+const mark = n => { pills.forEach(p => p.classList.toggle('on', p.dataset.n === n)); const on = pills.find(p => p.dataset.n === n); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); try { localStorage.setItem(key, n); } catch (e) {} };
+// the lesson being read = the last one whose header has passed under the top bar
+let last = null, raf = 0;
+const sync = () => { raf = 0; const line = innerHeight * 0.45; let cur = secs[0]; for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s; if (cur.dataset.n !== last) { last = cur.dataset.n; mark(last); } };
+addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+addEventListener('hashchange', sync);
+// back to where this reader stopped
+if (!location.hash) { let n = null; try { n = localStorage.getItem(key); } catch (e) {} const t = n && document.getElementById('l' + n); if (t && n !== secs[0].dataset.n) t.scrollIntoView(); }
+sync(); setTimeout(sync, 300);
+</script>
+</body>
+</html>

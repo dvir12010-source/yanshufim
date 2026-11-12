@@ -53,6 +53,18 @@ a { color: inherit; }
 .pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
 .pages img { width: 100%; height: auto; display: block; }
 
+/* word documents, plain theme: a clean white sheet like the pdf pages */
+body.plain .note { background: #fff; border-radius: 6px; box-shadow: var(--sheet); padding: 22px 24px; line-height: 1.7; }
+body.plain .note h3 { margin: 18px 0 6px; font-size: 19px; color: var(--course); }
+body.plain .note h3:first-child { margin-top: 0; }
+body.plain .note p { margin: 0 0 6px; }
+body.plain .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.plain .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.plain .tbl { overflow-x: auto; margin: 8px 0; }
+body.plain table { border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+body.plain td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.plain .note { padding: 16px; } }
+
 .next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
 .next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
   color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
