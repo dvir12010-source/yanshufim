@@ -1,0 +1,208 @@
+{
+ "updated": "2026-11-12T15:44+02:00",
+ "failures": 0,
+ "totals": {
+  "people": 139,
+  "visits": 274,
+  "returning": 59,
+  "from-homescreen": 55,
+  "scrolled": 140,
+  "act-task-done": 41
+ },
+ "days": [
+  {
+   "date": "2026-11-03",
+   "visits": 30,
+   "devices": 23,
+   "returning": 0
+  },
+  {
+   "date": "2026-11-04",
+   "visits": 66,
+   "devices": 50,
+   "returning": 4
+  },
+  {
+   "date": "2026-11-05",
+   "visits": 23,
+   "devices": 17,
+   "returning": 5
+  },
+  {
+   "date": "2026-11-06",
+   "visits": 42,
+   "devices": 35,
+   "returning": 11
+  },
+  {
+   "date": "2026-11-07",
+   "visits": 24,
+   "devices": 14,
+   "returning": 6
+  },
+  {
+   "date": "2026-11-08",
+   "visits": 27,
+   "devices": 15,
+   "returning": 8
+  },
+  {
+   "date": "2026-11-09",
+   "visits": 15,
+   "devices": 10,
+   "returning": 6
+  },
+  {
+   "date": "2026-11-10",
+   "visits": 23,
+   "devices": 13,
+   "returning": 9
+  },
+  {
+   "date": "2026-11-11",
+   "visits": 13,
+   "devices": 11,
+   "returning": 9
+  },
+  {
+   "date": "2026-11-12",
+   "visits": 20,
+   "devices": 9,
+   "returning": 3
+  }
+ ],
+ "acts": {
+  "summary": 104,
+  "folder": 23,
+  "recording": 11,
+  "zoom": 4,
+  "lemida": 35,
+  "calendar": 10,
+  "gmail": 1,
+  "copy-mail": 5,
+  "install": 3,
+  "other": 11
+ },
+ "stay": {
+  "0-10s": 101,
+  "10-30s": 70,
+  "30-60s": 37,
+  "1-2m": 23,
+  "2-5m": 14,
+  "5-10m": 4,
+  "10m-plus": 1
+ },
+ "clicks": {
+  "0": 119,
+  "1": 26,
+  "2-3": 62,
+  "4-6": 18,
+  "7-plus": 21
+ },
+ "os": {
+  "ios": 154,
+  "android": 18,
+  "desktop": 54
+ },
+ "courses": [
+  {
+   "id": "micro",
+   "name": "כלכלה מיקרו",
+   "opens": 48,
+   "summaries": 25,
+   "recordings": 0,
+   "zoom": 3
+  },
+  {
+   "id": "change",
+   "name": "ניהול שינויים",
+   "opens": 34,
+   "summaries": 13,
+   "recordings": 0,
+   "zoom": 1
+  },
+  {
+   "id": "ob",
+   "name": "התנהגות ארגונית",
+   "opens": 54,
+   "summaries": 43,
+   "recordings": 0,
+   "zoom": 0
+  },
+  {
+   "id": "decisions",
+   "name": "קבלת החלטות",
+   "opens": 87,
+   "summaries": 19,
+   "recordings": 0,
+   "zoom": 0
+  },
+  {
+   "id": "ai",
+   "name": "בינה מלאכותית",
+   "opens": 37,
+   "summaries": 0,
+   "recordings": 0,
+   "zoom": 0
+  },
+  {
+   "id": "labor",
+   "name": "דיני עבודה",
+   "opens": 40,
+   "summaries": 3,
+   "recordings": 11,
+   "zoom": 0
+  },
+  {
+   "id": "ketubah",
+   "name": "הרי זו כתובתך",
+   "opens": 34,
+   "summaries": 0,
+   "recordings": 0,
+   "zoom": 0
+  },
+  {
+   "id": "writing-eliav",
+   "name": "כתיבה עם אליאב",
+   "opens": 15,
+   "summaries": 0,
+   "recordings": 0,
+   "zoom": 0
+  }
+ ],
+ "history": [
+  {
+   "date": "2026-11-12",
+   "totals": {
+    "people": 139,
+    "visits": 274,
+    "returning": 59,
+    "from-homescreen": 55,
+    "scrolled": 140,
+    "act-task-done": 41
+   },
+   "acts": {
+    "summary": 104,
+    "folder": 23,
+    "recording": 11,
+    "zoom": 4,
+    "lemida": 35,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 5,
+    "install": 3,
+    "other": 11
+   },
+   "opens": {
+    "micro": 48,
+    "change": 34,
+    "ob": 54,
+    "decisions": 87,
+    "ai": 37,
+    "labor": 40,
+    "ketubah": 34,
+    "writing-eliav": 15
+   }
+  }
+ ]
+}
