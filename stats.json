@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-12T23:30+02:00",
+ "updated": "2026-11-13T04:42+02:00",
  "failures": 0,
  "totals": {
   "people": 146,
-  "visits": 287,
-  "returning": 61,
+  "visits": 294,
+  "returning": 62,
   "from-homescreen": 58,
-  "scrolled": 144,
+  "scrolled": 145,
   "act-task-done": 43
  },
  "days": [
@@ -69,6 +69,12 @@
    "visits": 33,
    "devices": 18,
    "returning": 5
+  },
+  {
+   "date": "2026-11-13",
+   "visits": 7,
+   "devices": 1,
+   "returning": 1
   }
  ],
  "acts": {
@@ -81,10 +87,10 @@
   "gmail": 1,
   "copy-mail": 5,
   "install": 3,
-  "other": 12
+  "other": 13
  },
  "stay": {
-  "0-10s": 108,
+  "0-10s": 115,
   "10-30s": 71,
   "30-60s": 39,
   "1-2m": 24,
@@ -94,7 +100,7 @@
  },
  "clicks": {
   "0": 126,
-  "1": 29,
+  "1": 36,
   "2-3": 64,
   "4-6": 18,
   "7-plus": 21
@@ -102,13 +108,13 @@
  "os": {
   "ios": 157,
   "android": 18,
-  "desktop": 64
+  "desktop": 71
  },
  "courses": [
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 51,
+   "opens": 52,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -195,6 +201,39 @@
    },
    "opens": {
     "micro": 51,
+    "change": 34,
+    "ob": 56,
+    "decisions": 89,
+    "ai": 37,
+    "labor": 40,
+    "ketubah": 34,
+    "writing-eliav": 15
+   }
+  },
+  {
+   "date": "2026-11-13",
+   "totals": {
+    "people": 146,
+    "visits": 294,
+    "returning": 62,
+    "from-homescreen": 58,
+    "scrolled": 145,
+    "act-task-done": 43
+   },
+   "acts": {
+    "summary": 104,
+    "folder": 23,
+    "recording": 11,
+    "zoom": 4,
+    "lemida": 35,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 5,
+    "install": 3,
+    "other": 13
+   },
+   "opens": {
+    "micro": 52,
     "change": 34,
     "ob": 56,
     "decisions": 89,
