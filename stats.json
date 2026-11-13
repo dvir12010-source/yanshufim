@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-13T13:16+02:00",
+ "updated": "2026-11-13T20:36+02:00",
  "failures": 0,
  "totals": {
-  "people": 151,
-  "visits": 310,
-  "returning": 66,
-  "from-homescreen": 60,
-  "scrolled": 157,
-  "act-task-done": 57
+  "people": 153,
+  "visits": 319,
+  "returning": 68,
+  "from-homescreen": 61,
+  "scrolled": 163,
+  "act-task-done": 59
  },
  "days": [
   {
@@ -72,49 +72,49 @@
   },
   {
    "date": "2026-11-13",
-   "visits": 23,
-   "devices": 10,
-   "returning": 5
+   "visits": 33,
+   "devices": 14,
+   "returning": 7
   }
  ],
  "acts": {
   "summary": 105,
   "folder": 23,
   "recording": 11,
-  "zoom": 5,
-  "lemida": 38,
+  "zoom": 6,
+  "lemida": 39,
   "calendar": 10,
   "gmail": 1,
   "copy-mail": 5,
   "install": 3,
-  "other": 14
+  "other": 15
  },
  "stay": {
-  "0-10s": 121,
-  "10-30s": 77,
-  "30-60s": 43,
+  "0-10s": 126,
+  "10-30s": 80,
+  "30-60s": 44,
   "1-2m": 25,
   "2-5m": 15,
   "5-10m": 4,
   "10m-plus": 1
  },
  "clicks": {
-  "0": 129,
-  "1": 41,
-  "2-3": 71,
+  "0": 131,
+  "1": 45,
+  "2-3": 74,
   "4-6": 19,
   "7-plus": 22
  },
  "os": {
-  "ios": 168,
-  "android": 19,
-  "desktop": 75
+  "ios": 170,
+  "android": 21,
+  "desktop": 80
  },
  "courses": [
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 57,
+   "opens": 60,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -122,15 +122,15 @@
   {
    "id": "change",
    "name": "ניהול שינויים",
-   "opens": 39,
+   "opens": 42,
    "summaries": 13,
    "recordings": 0,
-   "zoom": 1
+   "zoom": 2
   },
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 58,
+   "opens": 61,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -213,29 +213,29 @@
   {
    "date": "2026-11-13",
    "totals": {
-    "people": 151,
-    "visits": 310,
-    "returning": 66,
-    "from-homescreen": 60,
-    "scrolled": 157,
-    "act-task-done": 57
+    "people": 153,
+    "visits": 319,
+    "returning": 68,
+    "from-homescreen": 61,
+    "scrolled": 163,
+    "act-task-done": 59
    },
    "acts": {
     "summary": 105,
     "folder": 23,
     "recording": 11,
-    "zoom": 5,
-    "lemida": 38,
+    "zoom": 6,
+    "lemida": 39,
     "calendar": 10,
     "gmail": 1,
     "copy-mail": 5,
     "install": 3,
-    "other": 14
+    "other": 15
    },
    "opens": {
-    "micro": 57,
-    "change": 39,
-    "ob": 58,
+    "micro": 60,
+    "change": 42,
+    "ob": 61,
     "decisions": 92,
     "ai": 38,
     "labor": 42,
