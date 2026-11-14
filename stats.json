@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-14T09:40+02:00",
+ "updated": "2026-11-14T17:12+02:00",
  "failures": 0,
  "totals": {
-  "people": 153,
-  "visits": 320,
-  "returning": 69,
+  "people": 154,
+  "visits": 326,
+  "returning": 71,
   "from-homescreen": 61,
-  "scrolled": 163,
-  "act-task-done": 59
+  "scrolled": 165,
+  "act-task-done": 61
  },
  "days": [
   {
@@ -78,9 +78,9 @@
   },
   {
    "date": "2026-11-14",
-   "visits": 2,
-   "devices": 1,
-   "returning": 1
+   "visits": 8,
+   "devices": 4,
+   "returning": 3
   }
  ],
  "acts": {
@@ -96,9 +96,9 @@
   "other": 15
  },
  "stay": {
-  "0-10s": 128,
-  "10-30s": 80,
-  "30-60s": 44,
+  "0-10s": 131,
+  "10-30s": 82,
+  "30-60s": 45,
   "1-2m": 25,
   "2-5m": 15,
   "5-10m": 4,
@@ -106,21 +106,21 @@
  },
  "clicks": {
   "0": 133,
-  "1": 45,
-  "2-3": 74,
+  "1": 48,
+  "2-3": 77,
   "4-6": 19,
   "7-plus": 22
  },
  "os": {
-  "ios": 170,
+  "ios": 171,
   "android": 21,
-  "desktop": 81
+  "desktop": 86
  },
  "courses": [
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 60,
+   "opens": 61,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -136,7 +136,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 61,
+   "opens": 62,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -160,7 +160,7 @@
   {
    "id": "labor",
    "name": "דיני עבודה",
-   "opens": 42,
+   "opens": 43,
    "summaries": 4,
    "recordings": 11,
    "zoom": 0
@@ -252,12 +252,12 @@
   {
    "date": "2026-11-14",
    "totals": {
-    "people": 153,
-    "visits": 320,
-    "returning": 69,
+    "people": 154,
+    "visits": 326,
+    "returning": 71,
     "from-homescreen": 61,
-    "scrolled": 163,
-    "act-task-done": 59
+    "scrolled": 165,
+    "act-task-done": 61
    },
    "acts": {
     "summary": 105,
@@ -272,12 +272,12 @@
     "other": 15
    },
    "opens": {
-    "micro": 60,
+    "micro": 61,
     "change": 42,
-    "ob": 61,
+    "ob": 62,
     "decisions": 92,
     "ai": 38,
-    "labor": 42,
+    "labor": 43,
     "ketubah": 38,
     "writing-eliav": 15
    }
