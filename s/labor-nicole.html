@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסיכום של ניקול · דיני עבודה</title>
+<meta name="theme-color" content="#7d6608">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Gveret+Levin&family=Suez+One&display=swap">
+<style>
+@font-face { font-family: "Tel Aviv Modernist"; src: url(../fonts/telaviv-modernistbold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root {
+  --course: #7d6608;
+  --bg: #f6f1e7; --surface: #fffdf8; --fg: #2a2520; --muted: #6b6256; --line: #e6dece;
+  --soft: color-mix(in srgb, var(--course) 12%, var(--surface));
+  --display: "Suez One", "Assistant", serif;
+  --title: "Tel Aviv Modernist", "Assistant", Arial, sans-serif;
+  --hand: "Gveret Levin", "Assistant", cursive;
+  --sheet: 0 1px 0 rgba(90,70,40,.08), 0 10px 22px -16px rgba(90,70,40,.35);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 118px; }
+body { margin: 0; color: var(--fg); font-family: "Assistant", Arial, sans-serif; font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+/* top: who wrote it + lesson rail */
+.top { position: sticky; top: 0; z-index: 10; background: var(--course); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 6px 16px -12px rgba(0,0,0,.5); }
+.head { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.back { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; text-decoration: none; font-size: 22px; flex: none; }
+.back:hover { background: rgba(255,255,255,.14); }
+.who { min-width: 0; }
+.who b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; }
+.who span { font-size: 14px; opacity: .85; }
+.orig { margin-inline-start: auto; font-size: 14px; opacity: .85; white-space: nowrap; }
+.rail { display: flex; gap: 6px; padding-block: 0 10px; overflow-x: auto; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail a { flex: none; height: 40px; padding-inline: 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; text-decoration: none;
+  font-family: var(--title); font-weight: 700; font-size: 16px; background: rgba(255,255,255,.16); color: #fff; transition: background .2s, color .2s; }
+.rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
+.rail a.on { background: #fff; color: var(--course); }
+
+/* lesson divider */
+.lesson { padding-block: 22px 8px; }
+.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
+.divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
+.divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.divider .topic:empty { display: none; }
+
+/* pdf pages */
+.pages { display: grid; gap: 0; background: #fff; border-radius: 6px; box-shadow: var(--sheet); overflow: hidden; }
+.pages img { width: 100%; height: auto; display: block; }
+
+/* word documents, plain theme: a clean white sheet like the pdf pages */
+body.plain .note { background: #fff; border-radius: 6px; box-shadow: var(--sheet); padding: 22px 24px; line-height: 1.7; }
+body.plain .note h3 { margin: 18px 0 6px; font-size: 19px; color: var(--course); }
+body.plain .note h3:first-child { margin-top: 0; }
+body.plain .note p { margin: 0 0 6px; }
+body.plain .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.plain .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.plain .tbl { overflow-x: auto; margin: 8px 0; }
+body.plain table { border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+body.plain td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.plain .note { padding: 16px; } }
+
+.next { display: flex; justify-content: flex-start; margin: 18px 0 6px; }
+.next a { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; background: var(--soft);
+  color: var(--course); font-weight: 700; text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--course) 35%, transparent); }
+.end { text-align: center; color: var(--muted); font-size: 15px; padding: 26px 0 60px; }
+
+/* ===== notebook theme (Nicole) ===== */
+.notebook body, body.notebook { --rule: 34px; }
+body.notebook .lesson { padding-top: 26px; }
+body.notebook .divider { position: relative; padding: 12px 16px 12px 16px; margin-bottom: 0; background: color-mix(in srgb, var(--course) 9%, #fffef9);
+  border-radius: 10px 10px 0 0; border: 1px solid color-mix(in srgb, var(--course) 22%, #e8dfcc); border-bottom: 0; }
+body.notebook .divider .num { font-family: var(--hand); font-size: 40px; }
+body.notebook .note {
+  position: relative; background-color: #fffef9; border: 1px solid #e8dfcc; border-radius: 0 0 10px 10px; box-shadow: var(--sheet);
+  padding: 8px 52px 26px 18px; line-height: var(--rule); font-size: 17px;
+  background-image:
+    linear-gradient(to left, transparent 38px, #e88c8c 38px, #e88c8c 39.5px, transparent 39.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), #d6e4ef calc(var(--rule) - 1px), #d6e4ef var(--rule));
+  background-position: 0 8px;
+}
+body.notebook .note::before { content: ""; position: absolute; top: 18px; bottom: 18px; right: 12px; width: 14px;
+  background: radial-gradient(circle at 7px 7px, #e9e1cf 5px, transparent 5.5px) 0 0 / 14px 68px repeat-y; }
+body.notebook .note h3 { margin: 0; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--course); line-height: var(--rule); }
+body.notebook .note h3 b, body.notebook .note h3 u { font-weight: 400; }
+body.notebook .note p { margin: 0; }
+body.notebook .note .li { padding-inline-start: calc(18px + var(--l) * 22px); position: relative; }
+body.notebook .note .li::before { content: ""; position: absolute; inset-inline-start: calc(4px + var(--l) * 22px); top: calc(var(--rule) / 2 - 3px); width: 6px; height: 6px; border-radius: 50%; background: var(--course); opacity: .7; }
+body.notebook .note b { color: #1d2b33; }
+body.notebook .tbl { overflow-x: auto; margin: 6px 0; }
+body.notebook table { border-collapse: collapse; line-height: 1.4; font-size: 15px; background: #fff; }
+body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: top; }
+@media (max-width: 520px) { body.notebook .note { padding-right: 44px; } }
+</style>
+</head>
+<body class="notebook">
+<div class="top">
+  <div class="wrap">
+    <div class="head">
+      <a class="back" href="../#labor" aria-label="חזרה לקורס">→</a>
+      <div class="who"><b>הסיכום של ניקול</b><span>דיני עבודה · שיעורים 1 עד 3</span></div>
+    </div>
+    <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a></nav>
+  </div>
+</div>
+<main class="wrap">
+<section class="lesson" id="l1" data-n="1">
+  <header class="divider"><span class="num">שיעור 1</span><span class="date"></span><span class="topic">מבוא למשפט העבודה</span></header>
+  <div class="note"><h3><u><b>דיני ויחסי עבודה</b></u><u><b> </b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור 1</b></u></h3>
+<p class="li" style="--l:0">כללי</p>
+<p class="li" style="--l:0">ציון 90 אחוז מבחן אמריקאי || 10 אחוז מטלת אמצע.</p>
+<p class="li" style="--l:0">התרגולים הם לא חובה – מומלץ לעשות לבד ולהגיש למורה.</p>
+<p class="li" style="--l:0"></p>
+<p class="li" style="--l:0">מבוא – על מה יעסוק הקורס</p>
+<p class="li" style="--l:0">המתח בין הצורך של המעסיק למול פרטיות וצורכי הפרט.</p>
+<p class="li" style="--l:0">איפה עובר הגבול בין האסור למותר של המעסיק:</p>
+<p class="li" style="--l:0">האם מותר לצלם עובד בזמן העבודה?</p>
+<p class="li" style="--l:0">האם מותר להעסיק מגדר אחד?</p>
+<p class="li" style="--l:0">האם מותר להגביל אותו מלעבוד במקום עבודה אחרת בעתיד?</p>
+<p class="li" style="--l:0">האם מותר לשאול אותו על רצון למשפחה עתידית?</p>
+<p class="li" style="--l:0"><b>הגנת הפרטיות</b> - האם מותר למעסיק לצלם עובד בזמן העבודה?</p>
+<p class="li" style="--l:0">הקניין של המעסיק – הזכות של המעסיק לשמור על רכושו.</p>
+<p class="li" style="--l:0">הקניון לפרטיות של העובד.</p>
+<p>השאלות המשלימות לשאלה הן איפה המצלמה מותקנת, מי מסתכל עליה, כמה זמן החומר נשמר וכדומה.</p>
+<p>השאלה הגדולה היא איפה <b>האיזון בין הזכויות של הצדדים</b>.</p>
+<p class="li" style="--l:0"><b>תום לב</b> – המעסיק והעובד חייבים לנהוג בהגינות ובהוגנות. <u>דוגמאות</u></p>
+<p class="li" style="--l:0">המעסיק צריך לנהוג בתום לב כלפי העובד – לא הוגן להכניס סעיף בחוזה שפוגע בעובד בלי שהוא קרא את החוזה (במעמד החתימה לא נתנו לו זמן לעבור ולקרוא אותו).</p>
+<p class="li" style="--l:0">העובד צריך לנהוג בתום לב כלפי המעסיק - חייל משחורר שמחפש עבודה זמנית עד שהוא טס לחו&quot;ל לטיול גדול ובמקום העבודה מחפשים עובד לזמן ארוך, לעובד אסור למסור מידע כוזב ולהגיד למעסיק שהוא מתכנן להישאר לזמן ארוך כשהוא יודע שזה לא נכון.</p>
+<p class="li" style="--l:0"><b>נאמנות למקום העבודה </b></p>
+<p class="li" style="--l:0">העובד למד אצל המעסיק תחום מסוים, צבר ניסיון וידע ועכשיו הוא רוצה לעזוב ולפתוח חברה מתחרה. העובד רשאי לעשות את זה. אבל אסור לו להשתמש בתוצרים סודיים של החברה כמו מתכון, קוד, רשימת לקוחות (זכויות יוצרים).</p>
+<p class="li" style="--l:0">לפעמים בחוזה עבודה יהיו סעיפים שמונעים מהעובד להתחרות בחברה לזמן מסוים, צריך לשרטט את הגבול בין מה ששייך לעובד מול מה ששייך למעסיק (לקוחות, ניסיון, סודות מסחרים, מידע סודי, ידע מקצועי).</p>
+<p class="li" style="--l:0">בדיני עבודה החתימה על החוזה היא לא המילה האחרונה אלא נדרש בהצגה לבית דין האם היה נדרש בהגבלה, האם קיים סוד מסחרי, האם העובד קיבל תוספת שכר או שהמעסיק פשוט לא רוצה תחרות.</p>
+<p class="li" style="--l:0">דיני עבודה מנסים <b>לאזן בין הזכות של המעסיק להגן על העסק שלו לבין חופש העיסוק של העובד</b>.</p>
+<p class="li" style="--l:0"><b>אפליה</b><b> </b><b>–</b><b> </b>לבעל העסק אין זכות להפלות בין אוכלוסיות, אבל יש מקרים שניתן לייצר הבחנה בין אנשים.</p>
+<p class="li" style="--l:0">הבחנה ביכולת – רישיון מתאים, אדם שיכול להרים משקל מסוים. אסור להפלות בין נשים לגברים נדרש לבחון האם העובד מסוגל לבצע את המשימה.</p>
+<p class="li" style="--l:0">השאלה איפה שירתת בצבא – לא רלוונטית לתפקיד מזכיר/ה אבל לתפקיד במערכת הביטון שיש צורך מהותי בידע מבצעי <b>השאלה כן רלוונטית.</b></p>
+<p class="li" style="--l:0"><b>בדיני עבודה אנחנו לא בוחנים רק מה השאלה שנשאלה אלא לשם מה והאם היא רלוונטית.</b></p>
+<p class="li" style="--l:0"><b>שיוון הזדמנויות </b><b>–</b><b> </b></p>
+<p class="li" style="--l:0">מורה דתיה שעובדת באופנה והחליטה להביא ילד כאם יחידנית, המוסד החינוכי רוצה לפטר אותה כי זה לא מתאים לדרך החינוכית של המוסד למרות שהמורה טוענת שמדובר בחיים האישיים שלה (זכות להורות ולשוויון).</p>
+<p class="li" style="--l:0">עד כמה המעסיק יכול לקבוע לעבוד לא רק איך לעבוד אלא גם איך לחיות.</p>
+<p class="li" style="--l:0"><b>האם מעסיק יכול לדרוש מעובד להסתיר את הקעקועים שלו כי זה מפריע ללקוחות.</b></p>
+<p class="li" style="--l:0"><b>ראיונות עבודה </b></p>
+<p class="li" style="--l:0">האם מותר למעסיק לשאול שאלות על ילדים / נישואין / מי מוציא את הילד מהגן?</p>
+<p class="li" style="--l:0">אם העבודה היא עד 19:00 ונדרש לבדוק האם זה מתאפשר מבחינת המועמד, זאת אלה לגיטימית, אבל לשאול מי מוציא את הילד מהגן זאת שאלה שקשורה לחיים הפרטיים. </p>
+<p class="li" style="--l:0"><b>המעסיק צריך לבדוק האם העובד מסוגל לבצע את העבודה ולא האם אורח החיים שלו מוצא חן בעיניו.</b></p>
+<p class="li" style="--l:0"><b>מה כולל השכר </b></p>
+<p class="li" style="--l:0">שכר בסיס, שעות נוספות, נסיעות, חופשה, מחלה, פנסיה, נוספים.</p>
+<p class="li" style="--l:0">הגבול בין <b>זמן העבודה לזמן הפרטי</b></p>
+<p class="li" style="--l:0">האם מותר למעסיק לבקש לבדוק מייל בשעות הערב?</p>
+<p class="li" style="--l:0">האם העובד חייב להיות זמין?</p>
+<p class="li" style="--l:0"><b>סיום העסקה </b></p>
+<p class="li" style="--l:0">חוקי פיטורין, שימוע, משאבי אנוש, מתי אפשר לפטר, מהי הודעה מוקדמת.</p>
+<p class="li" style="--l:0">שימוע - הזדמנות <b>בתום לב</b> להשמיע את הצד שלו.</p>
+<p class="li" style="--l:0"><b>התאגדות עובדים</b></p>
+<p class="li" style="--l:0">חוקי התאגדויות, ועדי עובדים.</p>
+<p class="li" style="--l:0">הזכות להתארגנות ולשביתה.</p>
+<p class="li" style="--l:0"><b>שילוב ה</b><b>AI</b><b> בתחום דיני העבודה</b> – סינון קורות חיים, בדיקת תפוקה, דירוג עובדים. אחריות להחלטה.</p>
+<h3><b>אין תשובות שחור ולבן, רק האיזון בין זכויות העובד לזכויות המעסיק</b></h3></div>
+</section>
+<section class="lesson" id="l2" data-n="2">
+  <header class="divider"><span class="num">שיעור 2</span><span class="date"></span><span class="topic">האמת במשפט</span></header>
+  <div class="note"><h3><u><b>דיני ויחסי עבודה</b></u><u><b> </b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור </b></u><u><b>2</b></u></h3>
+<h3><b>מהן מטרות המשפט</b></h3>
+<p class="li" style="--l:0">הסדרת הנורמות בחברה והסדרת סכסוכים – <b>משפט</b><b> אזרחי</b>.</p>
+<p class="li" style="--l:0">יצירת מערך התרעה לפרטים בחברה – <b>משפט</b><b> פלילי</b>.</p>
+<p class="li" style="--l:0">הגעה לחקר האמת – <b>סוגי האמת במשפט:</b></p>
+<p class="li" style="--l:0"><b>אמת עובדתית</b> – אמת שמשקפת התרחשות <u>בראי מתבונן אובייקטיבי</u> = המציאות כפי שהיא.</p>
+<p class="li" style="--l:0">משהו שקרה בעולם – אקסיומה, 100 אחוז אמת.</p>
+<p class="li" style="--l:0"><b>אמת משפטית</b><b> </b><b>–</b><b> </b>שחזור שמשחזר לשופט את המציאות על בסיס הראיות שבפניו בכפוף לסדרי הדין ולידי הראיות.</p>
+<p class="li" style="--l:0">השופט נותן את גזר הדין ע&quot;פ הראיות הכשרות שניתנו בפניו והן בלבד, אם חסר ראיות<b> </b>לא נדע אם הגענו לאמת העובדתית, רואים את זה במציאות בערעורים בין בתי הדין.</p>
+<p class="li" style="--l:0">לא תמיד האמת העובדתית היא מספקת, במשפט הישראלי <b>קיים איזון</b> בין הרצון להגיע לאמת העובדתית לבין ערכים נוספים שחשובים הרבה יותר בחברה הישראלית, גם לנאשמים בהליך יש זכויות. </p>
+<p class="li" style="--l:0"><b>אמת</b><b> היסטורית</b> – אמת &#x27;לשעתה&#x27;.</p>
+<p class="li" style="--l:0"><b>איזון הערכים בין האמת העובדתית לאמת המשפטית</b></p>
+<p class="li" style="--l:0"><b>חסיון עורך דין </b><b>–</b><b> לקוח </b>– לעורך דין במשרד פרטי שלקוח שוכר את שירותיו<b> </b>והוא מספר לו שהוא רצח<b> </b>אדם אחר. כל זמן שאין ראיות אחרות ועורך הדין מחזיק בידו את האמת העובדתית, לא ניתן להשתמש בה (עורך הדין לא יכול להעיד נגד הלקוח שלו) בגלל שאמת העובדתית <b>מתנגשת</b> עם הערך שלכל אדם מגיע הגנה משפטית. חל על אירועים שנעשו בעבר ולא מתוכננים בעתיד. </p>
+<p>קיים גם בין רופא, פסיכולוג וכו&#x27; כי האינטרס של המדינה הוא שאנשים יקבלו טיפול בלי לחשוש מההשלכות.</p>
+<p class="li" style="--l:0"><b>עדות מפי השמועה - </b> מישהו ששמע סיפור ממישהו אחר ולא היה חלק מהאירוע. עדות שמיעה בדרך כלל לא קבילה במשפט הישראלי בגלל<b> </b>שאנחנו לא יודעים כמה האמת התעוותה עד להגעה לעדות.  אנחנו לא יודעים האם עדות מפי השמועה היא האמת העובדתית או לא, במקרה זה נעדיף את האמת המשפטית.</p>
+<p class="li" style="--l:0"><b>פוליגרף </b><b>–</b> שיעורי הביצוע לפי מחקרים הם בין 70-80 אחוז מהמקרים, הפוליגרף לא אמין בצורה מלאה ולכן במשפט הפלילי הפוליגרף הוא לא קביל – לא 100 אחוז הוא לא אמת עובדתית.</p>
+<p class="li" style="--l:0"><b>הודיות שניתנו תחת לחץ </b><b>–</b><b> </b>אדם שנמצא תחת לחץ לא בוודאות יגיד את האמת העובדתית יכול להיות שבשביל להפסיק את הלחץ (עינוי לדוגמא) הנאשם  יגיד מה שהחוקר רוצה לשמוע ולא את האמת העובדתית, אנחנו לא נקבל את העדות בגלל החשש הזה ונצטרך להעמיד ראיות אחרות.</p>
+<p class="li" style="--l:0"><b>ערך שלמות המשפחה - </b> ע&quot;פ פקודת הראיות כולם כשרים להעיד (בכל גיל, בכל מצב קוגנטיבי), יש סייג במקרה של בני זוג ומשפחה (בעל נגד אשתו ולהפך, הורים נגד ילדיהם ולהפך) <b>–</b><b> </b>חלק על חלק מהמשפטים אך<b> </b> ניתן לראות את בני המשפחה מעידים אחד כנגד השני במקרי אלימות או מין לדוגמא.</p>
+<p>המשפט הישראלי רוצה לשמור על הערך של שלמות המשפחה, הוא לא נותן לתובעים להשתמש בבני משפחה אחד נגד השני.</p>
+<p class="li" style="--l:0"><b>בדיקת אבהות</b>  - במקרים בהם האב סבור שהילד אינו שלו (חשד לממזרות), 99.99 אחוז, <u>אמת משפטית.</u>  ולא עובדתית. יש 2 אסכולות בראי הבדיקה:</p>
+<p class="li" style="--l:0"><b>בית הדין הרבני</b> – לא יאשר מיוזמתו ביצוע בדיקת אבהות, כיוון שטובת הילד היא לא לממזר אותו.</p>
+<p class="li" style="--l:0"><b>בית המשפט לעיניי משפט</b> – יאשרו את הבדיקה</p>
+<p>השלכות של דמות האב על הילד -התפתחותי, רפואי – מחלות גנטיות, וכדו&#x27;</p>
+<p>קיימים אינטרסים כלכלים - ירושה, מזונות..</p>
+<p>דתיים – גילוי אריות, אימוצים</p>
+<p>חברתיים – קשר עם אחים למחצה, אילן יוחסין</p>
+<p>המשקל המצטבר של כל האינטרסים האלו מלמדים שיש חשיבות לגלות את <u>האמת העובדתית</u><u>, </u>טובת הילד היא לדעת מי אביו</p>
+<p>כל בית דין מעדיף את האמת שלו.</p>
+<p class="li" style="--l:0"><b>הגנת הפרטיות</b><b> </b>– אדם חשד שאשתו לא נאמנה לו, הוא שם מצלמות ובודק לאחר זמן מה ורואה שאשתו עם מישהו אחר<b>.</b><b> הוא בוחר ללכת לבית הדין הרבני.</b></p>
+<p class="li" style="--l:0"><b>בית הדין הרבני </b><b>–</b><b> </b>בעל שאשתו בוגדת בו הבעל לא נדרש לשלם כתובה על האישה בעת הגירושין, הקלטת היא <u>האמת העובדתית</u>.</p>
+<p class="li" style="--l:0"><b>חוק יסוד כבוד האדם</b> – אין לצלם אדם כשהוא ברשות היחיד (הבעל עזב את הדירה).</p>
+<p>הדיינים החליטו לצפות בקלטת ע&quot;מ להגיע לאמת העובדתית, האישה ערערה לבית הדין הגדול, בערעור הוחלט לקבל את הקלטת.</p>
+<p>ניגוד ערכים בין האמת העובדתית (הקלטת) לבין האמת המשפטית (חוק יסוד כבוד האדם).</p>
+<p>האישה החליטה לפנות לבג&quot;צ בעניין, השופט בג&quot;צ החליט שלא לצפות בקלטת ובאמצעות גבר ערך הגנת הפרטיות על האמת העובדתית.</p>
+<p class="li" style="--l:0"><b>אמת לשעתה</b><b> מול אמת היסטורית</b></p>
+<p class="li" style="--l:0"><b>אמת לשעתה דוגמא - </b> קצין ירה בדמות חשודה ברצועת עזה ונשפט על כך בבית הדין הצבאי, התוכנית עובדה יצרה כתבה על המקרה והציגה את השתלשלות האירועים<b>.</b></p>
+<p>לאחר זיכוי הקצין, הוא תבע את התוכנית עובדה על לשון הרע, האישום בוטל עקב ההבנה כי העובדות אשר היו ידועות באותו הזמן היו ה&#x27;אמת לשעתה&#x27;, יש סייג מלשון הרע בגלל שבזמן הפרסום העובדות שהיו ידועות הן שהיו רלוונטיות.</p>
+<p class="li" style="--l:0"><b>אמת היסטורית דוגמא </b><b>–</b><b> </b>עיתונאי הוציא כתבה על ד&quot;ר ישראל קסטנר שהוא תמך בנאצים בזמן השואה, בין הדין צריך להיכנס לנעליו של ההיסטוריונים, בין המשפט העליון הפך את פסק הדין שניתן על המחוזי (מחר את נשמתו לשטן), והכריעו לטובת קסטנר, המערכת המשפטית מתערבת בדיון היסטורי, היא יוצרת אמת משפטית שהיא האמת ההיסטורית, הפיכת פסק הדין של המחוזי בגלל הטענה שפסק הדין שלהם היה אמת לשעתה.</p>
+<h3><b>קביעתה של אמת היסטורית יש להשתנות מחוקר לחוקר ובין זמן לזמן.</b></h3></div>
+</section>
+<section class="lesson" id="l3" data-n="3">
+  <header class="divider"><span class="num">שיעור 3</span><span class="date"></span><span class="topic">מערכת בתי המשפט ופסק הדין</span></header>
+  <div class="note"><h3><u><b>דיני ויחסי עבודה</b></u><u><b> </b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור </b></u><u><b>3</b></u></h3>
+<h3><b>מערכת בתי המשפט</b></h3>
+<p class="li" style="--l:0">3 רשויות המדינה – רשות מחוקק, רשות מבצעת <b>והרשות השופטת</b>.</p>
+<p class="li" style="--l:0"><b>חוק יסוד השפיטה</b> – מתן סמכויות לשפוט, בעיניי שפיטה השופט לא כפוף לאף אדם, אלא לדין בלבד.</p>
+<p class="li" style="--l:0"><b>מינוי שופטים</b> – ועדה לבחירת שופטים  9 שופטים – שרים, אופוזיציה, שופטים מכהנים -  נציגות כלל הרשויות.</p>
+<p class="li" style="--l:0"><b>משימות הרשות השופטת </b>–  שמירה על שלטון החוק, עשיית משפט צדק ושמירה על זכויות הפרט.</p>
+<p class="li" style="--l:0">דיון בתיקים שהם:</p>
+<p class="li" style="--l:0">הליך אזרחי - אדם מול אדם</p>
+<p class="li" style="--l:0">הליך מנהלי - אדם מול מנהל</p>
+<p class="li" style="--l:0">הליך פלילי -  מדינה מול אדם.</p>
+<p class="li" style="--l:0">3 ערכאות המשפט – לא למבחן</p>
+<p class="li" style="--l:0"><b>בתי משפט השלום</b> – </p>
+<p class="li" style="--l:0">דנים בתביעות - תעבורה, משפחה, נוער (אחריות פלילית מגיל 12, מיקוד בשיקום).</p>
+<p class="li" style="--l:0">תביעות קטנות  - הליך נגיש לאדם פרטי – סכום מקסימאלי 39 אלף).</p>
+<p class="li" style="--l:0">תביעות כספיות אזרחיות עד 2.5 מיליון.</p>
+<p class="li" style="--l:0">תביעות פליליות עד 7 שנים.</p>
+<p class="li" style="--l:0"><b>מחוזי</b> – </p>
+<p class="li" style="--l:0">ערעור על השלום.</p>
+<p class="li" style="--l:0">תביעות כספיות מעל 2.5 מיליון.</p>
+<p class="li" style="--l:0"> תביעות פליליות מעל 7 שנים,  </p>
+<p class="li" style="--l:0">בית משפט לעניינים מנהלים – נגד עיריות, חופש המידע, תכנון ובניה.</p>
+<p class="li" style="--l:0"><b>העליון</b> – </p>
+<p class="li" style="--l:0">ערכאת הערעור הגבוהה ביותר – ערעור על המחוזי.</p>
+<p class="li" style="--l:0">משפט חוזר – לאחר הימצאות ראיה נוספת (אחרי מתן הדין) ביצוע משפט חוזר.</p>
+<p class="li" style="--l:0">בג&quot;צ – בחינת האם רשויות המדינה עבדו שלא כדין / פגעו באזרח (דוגמא אליס מילר).</p>
+<p class="li" style="--l:0"><b>קיים בנוסף בתי הדין לעבודה</b> – משפט העבודה, ביטחון סוציאלי || מערכת נפרדת ומסלול ערעור נפרד.</p>
+<p class="li" style="--l:0">קיימות 2 ערכאות בלבד:</p>
+<p class="li" style="--l:0"> בתי דין אזורים – עוסקים בזכויות, שכר, פיטורים.</p>
+<p class="li" style="--l:0">בית דין הארצי לעבודה – ערכאת ערעור, ארגוני עובדים, ויחסי עבודה קיבוצים.</p>
+<p class="li" style="--l:0">הצורך במערכת נפרדת הוא עקב הצורך במקצועיות בתחום (כמו בית הדין הצבאי ובתי הדין הדתי).</p>
+<p class="li" style="--l:0">יציאה מנקודה עבודה שיש פערי כוחות בין העובד למעסיק.</p>
+<p class="li" style="--l:0">יחסי עבודה קיבוצים – כללים שונים.</p>
+<p class="li" style="--l:0">ביטחון סוציאלי – המעטפת הסוציאלית (ביטוח לאומי, פנסיה, קצבות נכות), ריכוז סכסוכים בתחום הזה.</p>
+<h3><b>פסק דין</b></h3>
+<p class="li" style="--l:0">קריאת אזכור של פסק דין, שיטת איתור פסק הדין:</p>
+<p class="li" style="--l:0">אנטומית פסק הדין:</p>
+<p class="li" style="--l:0">איזכור</p>
+<p class="li" style="--l:0">העובדות (מה היה)</p>
+<p class="li" style="--l:0">טענת הצדדים (מה כל אחד רוצה)</p>
+<p class="li" style="--l:0">השאלה המשפטית (מה מונח להכרעה)</p>
+<p class="li" style="--l:0">הנמקה (מה בית המשפט החליט ולמה)</p>
+<p class="li" style="--l:0">התוצאה</p>
+<p class="li" style="--l:0"><b>מנגנוני ההכרעה</b> – כשהשופטים לא מסכימים מה ההלכה הסופית שנקבעה.</p>
+<p class="li" style="--l:0">דעת רוב –יש מספר אי זוגי של שופטים ויש דעת רוב ודעת מיעוט, דעת המיעוט גם תופיע בפסק הדין למרות שלא הוכרעה.</p></div>
+</section>
+<p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>
+</main>
+<script>
+const secs = [...document.querySelectorAll('.lesson')];
+const pills = [...document.querySelectorAll('.rail a')];
+// "next lesson" button at the end of every lesson but the last
+secs.forEach((s, i) => { if (secs[i + 1]) s.insertAdjacentHTML('beforeend', `<div class="next"><a href="#${secs[i + 1].id}">לשיעור ${secs[i + 1].dataset.n} ←</a></div>`); });
+const key = 'read:' + location.pathname;
+const mark = n => { pills.forEach(p => p.classList.toggle('on', p.dataset.n === n)); const on = pills.find(p => p.dataset.n === n); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); try { localStorage.setItem(key, n); } catch (e) {} };
+// the lesson being read = the last one whose header has passed under the top bar
+let last = null, raf = 0;
+const sync = () => { raf = 0; const line = innerHeight * 0.45; let cur = secs[0]; for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s; if (cur.dataset.n !== last) { last = cur.dataset.n; mark(last); } };
+addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+addEventListener('hashchange', sync);
+// back to where this reader stopped
+if (!location.hash) { let n = null; try { n = localStorage.getItem(key); } catch (e) {} const t = n && document.getElementById('l' + n); if (t && n !== secs[0].dataset.n) t.scrollIntoView(); }
+sync(); setTimeout(sync, 300);
+</script>
+</body>
+</html>
