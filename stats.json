@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-15T01:59+02:00",
+ "updated": "2026-11-15T08:50+02:00",
  "failures": 0,
  "totals": {
   "people": 157,
-  "visits": 344,
-  "returning": 80,
+  "visits": 347,
+  "returning": 81,
   "from-homescreen": 65,
-  "scrolled": 178,
-  "act-task-done": 75
+  "scrolled": 180,
+  "act-task-done": 76
  },
  "days": [
   {
@@ -84,9 +84,9 @@
   },
   {
    "date": "2026-11-15",
-   "visits": 2,
-   "devices": 1,
-   "returning": 1
+   "visits": 5,
+   "devices": 2,
+   "returning": 2
   }
  ],
  "acts": {
@@ -94,7 +94,7 @@
   "folder": 23,
   "recording": 11,
   "zoom": 6,
-  "lemida": 41,
+  "lemida": 42,
   "calendar": 10,
   "gmail": 1,
   "copy-mail": 5,
@@ -102,23 +102,23 @@
   "other": 17
  },
  "stay": {
-  "0-10s": 136,
-  "10-30s": 85,
-  "30-60s": 51,
+  "0-10s": 137,
+  "10-30s": 86,
+  "30-60s": 52,
   "1-2m": 26,
   "2-5m": 17,
   "5-10m": 4,
   "10m-plus": 1
  },
  "clicks": {
-  "0": 136,
+  "0": 138,
   "1": 53,
   "2-3": 81,
-  "4-6": 22,
+  "4-6": 23,
   "7-plus": 24
  },
  "os": {
-  "ios": 182,
+  "ios": 185,
   "android": 22,
   "desktop": 92
  },
@@ -126,7 +126,7 @@
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 63,
+   "opens": 64,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -174,7 +174,7 @@
   {
    "id": "ketubah",
    "name": "הרי זו כתובתך",
-   "opens": 42,
+   "opens": 44,
    "summaries": 0,
    "recordings": 0,
    "zoom": 0
@@ -292,18 +292,18 @@
    "date": "2026-11-15",
    "totals": {
     "people": 157,
-    "visits": 344,
-    "returning": 80,
+    "visits": 347,
+    "returning": 81,
     "from-homescreen": 65,
-    "scrolled": 178,
-    "act-task-done": 75
+    "scrolled": 180,
+    "act-task-done": 76
    },
    "acts": {
     "summary": 106,
     "folder": 23,
     "recording": 11,
     "zoom": 6,
-    "lemida": 41,
+    "lemida": 42,
     "calendar": 10,
     "gmail": 1,
     "copy-mail": 5,
@@ -311,13 +311,13 @@
     "other": 17
    },
    "opens": {
-    "micro": 63,
+    "micro": 64,
     "change": 45,
     "ob": 68,
     "decisions": 95,
     "ai": 40,
     "labor": 46,
-    "ketubah": 42,
+    "ketubah": 44,
     "writing-eliav": 17
    }
   }
