@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-15T22:26+02:00",
+ "updated": "2026-11-16T03:09+02:00",
  "failures": 0,
  "totals": {
-  "people": 159,
-  "visits": 370,
-  "returning": 91,
-  "from-homescreen": 73,
-  "scrolled": 193,
-  "act-task-done": 94
+  "people": 161,
+  "visits": 376,
+  "returning": 93,
+  "from-homescreen": 74,
+  "scrolled": 196,
+  "act-task-done": 97
  },
  "days": [
   {
@@ -84,9 +84,15 @@
   },
   {
    "date": "2026-11-15",
-   "visits": 31,
-   "devices": 13,
+   "visits": 33,
+   "devices": 15,
    "returning": 10
+  },
+  {
+   "date": "2026-11-16",
+   "visits": 5,
+   "devices": 2,
+   "returning": 2
   }
  ],
  "acts": {
@@ -99,11 +105,11 @@
   "gmail": 1,
   "copy-mail": 8,
   "install": 6,
-  "other": 18
+  "other": 19
  },
  "stay": {
-  "0-10s": 149,
-  "10-30s": 95,
+  "0-10s": 153,
+  "10-30s": 98,
   "30-60s": 53,
   "1-2m": 28,
   "2-5m": 17,
@@ -111,16 +117,16 @@
   "10m-plus": 1
  },
  "clicks": {
-  "0": 146,
+  "0": 150,
   "1": 58,
-  "2-3": 91,
+  "2-3": 93,
   "4-6": 25,
   "7-plus": 25
  },
  "os": {
-  "ios": 205,
+  "ios": 206,
   "android": 23,
-  "desktop": 100
+  "desktop": 104
  },
  "courses": [
   {
@@ -309,6 +315,39 @@
     "copy-mail": 8,
     "install": 6,
     "other": 18
+   },
+   "opens": {
+    "micro": 73,
+    "change": 47,
+    "ob": 72,
+    "decisions": 97,
+    "ai": 41,
+    "labor": 46,
+    "ketubah": 46,
+    "writing-eliav": 17
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "totals": {
+    "people": 161,
+    "visits": 376,
+    "returning": 93,
+    "from-homescreen": 74,
+    "scrolled": 196,
+    "act-task-done": 97
+   },
+   "acts": {
+    "summary": 106,
+    "folder": 23,
+    "recording": 11,
+    "zoom": 6,
+    "lemida": 43,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 8,
+    "install": 6,
+    "other": 19
    },
    "opens": {
     "micro": 73,
