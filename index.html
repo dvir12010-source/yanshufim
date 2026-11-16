@@ -166,9 +166,10 @@ h2 { font-family: var(--display); font-weight: 400; font-size: 23px; margin: 0; 
 .feat-status { display: inline-block; margin-top: 4px; padding: 1px 9px; border-radius: 999px; background: var(--soft); color: var(--c); font-size: 13.5px; font-weight: 700; }
 .feat .task-how { margin: 6px 0 0; }
 .feat-video { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; min-height: 44px; padding: 6px 16px 6px 14px; border-radius: 12px; background: var(--c); color: #fff; font-weight: 700; text-decoration: none; }
-.minis { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 6px; }
-.mini { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: var(--soft); color: var(--c); font-size: 14.5px; font-weight: 700; text-decoration: none; }
-.mini-pdf { display: grid; place-items: center; height: 18px; padding: 0 4px; border-radius: 3px; background: var(--pdf); color: #fff; font-size: 9.5px; font-weight: 700; letter-spacing: .2px; }
+.minis { display: flex; gap: 0; margin: 2px 0 -6px -6px; }
+.mini { display: grid; place-items: center; width: 44px; height: 44px; color: var(--c); text-decoration: none; }
+.mini i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--soft); font-style: normal; font-size: 17px; font-weight: 700; line-height: 1; }
+.mini-pdf { display: grid; place-items: center; height: 15px; padding: 0 3px; border-radius: 3px; background: var(--pdf); color: #fff; font-size: 8.5px; font-weight: 700; letter-spacing: .2px; }
 .feat-submit { display: block; margin-top: 10px; font-weight: 700; color: var(--c); text-decoration: underline; text-underline-offset: 4px; }
 .pdf-chip { display: grid; justify-items: center; gap: 4px; width: 68px; padding: 8px 4px; border-radius: 12px; text-decoration: none; color: var(--fg); font-size: 13px; font-weight: 700; line-height: 1.15; text-align: center; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); }
 .pdf-ico { position: relative; display: grid; place-items: end center; width: 34px; height: 42px; padding-bottom: 6px; border-radius: 4px 12px 4px 4px; background: var(--pdf); color: #fff; font-size: 11px; letter-spacing: .3px; }
@@ -504,9 +505,8 @@ function taskRow(t, inCourse) {
   if ((t.video || t.file) && !inCourse) {
     // On the home screen the same task is one short row: the title, then small links to the video, the file and the submission
     const mini = [
-      t.video && `<a class="mini" href="${esc(t.video.url)}" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>וידאו</a>`,
-      t.file && `<a class="mini" href="${esc(t.file.url)}" target="_blank" rel="noopener"><span class="mini-pdf" aria-hidden="true">PDF</span>הסבר</a>`,
-      t.submit && `<a class="mini" href="${esc(t.submit)}" target="_blank" rel="noopener">הגשה ←</a>`
+      t.video && `<a class="mini" href="${esc(t.video.url)}" target="_blank" rel="noopener" aria-label="${esc(t.video.label)}" title="${esc(t.video.label)}"><i><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg></i></a>`,
+      t.file && `<a class="mini" href="${esc(t.file.url)}" target="_blank" rel="noopener" aria-label="${esc(t.file.label)} (PDF)" title="${esc(t.file.label)}"><i><span class="mini-pdf" aria-hidden="true">PDF</span></i></a>`
     ].filter(Boolean).join('');
     return `<div class="task" style="--c:${c ? c.color : 'var(--due)'}">
     <button class="task-tick" type="button" data-done="${esc(t.id)}" aria-label="הגשתי: ${esc(t.text)}"></button>
