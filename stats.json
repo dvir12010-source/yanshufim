@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-16T10:05+02:00",
+ "updated": "2026-11-16T20:42+02:00",
  "failures": 0,
  "totals": {
-  "people": 161,
-  "visits": 376,
-  "returning": 93,
+  "people": 164,
+  "visits": 398,
+  "returning": 95,
   "from-homescreen": 74,
-  "scrolled": 196,
-  "act-task-done": 97
+  "scrolled": 205,
+  "act-task-done": 98
  },
  "days": [
   {
@@ -90,9 +90,9 @@
   },
   {
    "date": "2026-11-16",
-   "visits": 5,
-   "devices": 2,
-   "returning": 2
+   "visits": 25,
+   "devices": 6,
+   "returning": 5
   }
  ],
  "acts": {
@@ -100,39 +100,39 @@
   "folder": 23,
   "recording": 11,
   "zoom": 6,
-  "lemida": 43,
+  "lemida": 47,
   "calendar": 10,
   "gmail": 1,
   "copy-mail": 8,
   "install": 6,
-  "other": 19
+  "other": 20
  },
  "stay": {
-  "0-10s": 153,
-  "10-30s": 98,
-  "30-60s": 53,
+  "0-10s": 159,
+  "10-30s": 101,
+  "30-60s": 56,
   "1-2m": 28,
-  "2-5m": 17,
+  "2-5m": 19,
   "5-10m": 4,
   "10m-plus": 1
  },
  "clicks": {
-  "0": 150,
+  "0": 159,
   "1": 58,
-  "2-3": 93,
+  "2-3": 98,
   "4-6": 25,
   "7-plus": 25
  },
  "os": {
-  "ios": 206,
-  "android": 23,
-  "desktop": 104
+  "ios": 209,
+  "android": 29,
+  "desktop": 115
  },
  "courses": [
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 73,
+   "opens": 77,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -148,7 +148,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 72,
+   "opens": 73,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -164,7 +164,7 @@
   {
    "id": "ai",
    "name": "בינה מלאכותית",
-   "opens": 41,
+   "opens": 44,
    "summaries": 1,
    "recordings": 0,
    "zoom": 0
@@ -172,7 +172,7 @@
   {
    "id": "labor",
    "name": "דיני עבודה",
-   "opens": 46,
+   "opens": 47,
    "summaries": 4,
    "recordings": 11,
    "zoom": 0
@@ -330,32 +330,32 @@
   {
    "date": "2026-11-16",
    "totals": {
-    "people": 161,
-    "visits": 376,
-    "returning": 93,
+    "people": 164,
+    "visits": 398,
+    "returning": 95,
     "from-homescreen": 74,
-    "scrolled": 196,
-    "act-task-done": 97
+    "scrolled": 205,
+    "act-task-done": 98
    },
    "acts": {
     "summary": 106,
     "folder": 23,
     "recording": 11,
     "zoom": 6,
-    "lemida": 43,
+    "lemida": 47,
     "calendar": 10,
     "gmail": 1,
     "copy-mail": 8,
     "install": 6,
-    "other": 19
+    "other": 20
    },
    "opens": {
-    "micro": 73,
+    "micro": 77,
     "change": 47,
-    "ob": 72,
+    "ob": 73,
     "decisions": 97,
-    "ai": 41,
-    "labor": 46,
+    "ai": 44,
+    "labor": 47,
     "ketubah": 46,
     "writing-eliav": 17
    }
