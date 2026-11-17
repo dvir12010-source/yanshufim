@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-17T14:06+02:00",
+ "updated": "2026-11-17T23:06+02:00",
  "failures": 0,
  "totals": {
-  "people": 167,
-  "visits": 414,
-  "returning": 101,
-  "from-homescreen": 82,
-  "scrolled": 216,
+  "people": 169,
+  "visits": 423,
+  "returning": 103,
+  "from-homescreen": 85,
+  "scrolled": 219,
   "act-task-done": 98
  },
  "days": [
@@ -96,13 +96,13 @@
   },
   {
    "date": "2026-11-17",
-   "visits": 15,
-   "devices": 9,
-   "returning": 6
+   "visits": 20,
+   "devices": 12,
+   "returning": 9
   }
  ],
  "acts": {
-  "summary": 107,
+  "summary": 108,
   "folder": 23,
   "recording": 11,
   "zoom": 6,
@@ -114,8 +114,8 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 166,
-  "10-30s": 104,
+  "0-10s": 168,
+  "10-30s": 106,
   "30-60s": 58,
   "1-2m": 29,
   "2-5m": 21,
@@ -123,14 +123,14 @@
   "10m-plus": 1
  },
  "clicks": {
-  "0": 167,
-  "1": 59,
-  "2-3": 102,
+  "0": 168,
+  "1": 60,
+  "2-3": 105,
   "4-6": 27,
   "7-plus": 26
  },
  "os": {
-  "ios": 220,
+  "ios": 226,
   "android": 30,
   "desktop": 116
  },
@@ -138,7 +138,7 @@
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 86,
+   "opens": 87,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -154,7 +154,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 76,
+   "opens": 77,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -170,15 +170,15 @@
   {
    "id": "ai",
    "name": "בינה מלאכותית",
-   "opens": 47,
-   "summaries": 2,
+   "opens": 49,
+   "summaries": 4,
    "recordings": 0,
    "zoom": 0
   },
   {
    "id": "labor",
    "name": "דיני עבודה",
-   "opens": 50,
+   "opens": 51,
    "summaries": 4,
    "recordings": 11,
    "zoom": 0
@@ -369,15 +369,15 @@
   {
    "date": "2026-11-17",
    "totals": {
-    "people": 167,
-    "visits": 414,
-    "returning": 101,
-    "from-homescreen": 82,
-    "scrolled": 216,
+    "people": 169,
+    "visits": 423,
+    "returning": 103,
+    "from-homescreen": 85,
+    "scrolled": 219,
     "act-task-done": 98
    },
    "acts": {
-    "summary": 107,
+    "summary": 108,
     "folder": 23,
     "recording": 11,
     "zoom": 6,
@@ -389,12 +389,12 @@
     "other": 20
    },
    "opens": {
-    "micro": 86,
+    "micro": 87,
     "change": 49,
-    "ob": 76,
+    "ob": 77,
     "decisions": 99,
-    "ai": 47,
-    "labor": 50,
+    "ai": 49,
+    "labor": 51,
     "ketubah": 51,
     "writing-eliav": 18
    }
