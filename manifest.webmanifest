@@ -5,10 +5,6 @@
   "dir": "rtl",
   "start_url": ".",
   "display": "standalone",
-  "display_override": [
-    "tabbed",
-    "standalone"
-  ],
   "background_color": "#f4f8f7",
   "theme_color": "#0b6a7a",
   "icons": [
