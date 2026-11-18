@@ -1,11 +1,11 @@
 {
- "updated": "2026-11-17T23:06+02:00",
+ "updated": "2026-11-18T04:58+02:00",
  "failures": 0,
  "totals": {
   "people": 169,
-  "visits": 423,
+  "visits": 425,
   "returning": 103,
-  "from-homescreen": 85,
+  "from-homescreen": 87,
   "scrolled": 219,
   "act-task-done": 98
  },
@@ -96,9 +96,15 @@
   },
   {
    "date": "2026-11-17",
-   "visits": 20,
+   "visits": 22,
    "devices": 12,
    "returning": 9
+  },
+  {
+   "date": "2026-11-18",
+   "visits": 0,
+   "devices": 0,
+   "returning": 0
   }
  ],
  "acts": {
@@ -114,7 +120,7 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 168,
+  "0-10s": 170,
   "10-30s": 106,
   "30-60s": 58,
   "1-2m": 29,
@@ -124,13 +130,13 @@
  },
  "clicks": {
   "0": 168,
-  "1": 60,
-  "2-3": 105,
+  "1": 61,
+  "2-3": 106,
   "4-6": 27,
   "7-plus": 26
  },
  "os": {
-  "ios": 226,
+  "ios": 228,
   "android": 30,
   "desktop": 116
  },
@@ -154,7 +160,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 77,
+   "opens": 78,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -392,6 +398,39 @@
     "micro": 87,
     "change": 49,
     "ob": 77,
+    "decisions": 99,
+    "ai": 49,
+    "labor": 51,
+    "ketubah": 51,
+    "writing-eliav": 18
+   }
+  },
+  {
+   "date": "2026-11-18",
+   "totals": {
+    "people": 169,
+    "visits": 425,
+    "returning": 103,
+    "from-homescreen": 87,
+    "scrolled": 219,
+    "act-task-done": 98
+   },
+   "acts": {
+    "summary": 108,
+    "folder": 23,
+    "recording": 11,
+    "zoom": 6,
+    "lemida": 48,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 8,
+    "install": 6,
+    "other": 20
+   },
+   "opens": {
+    "micro": 87,
+    "change": 49,
+    "ob": 78,
     "decisions": 99,
     "ai": 49,
     "labor": 51,
