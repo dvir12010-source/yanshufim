@@ -316,13 +316,14 @@ footer { color: var(--muted); font-size: 15px; }
 }
 
 /* Desktop: files from the site open as tabs inside it, like Chrome. The strip appears once a file is open */
-.tabs { position: sticky; top: 0; z-index: 40; display: flex; align-items: flex-end; gap: 2px; height: 42px; padding: 6px 10px 0; background: #e4dccb; overflow-x: auto; scrollbar-width: none; }
+/* Tabs run left to right like Dvir's Chrome: the page first on the left, then each file; icon, name, then × on the right */
+.tabs { direction: ltr; position: sticky; top: 0; z-index: 40; display: flex; align-items: flex-end; gap: 2px; height: 42px; padding: 6px 10px 0; background: #e4dccb; overflow-x: auto; scrollbar-width: none; }
 .tab { display: flex; align-items: center; gap: 8px; flex: 0 1 220px; min-width: 110px; height: 36px; padding: 0 12px 0 8px; border: 0; border-radius: 10px 10px 0 0; background: transparent; color: var(--muted); font: 700 14px var(--body); cursor: pointer; }
 .tab:hover { background: rgba(255,255,255,.45); }
 .tab[aria-selected="true"] { background: var(--surface); color: var(--fg); box-shadow: 0 -1px 0 rgba(90,70,40,.08); }
 .tab .t-ico { flex: none; width: 18px; height: 18px; border-radius: 4px; }
 .tab .t-pdf { display: grid; place-items: center; background: var(--pdf); color: #fff; font-size: 7px; letter-spacing: .2px; }
-.tab .t-name { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: start; }
+.tab .t-name { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left; unicode-bidi: plaintext; }
 .tab .t-x { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-size: 16px; line-height: 1; color: var(--muted); }
 .tab .t-x:hover { background: var(--line); color: var(--fg); }
 .has-tabs .bar { top: 42px; }
@@ -945,7 +946,13 @@ render();
   function draw() {
     strip.hidden = tabs.length === 0;
     document.body.classList.toggle('has-tabs', tabs.length > 0);
-    const home = `<button class="tab" role="tab" data-tab="home" aria-selected="${active === null}"><img class="t-ico" src="icon-192.png" alt=""><span class="t-name">ינשופים</span></button>`;
+    // The first tab is the page you were on: a course page shows its name and icon, otherwise the site
+    const course = byId((location.hash || '').slice(1));
+    const homeIco = course && icons[course.id]
+      ? `<svg class="t-ico icon" viewBox="0 0 24 24" style="color:${esc(course.color)}" aria-hidden="true">${icons[course.id]}</svg>`
+      : '<img class="t-ico" src="icon-192.png" alt="">';
+    const homeName = course ? (course.short || course.name) : 'ינשופים';
+    const home = `<button class="tab" role="tab" data-tab="home" aria-selected="${active === null}" title="${esc(course ? course.name : homeName)}">${homeIco}<span class="t-name">${esc(homeName)}</span></button>`;
     strip.innerHTML = home + tabs.map((t, i) => `<button class="tab" role="tab" data-tab="${i}" aria-selected="${active === t}" title="${esc(t.name)}">${t.pdf ? '<span class="t-ico t-pdf" aria-hidden="true">PDF</span>' : '<img class="t-ico" src="icon-192.png" alt="">'}<span class="t-name">${esc(t.name)}</span><span class="t-x" data-close="${i}" role="button" aria-label="סגירת ${esc(t.name)}">×</span></button>`).join('');
     app.hidden = active !== null;
     tabs.forEach(t => { t.frame.hidden = active !== t; });
@@ -985,6 +992,9 @@ render();
     e.preventDefault();
     open(u.href, a);
   });
+
+  // Moving to another page inside the site renames the first tab
+  addEventListener('hashchange', () => { if (tabs.length) { active = null; draw(); } });
 
   strip.addEventListener('click', e => {
     const x = e.target.closest('[data-close]');
