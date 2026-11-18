@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-18T04:58+02:00",
+ "updated": "2026-11-18T22:44+02:00",
  "failures": 0,
  "totals": {
-  "people": 169,
-  "visits": 425,
-  "returning": 103,
-  "from-homescreen": 87,
-  "scrolled": 219,
-  "act-task-done": 98
+  "people": 173,
+  "visits": 443,
+  "returning": 109,
+  "from-homescreen": 91,
+  "scrolled": 228,
+  "act-task-done": 107
  },
  "days": [
   {
@@ -102,9 +102,9 @@
   },
   {
    "date": "2026-11-18",
-   "visits": 0,
-   "devices": 0,
-   "returning": 0
+   "visits": 17,
+   "devices": 9,
+   "returning": 5
   }
  ],
  "acts": {
@@ -112,7 +112,7 @@
   "folder": 23,
   "recording": 11,
   "zoom": 6,
-  "lemida": 48,
+  "lemida": 49,
   "calendar": 10,
   "gmail": 1,
   "copy-mail": 8,
@@ -120,31 +120,31 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 170,
-  "10-30s": 106,
-  "30-60s": 58,
-  "1-2m": 29,
+  "0-10s": 178,
+  "10-30s": 108,
+  "30-60s": 63,
+  "1-2m": 30,
   "2-5m": 21,
   "5-10m": 4,
   "10m-plus": 1
  },
  "clicks": {
-  "0": 168,
-  "1": 61,
-  "2-3": 106,
-  "4-6": 27,
-  "7-plus": 26
+  "0": 171,
+  "1": 66,
+  "2-3": 109,
+  "4-6": 29,
+  "7-plus": 27
  },
  "os": {
-  "ios": 228,
+  "ios": 234,
   "android": 30,
-  "desktop": 116
+  "desktop": 128
  },
  "courses": [
   {
    "id": "micro",
    "name": "כלכלה מיקרו",
-   "opens": 87,
+   "opens": 88,
    "summaries": 25,
    "recordings": 0,
    "zoom": 3
@@ -160,7 +160,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 78,
+   "opens": 79,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -168,7 +168,7 @@
   {
    "id": "decisions",
    "name": "קבלת החלטות",
-   "opens": 99,
+   "opens": 102,
    "summaries": 19,
    "recordings": 0,
    "zoom": 0
@@ -176,7 +176,7 @@
   {
    "id": "ai",
    "name": "בינה מלאכותית",
-   "opens": 49,
+   "opens": 52,
    "summaries": 4,
    "recordings": 0,
    "zoom": 0
@@ -408,19 +408,19 @@
   {
    "date": "2026-11-18",
    "totals": {
-    "people": 169,
-    "visits": 425,
-    "returning": 103,
-    "from-homescreen": 87,
-    "scrolled": 219,
-    "act-task-done": 98
+    "people": 173,
+    "visits": 443,
+    "returning": 109,
+    "from-homescreen": 91,
+    "scrolled": 228,
+    "act-task-done": 107
    },
    "acts": {
     "summary": 108,
     "folder": 23,
     "recording": 11,
     "zoom": 6,
-    "lemida": 48,
+    "lemida": 49,
     "calendar": 10,
     "gmail": 1,
     "copy-mail": 8,
@@ -428,11 +428,11 @@
     "other": 20
    },
    "opens": {
-    "micro": 87,
+    "micro": 88,
     "change": 49,
-    "ob": 78,
-    "decisions": 99,
-    "ai": 49,
+    "ob": 79,
+    "decisions": 102,
+    "ai": 52,
     "labor": 51,
     "ketubah": 51,
     "writing-eliav": 18
