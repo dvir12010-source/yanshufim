@@ -181,7 +181,8 @@ h2 { font-family: var(--display); font-weight: 400; font-size: 23px; margin: 0; 
 .tile-obj:hover .a-p2 { animation-delay: .5s; }
 .tile-obj:hover .a-p3 { animation-delay: 1s; }
 .tile-obj:hover .a-p4 { animation-delay: 1.5s; }
-@keyframes a-nod { 0%,30%,100% { transform: translateY(0); } 10% { transform: translateY(-3px); } 20% { transform: translateY(0); } }
+/* People: each in turn nods yes-yes with the head only (chin dips down twice), the body stays seated */
+@keyframes a-nod { 0%, 34%, 100% { transform: translateY(0); } 8% { transform: translateY(2.4px); } 16% { transform: translateY(0); } 24% { transform: translateY(1.6px); } }
 .tile-obj:hover .a-pencil { animation: a-write .7s ease-in-out infinite alternate; }
 @keyframes a-write { from { transform: translate(0, 0); } to { transform: translate(-7px, 1.5px); } }
 @media (prefers-reduced-motion: reduce) { .tile-obj .thing, .tile-obj .thing svg, .thing svg * { transition: none !important; animation: none !important; } }
@@ -443,9 +444,11 @@ const ANIM = {
     + '<g class="a-spark b"><path d="M35 9 l.8 2.2 2.2 .8 -2.2 .8 -.8 2.2 -.8 -2.2 -2.2 -.8 2.2 -.8z" fill="#fff" stroke="#9cc4ec" stroke-width=".3"/></g>'; },
   ob: s => ['translate(22 38)', 'translate(38 30)', 'translate(62 30)', 'translate(78 38)'].reduce((acc, t, k) => {
     const start = `<g transform="${t} scale`;
+    // Only the head nods: from the head circle (the first circle; the neck is a rect) to the end of that person
     const i = acc.indexOf(start);
-    const j = acc.indexOf('</g>', i) + 4;
-    return i < 0 ? acc : acc.slice(0, i) + `<g class="a-p${k + 1}">` + acc.slice(i, j) + '</g>' + acc.slice(j);
+    const j = acc.indexOf('</g>', i);
+    const h = acc.indexOf('<circle', i);
+    return i < 0 || h < 0 || h > j ? acc : acc.slice(0, h) + `<g class="a-p${k + 1}">` + acc.slice(h, j) + '</g>' + acc.slice(j);
   }, s),
   'writing-eliav': s => wrapFrom(s, '<g transform="translate(-8 -6)', null, 'a-pencil'),
 };
