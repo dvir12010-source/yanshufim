@@ -41,9 +41,16 @@ a { color: inherit; }
 .rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
 .rail a.on { background: #fff; color: var(--course); }
 
+/* download the original file: one button in the bar, or one per lesson when lessons come from separate files */
+.dl, .dl-sm { display: inline-flex; align-items: center; gap: 6px; flex: none; text-decoration: none; font-weight: 700; white-space: nowrap; }
+.dl svg, .dl-sm svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.dl { margin-inline-start: auto; height: 38px; padding: 0 14px; border-radius: 999px; background: #fff; color: var(--course); font-size: 15px; }
+.dl:hover { opacity: .9; }
+.dl-sm { justify-self: end; height: 32px; padding: 0 12px; border-radius: 999px; background: var(--soft); color: var(--course); font-size: 14px; border: 1.5px solid color-mix(in srgb, var(--course) 30%, transparent); }
+
 /* lesson divider */
 .lesson { padding-block: 22px 8px; }
-.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider { display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
 .divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
 .divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
 .divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
@@ -104,21 +111,22 @@ body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: 
     <div class="head">
       <a class="back" href="../#ob" aria-label="חזרה לקורס">→</a>
       <div class="who"><b>הסיכום של שלי</b><span>התנהגות ארגונית · שיעורים 2 עד 4</span></div>
+      
     </div>
     <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a><a href="#l4" data-n="4">4</a></nav>
   </div>
 </div>
 <main class="wrap">
 <section class="lesson" id="l2" data-n="2">
-  <header class="divider"><span class="num">שיעור 2</span><span class="date">21/10</span><span class="topic">מונחים ממדעי הטבע, מדע ניוטוניאני ופוסט ניוטוניאני</span></header>
+  <header class="divider"><span class="num">שיעור 2</span><span class="date">21/10</span><a class="dl-sm" href="files/ob-shelly-0.pdf" download="הסיכום של שלי - התנהגות ארגונית - שיעור 2.pdf" title="הסיכום של שלי - התנהגות ארגונית - שיעור 2.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">מונחים ממדעי הטבע, מדע ניוטוניאני ופוסט ניוטוניאני</span></header>
   <div class="pages"><img src="img/ob-shelly-0-p01a.webp" width="1101" height="1343" loading="lazy" alt=""><img src="img/ob-shelly-0-p02a.webp" width="1101" height="1275" loading="lazy" alt=""><img src="img/ob-shelly-0-p03a.webp" width="1101" height="1279" loading="lazy" alt=""></div>
 </section>
 <section class="lesson" id="l3" data-n="3">
-  <header class="divider"><span class="num">שיעור 3</span><span class="date">28/10</span><span class="topic">מהנדסה: תורת המערכות הכללית</span></header>
+  <header class="divider"><span class="num">שיעור 3</span><span class="date">28/10</span><a class="dl-sm" href="files/ob-shelly-1.pdf" download="הסיכום של שלי - התנהגות ארגונית - שיעור 3.pdf" title="הסיכום של שלי - התנהגות ארגונית - שיעור 3.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">מהנדסה: תורת המערכות הכללית</span></header>
   <div class="pages"><img src="img/ob-shelly-1-p01a.webp" width="1101" height="1343" loading="lazy" alt=""><img src="img/ob-shelly-1-p02a.webp" width="1101" height="1313" loading="lazy" alt=""><img src="img/ob-shelly-1-p03a.webp" width="1101" height="1313" loading="lazy" alt=""><img src="img/ob-shelly-1-p04a.webp" width="1101" height="1313" loading="lazy" alt=""></div>
 </section>
 <section class="lesson" id="l4" data-n="4">
-  <header class="divider"><span class="num">שיעור 4</span><span class="date">4/11</span><span class="topic">בירוקרטיה</span></header>
+  <header class="divider"><span class="num">שיעור 4</span><span class="date">4/11</span><a class="dl-sm" href="files/ob-shelly-2.pdf" download="הסיכום של שלי - התנהגות ארגונית - שיעור 4.pdf" title="הסיכום של שלי - התנהגות ארגונית - שיעור 4.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">בירוקרטיה</span></header>
   <div class="pages"><img src="img/ob-shelly-2-p01a.webp" width="1101" height="1343" loading="lazy" alt=""><img src="img/ob-shelly-2-p02a.webp" width="1101" height="1315" loading="lazy" alt=""><img src="img/ob-shelly-2-p03a.webp" width="1101" height="1337" loading="lazy" alt=""><img src="img/ob-shelly-2-p04a.webp" width="1101" height="1335" loading="lazy" alt=""></div>
 </section>
 <p class="end">כאן נגמר הסיכום. השיעור הבא יתווסף כאן כשהסיכום יעלה.</p>

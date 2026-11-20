@@ -41,9 +41,16 @@ a { color: inherit; }
 .rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
 .rail a.on { background: #fff; color: var(--course); }
 
+/* download the original file: one button in the bar, or one per lesson when lessons come from separate files */
+.dl, .dl-sm { display: inline-flex; align-items: center; gap: 6px; flex: none; text-decoration: none; font-weight: 700; white-space: nowrap; }
+.dl svg, .dl-sm svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.dl { margin-inline-start: auto; height: 38px; padding: 0 14px; border-radius: 999px; background: #fff; color: var(--course); font-size: 15px; }
+.dl:hover { opacity: .9; }
+.dl-sm { justify-self: end; height: 32px; padding: 0 12px; border-radius: 999px; background: var(--soft); color: var(--course); font-size: 14px; border: 1.5px solid color-mix(in srgb, var(--course) 30%, transparent); }
+
 /* lesson divider */
 .lesson { padding-block: 22px 8px; }
-.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider { display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
 .divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
 .divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
 .divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
@@ -104,6 +111,7 @@ body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: 
     <div class="head">
       <a class="back" href="../#micro" aria-label="חזרה לקורס">→</a>
       <div class="who"><b>הסיכום של שי</b><span>כלכלה מיקרו · שיעורים 1 עד 3</span></div>
+      <a class="dl" href="files/micro-shay-0.pdf" download="הסיכום של שי - כלכלה מיקרו - שיעורים 1-3.pdf" title="הסיכום של שי - כלכלה מיקרו - שיעורים 1-3.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a>
     </div>
     <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a></nav>
   </div>

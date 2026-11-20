@@ -41,9 +41,16 @@ a { color: inherit; }
 .rail a::before { content: "שיעור "; font-family: "Assistant", sans-serif; font-weight: 600; font-size: 14px; }
 .rail a.on { background: #fff; color: var(--course); }
 
+/* download the original file: one button in the bar, or one per lesson when lessons come from separate files */
+.dl, .dl-sm { display: inline-flex; align-items: center; gap: 6px; flex: none; text-decoration: none; font-weight: 700; white-space: nowrap; }
+.dl svg, .dl-sm svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.dl { margin-inline-start: auto; height: 38px; padding: 0 14px; border-radius: 999px; background: #fff; color: var(--course); font-size: 15px; }
+.dl:hover { opacity: .9; }
+.dl-sm { justify-self: end; height: 32px; padding: 0 12px; border-radius: 999px; background: var(--soft); color: var(--course); font-size: 14px; border: 1.5px solid color-mix(in srgb, var(--course) 30%, transparent); }
+
 /* lesson divider */
 .lesson { padding-block: 22px 8px; }
-.divider { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
+.divider { display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; align-items: baseline; margin-bottom: 14px; }
 .divider .num { font-family: var(--display); font-size: 30px; color: var(--course); line-height: 1; }
 .divider .date { font-family: var(--title); font-weight: 700; color: var(--muted); font-size: 15px; }
 .divider .topic { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
@@ -104,29 +111,30 @@ body.notebook td { border: 1px solid #d9cfba; padding: 6px 8px; vertical-align: 
     <div class="head">
       <a class="back" href="../#ob" aria-label="חזרה לקורס">→</a>
       <div class="who"><b>הסיכום של שירי</b><span>התנהגות ארגונית · שיעורים 1 עד 5</span></div>
+      
     </div>
     <nav class="rail" aria-label="מעבר בין שיעורים"><a href="#l1" data-n="1">1</a><a href="#l2" data-n="2">2</a><a href="#l3" data-n="3">3</a><a href="#l4" data-n="4">4</a><a href="#l5" data-n="5">5</a></nav>
   </div>
 </div>
 <main class="wrap">
 <section class="lesson" id="l1" data-n="1">
-  <header class="divider"><span class="num">שיעור 1</span><span class="date">14/10</span><span class="topic">פתיחה, ראיה מערכתית, תחומי הפסיכולוגיה הארגונית</span></header>
+  <header class="divider"><span class="num">שיעור 1</span><span class="date">14/10</span><a class="dl-sm" href="files/ob-shiri-0.pdf" download="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf" title="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">פתיחה, ראיה מערכתית, תחומי הפסיכולוגיה הארגונית</span></header>
   <div class="pages"><img src="img/ob-shiri-0-p01a.webp" width="1101" height="1359" loading="lazy" alt=""><img src="img/ob-shiri-0-p02a.webp" width="1101" height="433" loading="lazy" alt=""></div>
 </section>
 <section class="lesson" id="l2" data-n="2">
-  <header class="divider"><span class="num">שיעור 2</span><span class="date">21/10</span><span class="topic">מונחים ממדעי הטבע, מדע ניוטוניאני ופוסט ניוטוניאני</span></header>
+  <header class="divider"><span class="num">שיעור 2</span><span class="date">21/10</span><a class="dl-sm" href="files/ob-shiri-0.pdf" download="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf" title="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">מונחים ממדעי הטבע, מדע ניוטוניאני ופוסט ניוטוניאני</span></header>
   <div class="pages"><img src="img/ob-shiri-0-p02b.webp" width="1101" height="989" loading="lazy" alt=""><img src="img/ob-shiri-0-p03a.webp" width="1101" height="1048" loading="lazy" alt=""></div>
 </section>
 <section class="lesson" id="l3" data-n="3">
-  <header class="divider"><span class="num">שיעור 3</span><span class="date">28/10</span><span class="topic">מהנדסה: תורת המערכות הכללית</span></header>
+  <header class="divider"><span class="num">שיעור 3</span><span class="date">28/10</span><a class="dl-sm" href="files/ob-shiri-0.pdf" download="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf" title="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">מהנדסה: תורת המערכות הכללית</span></header>
   <div class="pages"><img src="img/ob-shiri-0-p04a.webp" width="1101" height="1265" loading="lazy" alt=""><img src="img/ob-shiri-0-p05a.webp" width="1101" height="1484" loading="lazy" alt=""><img src="img/ob-shiri-0-p06a.webp" width="1101" height="1639" loading="lazy" alt=""><img src="img/ob-shiri-0-p07a.webp" width="1101" height="293" loading="lazy" alt=""></div>
 </section>
 <section class="lesson" id="l4" data-n="4">
-  <header class="divider"><span class="num">שיעור 4</span><span class="date">4/11</span><span class="topic">בירוקרטיה</span></header>
+  <header class="divider"><span class="num">שיעור 4</span><span class="date">4/11</span><a class="dl-sm" href="files/ob-shiri-0.pdf" download="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf" title="הסיכום של שירי - התנהגות ארגונית - שיעורים 1-4.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">בירוקרטיה</span></header>
   <div class="pages"><img src="img/ob-shiri-0-p08a.webp" width="1101" height="680" loading="lazy" alt=""><img src="img/ob-shiri-0-p09a.webp" width="1101" height="1412" loading="lazy" alt=""><img src="img/ob-shiri-0-p10a.webp" width="1101" height="662" loading="lazy" alt=""></div>
 </section>
 <section class="lesson" id="l5" data-n="5">
-  <header class="divider"><span class="num">שיעור 5</span><span class="date">11/11</span><span class="topic">שיטות ניהול ישנות מול חדשות, ניהול מדעי</span></header>
+  <header class="divider"><span class="num">שיעור 5</span><span class="date">11/11</span><a class="dl-sm" href="files/ob-shiri-1.docx" download="הסיכום של שירי - התנהגות ארגונית - שיעור 5.docx" title="הסיכום של שירי - התנהגות ארגונית - שיעור 5.docx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a><span class="topic">שיטות ניהול ישנות מול חדשות, ניהול מדעי</span></header>
   <div class="note"><h3><u><b>התנהגות ארגונית א&#x27;</b></u><u><b> </b></u><u><b>–</b></u><u><b> שיעור</b></u><u><b> </b></u><u><b>5</b></u></h3>
 <h3><u><b>שיטות ניהול ישנות מול שיטות ניהול חדשות:</b></u></h3>
 <p class="li" style="--l:0"><u>ניהול מדעי </u><u>–</u><u>  </u><u>(Scientific Management)</u><u>:</u></p>
