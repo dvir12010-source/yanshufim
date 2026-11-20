@@ -402,6 +402,9 @@ footer { color: var(--muted); font-size: 15px; }
 .tab .t-name { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left; unicode-bidi: plaintext; }
 .tab .t-x { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-size: 16px; line-height: 1; color: var(--muted); }
 .tab .t-x:hover { background: var(--line); color: var(--fg); }
+.t-dl { flex: none; align-self: center; display: flex; align-items: center; gap: 6px; height: 30px; margin-left: auto; padding: 0 12px; border-radius: 15px; background: var(--fg); color: #fff; font: 700 13px var(--body); text-decoration: none; }
+.t-dl svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.t-dl:hover { opacity: .85; }
 .has-tabs .bar { top: 42px; }
 .has-tabs .drawer, .has-tabs .scrim { top: 42px; }
 .file-view { display: block; width: 100%; height: calc(100vh - 42px); border: 0; background: #525659; }
@@ -1103,7 +1106,11 @@ render();
       : '<img class="t-ico" src="icon-192.png" alt="">';
     const homeName = course ? (course.short || course.name) : 'ינשופים';
     const home = `<button class="tab" role="tab" data-tab="home" aria-selected="${active === null}" title="${esc(course ? course.name : homeName)}">${homeIco}<span class="t-name">${esc(homeName)}</span></button>`;
-    strip.innerHTML = home + tabs.map((t, i) => `<button class="tab" role="tab" data-tab="${i}" aria-selected="${active === t}" title="${esc(t.name)}">${t.pdf ? '<span class="t-ico t-pdf" aria-hidden="true">PDF</span>' : '<img class="t-ico" src="icon-192.png" alt="">'}<span class="t-name">${esc(t.name)}</span><span class="t-x" data-close="${i}" role="button" aria-label="סגירת ${esc(t.name)}">×</span></button>`).join('');
+    // The open PDF can be saved under its site name, from a button at the end of the strip
+    const save = active && active.pdf
+      ? `<a class="t-dl" href="${esc(active.url)}" download="${esc(active.name.replace(/[\\/:*?"<>|]/g, '').trim() || 'קובץ')}.pdf" title="הורדת הקובץ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a>`
+      : '';
+    strip.innerHTML = home + tabs.map((t, i) => `<button class="tab" role="tab" data-tab="${i}" aria-selected="${active === t}" title="${esc(t.name)}">${t.pdf ? '<span class="t-ico t-pdf" aria-hidden="true">PDF</span>' : '<img class="t-ico" src="icon-192.png" alt="">'}<span class="t-name">${esc(t.name)}</span><span class="t-x" data-close="${i}" role="button" aria-label="סגירת ${esc(t.name)}">×</span></button>`).join('') + save;
     app.hidden = active !== null;
     tabs.forEach(t => { t.frame.hidden = active !== t; });
     if (active === null) return;
