@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-19T22:49+02:00",
+ "updated": "2026-11-20T04:25+02:00",
  "failures": 0,
  "totals": {
   "people": 175,
-  "visits": 466,
-  "returning": 113,
+  "visits": 468,
+  "returning": 115,
   "from-homescreen": 94,
   "scrolled": 240,
   "act-task-done": 122
@@ -108,9 +108,15 @@
   },
   {
    "date": "2026-11-19",
-   "visits": 24,
-   "devices": 5,
-   "returning": 4
+   "visits": 25,
+   "devices": 6,
+   "returning": 5
+  },
+  {
+   "date": "2026-11-20",
+   "visits": 1,
+   "devices": 1,
+   "returning": 1
   }
  ],
  "acts": {
@@ -126,7 +132,7 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 192,
+  "0-10s": 193,
   "10-30s": 110,
   "30-60s": 64,
   "1-2m": 35,
@@ -135,14 +141,14 @@
   "10m-plus": 1
  },
  "clicks": {
-  "0": 180,
+  "0": 181,
   "1": 75,
   "2-3": 113,
   "4-6": 30,
   "7-plus": 28
  },
  "os": {
-  "ios": 239,
+  "ios": 241,
   "android": 30,
   "desktop": 148
  },
@@ -450,6 +456,39 @@
     "people": 175,
     "visits": 466,
     "returning": 113,
+    "from-homescreen": 94,
+    "scrolled": 240,
+    "act-task-done": 122
+   },
+   "acts": {
+    "summary": 108,
+    "folder": 23,
+    "recording": 11,
+    "zoom": 6,
+    "lemida": 50,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 8,
+    "install": 6,
+    "other": 20
+   },
+   "opens": {
+    "micro": 89,
+    "change": 50,
+    "ob": 81,
+    "decisions": 104,
+    "ai": 52,
+    "labor": 51,
+    "ketubah": 53,
+    "writing-eliav": 18
+   }
+  },
+  {
+   "date": "2026-11-20",
+   "totals": {
+    "people": 175,
+    "visits": 468,
+    "returning": 115,
     "from-homescreen": 94,
     "scrolled": 240,
     "act-task-done": 122
