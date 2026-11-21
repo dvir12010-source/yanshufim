@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-21T13:27+02:00",
- "failures": 2,
+ "updated": "2026-11-21T21:31+02:00",
+ "failures": 0,
  "totals": {
   "people": 184,
-  "visits": 513,
-  "returning": 130,
-  "from-homescreen": 101,
-  "scrolled": 257,
+  "visits": 520,
+  "returning": 133,
+  "from-homescreen": 104,
+  "scrolled": 260,
   "act-task-done": 135
  },
  "days": [
@@ -108,7 +108,7 @@
   },
   {
    "date": "2026-11-19",
-   "visits": null,
+   "visits": 25,
    "devices": 6,
    "returning": 5
   },
@@ -120,9 +120,9 @@
   },
   {
    "date": "2026-11-21",
-   "visits": 15,
-   "devices": 7,
-   "returning": 5
+   "visits": 22,
+   "devices": 9,
+   "returning": 9
   }
  ],
  "acts": {
@@ -138,25 +138,25 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 217,
-  "10-30s": 123,
-  "30-60s": 68,
+  "0-10s": 222,
+  "10-30s": 125,
+  "30-60s": 69,
   "1-2m": 37,
   "2-5m": 23,
   "5-10m": 4,
   "10m-plus": 1
  },
  "clicks": {
-  "0": 198,
-  "1": 91,
-  "2-3": 121,
+  "0": 200,
+  "1": 92,
+  "2-3": 125,
   "4-6": 30,
   "7-plus": 30
  },
  "os": {
-  "ios": 257,
+  "ios": 261,
   "android": 40,
-  "desktop": 166
+  "desktop": 169
  },
  "courses": [
   {
@@ -170,15 +170,15 @@
   {
    "id": "change",
    "name": "ניהול שינויים",
-   "opens": 57,
+   "opens": 58,
    "summaries": 13,
    "recordings": 0,
-   "zoom": null
+   "zoom": 5
   },
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 87,
+   "opens": 88,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -186,7 +186,7 @@
   {
    "id": "decisions",
    "name": "קבלת החלטות",
-   "opens": 107,
+   "opens": 109,
    "summaries": 19,
    "recordings": 0,
    "zoom": 0
@@ -202,7 +202,7 @@
   {
    "id": "labor",
    "name": "דיני עבודה",
-   "opens": 54,
+   "opens": 55,
    "summaries": 4,
    "recordings": 12,
    "zoom": 0
@@ -218,7 +218,7 @@
   {
    "id": "writing-eliav",
    "name": "כתיבה עם אליאב",
-   "opens": 20,
+   "opens": 21,
    "summaries": 0,
    "recordings": 0,
    "zoom": 0
@@ -526,10 +526,10 @@
    "date": "2026-11-21",
    "totals": {
     "people": 184,
-    "visits": 513,
-    "returning": 130,
-    "from-homescreen": 101,
-    "scrolled": 257,
+    "visits": 520,
+    "returning": 133,
+    "from-homescreen": 104,
+    "scrolled": 260,
     "act-task-done": 135
    },
    "acts": {
@@ -546,13 +546,13 @@
    },
    "opens": {
     "micro": 93,
-    "change": 57,
-    "ob": 87,
-    "decisions": 107,
+    "change": 58,
+    "ob": 88,
+    "decisions": 109,
     "ai": 54,
-    "labor": 54,
+    "labor": 55,
     "ketubah": 55,
-    "writing-eliav": 20
+    "writing-eliav": 21
    }
   }
  ]
