@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ביקוש ותחרות משוכללת – מיקרו כלכלה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f6;--surface:#fff;--ink:#14213d;--muted:#566377;--line:#d3dbe5;--d0:#8592a6;--d1:#0f7b8a;--hot:#e0612b;--soft:#e3f1f3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1624;--surface:#182134;--ink:#e8edf5;--muted:#9aa8bd;--line:#2b3750;--d0:#7d8aa0;--d1:#4cc4d4;--hot:#ff8a55;--soft:#17303a}}
+:root[data-theme="dark"]{--bg:#0f1624;--surface:#182134;--ink:#e8edf5;--muted:#9aa8bd;--line:#2b3750;--d0:#7d8aa0;--d1:#4cc4d4;--hot:#ff8a55;--soft:#17303a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Heebo',system-ui,Arial,sans-serif;line-height:1.7;font-size:17px}
+main{max-width:900px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;line-height:1.15;margin:12px 0 8px}
+h2{font-size:1.6rem;font-weight:800;margin:0 0 6px}
+p{margin:6px 0;max-width:68ch}
+.lead{color:var(--muted);font-size:1.1rem}
+section{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:24px}
+ul{padding-inline-start:20px;margin:8px 0}
+li{margin:4px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:10px;padding:12px}
+.panel h3{margin:0 0 4px;font-size:1.05rem}
+svg{width:100%;height:auto;display:block;direction:ltr}
+svg text{font-family:'Heebo',Arial,sans-serif;fill:var(--ink);font-size:13px}
+.ctrl{margin:12px 0}
+.ctrl label{display:flex;justify-content:space-between;font-weight:500;gap:10px}
+input[type=range]{width:100%;accent-color:var(--d1);margin-top:4px}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.seg button{font:inherit;font-weight:500;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--d1);border-color:var(--d1);color:#fff}
+button:focus-visible,input:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.read{background:var(--soft);border-radius:10px;padding:10px 14px;margin-top:10px;font-weight:500}
+.tag{display:inline-block;padding:1px 9px;border-radius:6px;background:var(--soft);font-weight:500}
+</style>
+</head>
+<body>
+<main>
+<h1>ביקוש ותחרות משוכללת</h1>
+<p class="lead">מיקרו כלכלה: מה קובע כמה אנשים רוצים לקנות, ואיך עקומת הביקוש מגיבה לשינויים. בכל סעיף אפשר להזיז סליידר ולראות את ההשפעה.</p>
+
+<section>
+<h2>תחרות משוכללת</h2>
+<p>שוק הוא אוסף של מוכרים וקונים שמחליפים מוצר או שירות נתון. מספר המשתתפים בשוק משפיע מאוד על האופן שבו נקבע המחיר. שוק תחרותי מתאפיין ב:</p>
+<ul>
+<li>הרבה מאוד יצרנים וצרכנים קטנים, ואף אחד מהם אינו משפיע על המחיר בשוק.</li>
+<li>מוצר הומוגני: אין הבדל באיכות, בגודל או בצבע בין המוצרים של היצרנים.</li>
+<li>אינפורמציה מלאה: יצרנים וצרכנים "יודעים הכל".</li>
+<li>כניסה ויציאה חופשית של צרכנים ויצרנים מהשוק.</li>
+</ul>
+</section>
+
+<section>
+<h2>עקומת הביקוש</h2>
+<p>הכמות שצרכן רוצה לקנות ממוצר x תלויה במחיר המוצר (Px), בהכנסה, במחיר מוצרים אחרים (Py) ובטעמי הציבור. העקומה מתארת את הקשר בין המחיר לכמות המבוקשת. לאורכה ההכנסה, מחירי המוצרים האחרים והטעמים קבועים. היא יורדת משמאל לימין: בכל מחיר רואים כמה מבוקש, ולכל כמות רואים את המחיר המרבי שהצרכן מוכן לשלם.</p>
+<div class="grid">
+<div class="panel"><h3>שינוי על העקומה</h3><p>שינוי במחיר (או בכמות) שנמצאים על הצירים הוא תנועה לאורך העקומה. אומרים שהשתנתה <b>הכמות המבוקשת</b>, לא הביקוש.</p>
+<div class="ctrl"><label for="s1"><span>מחיר Px</span><span id="o1"></span></label><input id="s1" type="range" min="10" max="90" value="50"></div>
+<div class="read" id="r1"></div></div>
+<div class="panel"><svg id="g1" viewBox="0 0 400 320" role="img" aria-label="תנועה לאורך עקומת ביקוש"></svg></div>
+</div>
+<p style="margin-top:12px">שינוי בפרמטר שאינו על הצירים (הכנסה, מחיר מוצרים אחרים, טעמים) הוא <b>הזזה של העקומה כולה</b>, וזה שינוי בביקוש עצמו. הסעיפים הבאים מראים זאת.</p>
+</section>
+
+<section>
+<h2>שינויים בהכנסה</h2>
+<p>כדי לדעת איך שינוי בהכנסה משפיע, צריך לשאול שני דברים: מה קרה להכנסה (עלתה או ירדה), ומאיזה סוג המוצר.</p>
+<ul>
+<li><b>מוצר נורמלי:</b> עליה בהכנסה מעלה את הביקוש (העקומה זזה ימינה), ירידה מורידה אותו.</li>
+<li><b>מוצר נחות:</b> עליה בהכנסה מורידה את הביקוש (העקומה זזה שמאלה), ירידה מעלה אותו.</li>
+<li><b>מוצר נייטרלי:</b> שינויים בהכנסה אינם משפיעים על הביקוש.</li>
+</ul>
+<div class="grid">
+<div>
+<div class="seg" id="seg2" role="group" aria-label="סוג מוצר">
+<button data-v="1" aria-pressed="true">מוצר נורמלי</button><button data-v="-1" aria-pressed="false">מוצר נחות</button><button data-v="0" aria-pressed="false">מוצר נייטרלי</button></div>
+<div class="ctrl"><label for="s2"><span>שינוי בהכנסה</span><span id="o2"></span></label><input id="s2" type="range" min="-30" max="30" value="15"></div>
+<div class="read" id="r2"></div></div>
+<div class="panel"><svg id="g2" viewBox="0 0 400 320" role="img" aria-label="השפעת הכנסה על הביקוש"></svg></div>
+</div>
+</section>
+
+<section>
+<h2>שינויים במחיר מוצרים אחרים</h2>
+<p>ההשפעה של מחיר מוצר y על הביקוש למוצר x תלויה בקשר ביניהם:</p>
+<ul>
+<li><b>תחליפיים:</b> אפשר להשתמש באחד במקום בשני. אם Py עולה, קונים פחות y ויותר x, ולכן העקומה של x זזה ימינה.</li>
+<li><b>משלימים:</b> נצרכים יחד. אם Py עולה, קונים פחות y וגם פחות x, ולכן העקומה של x זזה שמאלה.</li>
+<li><b>בלתי תלויים:</b> שינוי ב-Py לא משפיע על הביקוש ל-x.</li>
+</ul>
+<div class="seg" id="seg3" role="group" aria-label="הקשר בין המוצרים">
+<button data-v="1" aria-pressed="true">תחליפיים</button><button data-v="-1" aria-pressed="false">משלימים</button><button data-v="0" aria-pressed="false">בלתי תלויים</button></div>
+<div class="ctrl"><label for="s3"><span>מחיר מוצר y (Py)</span><span id="o3"></span></label><input id="s3" type="range" min="20" max="80" value="50"></div>
+<div class="grid">
+<div class="panel"><h3>שוק מוצר y: זה שמשתנה</h3><svg id="g3" viewBox="0 0 400 320" role="img" aria-label="שוק מוצר y"></svg></div>
+<div class="panel"><h3>שוק מוצר x: זה שמגיב</h3><svg id="g4" viewBox="0 0 400 320" role="img" aria-label="שוק מוצר x"></svg></div>
+</div>
+<div class="read" id="r3"></div>
+<p style="margin-top:12px">שימו לב: Py נמצא על ציר המחיר בגרף של y, ולכן המחיר שלו משנה את הכמות המבוקשת מ-y לאורך העקומה. בגרף של x הוא מחוץ לצירים, ולכן הוא מזיז את העקומה.</p>
+</section>
+
+<section>
+<h2>טעמי הציבור</h2>
+<p>כשהטעמים משתנים, נאמר במפורש אם הביקוש למוצר עלה (העקומה זזה ימינה) או ירד (העקומה זזה שמאלה).</p>
+<div class="grid">
+<div>
+<div class="ctrl"><label for="s5"><span>שינוי בטעמי הציבור</span><span id="o5"></span></label><input id="s5" type="range" min="-30" max="30" value="-15"></div>
+<div class="read" id="r5"></div></div>
+<div class="panel"><svg id="g5" viewBox="0 0 400 320" role="img" aria-label="השפעת טעמים על הביקוש"></svg></div>
+</div>
+</section>
+</main>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const L=48,T=16,W=330,H=250; // plot area
+const sx=q=>L+q/100*W, sy=p=>T+H-p/100*H;
+const $=id=>document.getElementById(id);
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function el(t,a,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!==undefined)e.textContent=txt;return e}
+// curves: {s:shift, color, dash, label}; points: {q,p,color,label}
+function draw(id,curves,points,hlines){
+  const svg=$(id);svg.innerHTML='';
+  const line=css('--line'),muted=css('--muted');
+  const cid='c'+id;
+  svg.appendChild(el('defs',{})).appendChild(el('clipPath',{id:cid})).appendChild(el('rect',{x:L,y:T,width:W,height:H}));
+  for(let i=0;i<=100;i+=25){
+    svg.appendChild(el('line',{x1:L,x2:L+W,y1:sy(i),y2:sy(i),stroke:line,'stroke-width':1}));
+    svg.appendChild(el('line',{y1:T,y2:T+H,x1:sx(i),x2:sx(i),stroke:line,'stroke-width':1}));
+  }
+  svg.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+H+4,stroke:muted,'stroke-width':2}));
+  svg.appendChild(el('line',{x1:L-4,x2:L+W,y1:T+H,y2:T+H,stroke:muted,'stroke-width':2}));
+  svg.appendChild(el('text',{x:L-8,y:T+8,'text-anchor':'end'},'P'));
+  svg.appendChild(el('text',{x:L+W,y:T+H+24,'text-anchor':'end'},'Q'));
+  (hlines||[]).forEach(h=>{
+    svg.appendChild(el('line',{x1:L,x2:sx(h.q),y1:sy(h.p),y2:sy(h.p),stroke:h.color,'stroke-dasharray':'3 4'}));
+    svg.appendChild(el('line',{x1:sx(h.q),x2:sx(h.q),y1:sy(h.p),y2:T+H,stroke:h.color,'stroke-dasharray':'3 4'}));
+  });
+  curves.forEach(c=>{
+    const g=el('g',{'clip-path':`url(#${cid})`});
+    g.appendChild(el('line',{x1:sx(100+c.s),y1:sy(0),x2:sx(c.s),y2:sy(100),stroke:c.color,'stroke-width':3.5,'stroke-linecap':'round','stroke-dasharray':c.dash||'none'}));
+    svg.appendChild(g);
+    const lq=Math.min(100,Math.max(0,c.s+12)); // label near top
+    svg.appendChild(el('text',{x:sx(lq)+6,y:sy(88),fill:c.color,style:'fill:'+c.color+';font-weight:800;font-size:15px'},c.label));
+  });
+  points.forEach(p=>{
+    svg.appendChild(el('circle',{cx:sx(p.q),cy:sy(p.p),r:7,fill:p.color,stroke:css('--surface'),'stroke-width':2}));
+    if(p.label)svg.appendChild(el('text',{x:sx(p.q)+10,y:sy(p.p)-10,style:'font-weight:500'},p.label));
+  });
+}
+const d0=()=>css('--d0'),d1=()=>css('--d1'),hot=()=>css('--hot');
+const sign=n=>n>0?'+'+n:''+n;
+
+// 1: movement along
+function u1(){const p=+$('s1').value,q=100-p;$('o1').textContent=p;
+  draw('g1',[{s:0,color:d1(),label:'D'}],[{q,p,color:hot(),label:'Q='+q}],[{q,p,color:hot()}]);
+  $('r1').textContent=`במחיר ${p} הכמות המבוקשת היא ${q}. העקומה D נשארת במקומה.`}
+// 2: income
+let t2=1;
+function u2(){const v=+$('s2').value,s=t2*v;$('o2').textContent=sign(v);
+  const q1=50+s;
+  draw('g2',[{s:0,color:d0(),dash:'6 5',label:'D'},{s:s,color:d1(),label:'D₁'}],[{q:50,p:50,color:d0()},{q:q1,p:50,color:hot(),label:'Q='+q1}]);
+  let txt;
+  if(v===0)txt='ההכנסה לא השתנתה, ולכן העקומה במקומה.';
+  else if(t2===0)txt=`ההכנסה ${v>0?'עלתה':'ירדה'}, אך המוצר נייטרלי: הביקוש לא השתנה.`;
+  else{const right=s>0;txt=`ההכנסה ${v>0?'עלתה':'ירדה'} והמוצר ${t2>0?'נורמלי':'נחות'}: העקומה זזה ${right?'ימינה (הביקוש גדל)':'שמאלה (הביקוש קטן)'}. במחיר 50 הכמות עברה מ-50 ל-${q1}.`}
+  $('r2').textContent=txt}
+// 3/4: other goods
+let t3=1;
+function u3(){const py=+$('s3').value,k=0.4;
+  $('o3').textContent=py;
+  const qy=100-py,s=Math.round(t3*k*(py-50));
+  draw('g3',[{s:0,color:d1(),label:'Dy'}],[{q:50,p:50,color:d0()},{q:qy,p:py,color:hot(),label:'Py='+py}],[{q:qy,p:py,color:hot()}]);
+  draw('g4',[{s:0,color:d0(),dash:'6 5',label:'Dx'},{s:s,color:d1(),label:'Dx₁'}],[{q:50,p:50,color:d0()},{q:50+s,p:50,color:hot(),label:'Qx='+(50+s)}]);
+  const dir=py>50?'עלה':py<50?'ירד':'לא השתנה';
+  let t;
+  if(py===50)t='Py לא השתנה, ולכן אין הזזה בגרף של x.';
+  else if(t3===0)t=`Py ${dir}, אבל המוצרים בלתי תלויים: הביקוש ל-x לא משתנה.`;
+  else t=`Py ${dir} ו${t3>0?'המוצרים תחליפיים':'המוצרים משלימים'}: העקומה של x זזה ${s>0?'ימינה (הביקוש גדל)':'שמאלה (הביקוש קטן)'} ב-${Math.abs(s)} יחידות. הכמות ב-y ירדה/עלתה לאורך העקומה שלו.`;
+  $('r3').textContent=t.replace('ירדה/עלתה',py>50?'ירדה':'עלתה')}
+// 5: tastes
+function u5(){const v=+$('s5').value;$('o5').textContent=sign(v);
+  draw('g5',[{s:0,color:d0(),dash:'6 5',label:'D'},{s:v,color:d1(),label:'D₁'}],[{q:50,p:50,color:d0()},{q:50+v,p:50,color:hot(),label:'Q='+(50+v)}]);
+  $('r5').textContent=v===0?'הטעמים לא השתנו.':`הביקוש ${v>0?'עלה: העקומה זזה ימינה':'ירד: העקומה זזה שמאלה'}. במחיר 50 מבקשים ${50+v} במקום 50.`}
+
+function seg(id,cb){const b=$(id).querySelectorAll('button');b.forEach(x=>x.addEventListener('click',()=>{b.forEach(y=>y.setAttribute('aria-pressed',y===x));cb(+x.dataset.v)}))}
+seg('seg2',v=>{t2=v;u2()});seg('seg3',v=>{t3=v;u3()});
+[['s1',u1],['s2',u2],['s3',u3],['s5',u5]].forEach(([i,f])=>$(i).addEventListener('input',f));
+function all(){u1();u2();u3();u5()}
+all();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',all);
+</script>
+</body>
+</html>
