@@ -903,7 +903,8 @@ function filesOf(c) {
   const add = (label, url, kind) => { if (url && !out.some(f => f.url === url)) out.push({ label, url, kind }); };
   data.tasks.items.filter(t => t.course === c.id && t.file).forEach(t => add(t.text, t.file.url, 'מטלה'));
   (c.readers || []).forEach(r => add('הסיכום של ' + r.name + (r.range ? ', ' + r.range : ''), r.url, 'סיכום'));
-  (c.lessons || []).forEach(l => (l.summaries || []).forEach(s => add(s.label.replace('הסיכום של ', 'סיכום ') + (/שיעור/.test(s.label) ? '' : ' · שיעור ' + l.n), s.url, 'סיכום')));
+  // Per-lesson Drive links only when the course has no reader pages, like the course page (Dvir, 22/11: no duplicates)
+  if (!c.readers) (c.lessons || []).forEach(l => (l.summaries || []).forEach(s => add(s.label.replace('הסיכום של ', 'סיכום ') + (/שיעור/.test(s.label) ? '' : ' · שיעור ' + l.n), s.url, 'סיכום')));
   if (c.digest) add(c.digest.label, c.digest.url, 'סיכום');
   (c.extras || []).forEach(x => add(x.label, x.url, x.tool ? 'כלי' : 'חומר'));
   if (c.workbook) add(c.workbook.label || 'חוברת תרגילים', c.workbook.url, 'חומר');
