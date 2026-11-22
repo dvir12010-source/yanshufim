@@ -1106,10 +1106,8 @@ render();
       : '<img class="t-ico" src="icon-192.png" alt="">';
     const homeName = course ? (course.short || course.name) : 'ינשופים';
     const home = `<button class="tab" role="tab" data-tab="home" aria-selected="${active === null}" title="${esc(course ? course.name : homeName)}">${homeIco}<span class="t-name">${esc(homeName)}</span></button>`;
-    // The open PDF can be saved under its site name, from a button at the end of the strip
-    const save = active && active.pdf
-      ? `<a class="t-dl" href="${esc(active.url)}" download="${esc(active.name.replace(/[\\/:*?"<>|]/g, '').trim() || 'קובץ')}.pdf" title="הורדת הקובץ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>הורדה</a>`
-      : '';
+    // No download button here: Chrome's PDF viewer already shows one (Dvir, 22/11: no duplicates)
+    const save = '';
     strip.innerHTML = home + tabs.map((t, i) => `<button class="tab" role="tab" data-tab="${i}" aria-selected="${active === t}" title="${esc(t.name)}">${t.pdf ? '<span class="t-ico t-pdf" aria-hidden="true">PDF</span>' : '<img class="t-ico" src="icon-192.png" alt="">'}<span class="t-name">${esc(t.name)}</span><span class="t-x" data-close="${i}" role="button" aria-label="סגירת ${esc(t.name)}">×</span></button>`).join('') + save;
     app.hidden = active !== null;
     tabs.forEach(t => { t.frame.hidden = active !== t; });
