@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T21:31+02:00",
+ "updated": "2026-11-22T02:29+02:00",
  "failures": 0,
  "totals": {
   "people": 184,
@@ -123,6 +123,12 @@
    "visits": 22,
    "devices": 9,
    "returning": 9
+  },
+  {
+   "date": "2026-11-22",
+   "visits": 0,
+   "devices": 0,
+   "returning": 0
   }
  ],
  "acts": {
@@ -524,6 +530,39 @@
   },
   {
    "date": "2026-11-21",
+   "totals": {
+    "people": 184,
+    "visits": 520,
+    "returning": 133,
+    "from-homescreen": 104,
+    "scrolled": 260,
+    "act-task-done": 135
+   },
+   "acts": {
+    "summary": 108,
+    "folder": 23,
+    "recording": 12,
+    "zoom": 13,
+    "lemida": 51,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 8,
+    "install": 6,
+    "other": 20
+   },
+   "opens": {
+    "micro": 93,
+    "change": 58,
+    "ob": 88,
+    "decisions": 109,
+    "ai": 54,
+    "labor": 55,
+    "ketubah": 55,
+    "writing-eliav": 21
+   }
+  },
+  {
+   "date": "2026-11-22",
    "totals": {
     "people": 184,
     "visits": 520,
