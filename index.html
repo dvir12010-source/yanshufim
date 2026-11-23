@@ -348,6 +348,18 @@ details.fold[open] > summary::after { content: "−"; }
 
 footer { color: var(--muted); font-size: 15px; }
 .stamp { color: var(--muted); font-size: 14px; margin: 0 0 6px; }
+/* Home greeting: one big line in the middle, and under it the nearest class, which opens that course */
+.welcome { display: grid; justify-items: center; gap: 12px; margin: 6px 0 22px; text-align: center; }
+.welcome h1 { padding: 0 .1em; font-size: clamp(38px, 11vw, 64px); line-height: 1.15; }
+/* Each part of the day has its own sky, painted into the letters. Dark enough to read on the cream page */
+.welcome h1[data-time] { background: var(--sky); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.welcome h1[data-time="morning"] { --sky: linear-gradient(90deg, #d2541f, #e08a12); }
+.welcome h1[data-time="noon"] { --sky: linear-gradient(90deg, #b07a00, #d89a06); }
+.welcome h1[data-time="evening"] { --sky: linear-gradient(90deg, #5a2f8f, #b23a6e); }
+.welcome h1[data-time="welcome"] { --sky: linear-gradient(90deg, #0b6a7a, #14907a); }
+.next-up { display: inline-flex; align-items: center; gap: 9px; min-height: 42px; padding: 6px 18px; border-radius: 999px; background: var(--surface); box-shadow: var(--sheet); color: var(--fg); font-size: 16px; text-decoration: none; }
+.next-up i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.next-up b { font-weight: 700; }
 .install { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 8px 14px; border-radius: 12px; background: var(--surface); box-shadow: var(--sheet); color: var(--fg); font-weight: 700; text-decoration: none; }
 .install svg { color: #0b6a7a; }
 .help { position: fixed; left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 32; max-width: 420px; margin-inline: auto; padding: 18px; border-radius: 16px; background: var(--surface); display: grid; gap: 10px; }
@@ -847,6 +859,38 @@ const markSeen = c => store.set('seen-summaries', [...new Set([...seenSummaries(
 // Every group fills whole rows of six tracks: pairs, and an odd group opens with a row of three
 const tileSpans = n => n === 1 ? [6] : Array.from({ length: n }, (_, i) => n % 2 && i < 3 ? 2 : 3);
 
+// The nearest meeting of the student's own courses, read from the "when" line ("שישי, 7:30 עד 10:00").
+// A meeting under way counts as now. Courses with no fixed time (online) are skipped.
+const dayIdx = { 'ראשון': 0, 'שני': 1, 'שלישי': 2, 'רביעי': 3, 'חמישי': 4, 'שישי': 5, 'שבת': 6 };
+function nextMeeting(list) {
+  const now = new Date(), cur = now.getDay() * 1440 + now.getHours() * 60 + now.getMinutes();
+  let best = null;
+  for (const c of list) {
+    const m = (c.when || '').match(/^(\S+),\s*(\d{1,2}):(\d{2})\s*עד\s*(\d{1,2}):(\d{2})/);
+    if (!m || !(m[1] in dayIdx)) continue;
+    const s = dayIdx[m[1]] * 1440 + +m[2] * 60 + +m[3], e = dayIdx[m[1]] * 1440 + +m[4] * 60 + +m[5];
+    const live = cur >= s && cur < e;
+    const wait = live ? 0 : (s - cur + 10080) % 10080;
+    if (!best || wait < best.wait) best = { c, live, wait, dayName: m[1], start: `${+m[2]}:${m[3]}`, end: `${+m[4]}:${m[5]}`, ahead: Math.floor((cur % 1440 + wait) / 1440) };
+  }
+  return best;
+}
+// Greeting by the hour. The first visit on this device, and the small hours, get "ברוכים הבאים":
+// "לילה טוב" is said when parting, not arriving. Read once per load, so a re-render doesn't switch it mid-visit.
+const firstVisit = !store.get('seen-home', false);
+store.set('seen-home', true);
+function greeting() {
+  const h = new Date().getHours();
+  const [time, text] = firstVisit || h < 5 ? ['welcome', 'ברוכים הבאים']
+    : h < 12 ? ['morning', 'בוקר טוב'] : h < 17 ? ['noon', 'צהריים טובים'] : ['evening', 'ערב טוב'];
+  return `<h1 data-time="${time}">${text}</h1>`;
+}
+function nextLine(n) {
+  if (!n) return '';
+  const when = n.live ? `עכשיו, עד ${n.end}` : `${n.ahead === 0 ? 'היום' : n.ahead === 1 ? 'מחר' : `ביום ${n.dayName}${n.ahead === 7 ? ' הבא' : ''}`} ${n.start}`;
+  return `<a class="next-up" href="#${n.c.id}" style="--c:${n.c.color}"><i aria-hidden="true"></i><span>${n.live ? '' : 'הבא: '}<b>${esc(n.c.short)}</b> · ${when}</span></a>`;
+}
+
 function homeView() {
   // A course that has not started yet stays in the menu but not on the home screen
   const mine = myCourses().filter(c => !c.hold && !(c.startsAt && daysFrom(c.startsAt) > 0));
@@ -860,6 +904,7 @@ function homeView() {
   const tasks = open.map(t => taskRow(t)).join('');
   return `
   <main class="wrap">
+    <header class="welcome">${greeting()}${liveNow ? '' : nextLine(nextMeeting(mine))}</header>
     ${liveNow ? `<div style="--course:${liveNow.color};--on-course:#fff">${liveBanner(liveNow)}</div>` : ''}
     <div class="cols home-cols">
       <section>
