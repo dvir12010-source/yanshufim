@@ -348,15 +348,25 @@ details.fold[open] > summary::after { content: "−"; }
 
 footer { color: var(--muted); font-size: 15px; }
 .stamp { color: var(--muted); font-size: 14px; margin: 0 0 6px; }
-/* Home greeting: one big line in the middle, and under it the nearest class, which opens that course */
-.welcome { display: grid; justify-items: center; gap: 12px; margin: 6px 0 22px; text-align: center; }
-.welcome h1 { padding: 0 .1em; font-size: clamp(38px, 11vw, 64px); line-height: 1.15; }
-/* Each part of the day has its own sky, painted into the letters. Dark enough to read on the cream page */
-.welcome h1[data-time] { background: var(--sky); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.welcome h1[data-time="morning"] { --sky: linear-gradient(90deg, #d2541f, #e08a12); }
-.welcome h1[data-time="noon"] { --sky: linear-gradient(90deg, #b07a00, #d89a06); }
-.welcome h1[data-time="evening"] { --sky: linear-gradient(90deg, #5a2f8f, #b23a6e); }
-.welcome h1[data-time="welcome"] { --sky: linear-gradient(90deg, #0b6a7a, #14907a); }
+/* Home greeting lives in the top bar's empty middle, so nothing on the page moves down. On a phone the bar has room
+   only for the greeting, so the nearest class sits in a thin row above the shelves; on a wide screen it joins the bar */
+.bar .wrap { position: relative; }
+.bar-hello { margin-inline-start: auto; display: flex; align-items: center; gap: 14px; min-width: 0; }
+.hello { margin: 0; padding: 0 .1em; font-size: 21px; line-height: 1.25; white-space: nowrap; }
+.bar-hello .next-up { display: none; }
+.welcome { display: flex; justify-content: center; margin-bottom: -14px; }
+@media (min-width: 860px) {
+  .bar-hello { position: absolute; left: 50%; top: 50%; translate: -50% -50%; margin: 0; }
+  .hello { font-size: 28px; }
+  .bar-hello .next-up { display: inline-flex; min-height: 36px; padding: 4px 14px; font-size: 15px; }
+  .welcome { display: none; }
+}
+/* Each part of the day has its own sky, painted into the letters. Dark enough to read on the cream bar */
+.hello[data-time] { background: var(--sky); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hello[data-time="morning"] { --sky: linear-gradient(90deg, #d2541f, #e08a12); }
+.hello[data-time="noon"] { --sky: linear-gradient(90deg, #b07a00, #d89a06); }
+.hello[data-time="evening"] { --sky: linear-gradient(90deg, #5a2f8f, #b23a6e); }
+.hello[data-time="welcome"] { --sky: linear-gradient(90deg, #0b6a7a, #14907a); }
 .next-up { display: inline-flex; align-items: center; gap: 9px; min-height: 42px; padding: 6px 18px; border-radius: 999px; background: var(--surface); box-shadow: var(--sheet); color: var(--fg); font-size: 16px; text-decoration: none; }
 .next-up i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
 .next-up b { font-weight: 700; }
@@ -883,7 +893,7 @@ function greeting() {
   const h = new Date().getHours();
   const [time, text] = firstVisit || h < 5 ? ['welcome', 'ברוכים הבאים']
     : h < 12 ? ['morning', 'בוקר טוב'] : h < 17 ? ['noon', 'צהריים טובים'] : ['evening', 'ערב טוב'];
-  return `<h1 data-time="${time}">${text}</h1>`;
+  return `<h1 class="hello" data-time="${time}">${text}</h1>`;
 }
 function nextLine(n) {
   if (!n) return '';
@@ -891,9 +901,13 @@ function nextLine(n) {
   return `<a class="next-up" href="#${n.c.id}" style="--c:${n.c.color}"><i aria-hidden="true"></i><span>${n.live ? '' : 'הבא: '}<b>${esc(n.c.short)}</b> · ${when}</span></a>`;
 }
 
+// A course that has not started yet stays in the menu but not on the home screen
+const homeCourses = () => myCourses().filter(c => !c.hold && !(c.startsAt && daysFrom(c.startsAt) > 0));
+// The nearest class, unless a Zoom class is live: its banner already says so
+const nextUp = () => { const mine = homeCourses(); return mine.some(c => liveState(c) !== null && c.zoom) ? '' : nextLine(nextMeeting(mine)); };
+
 function homeView() {
-  // A course that has not started yet stays in the menu but not on the home screen
-  const mine = myCourses().filter(c => !c.hold && !(c.startsAt && daysFrom(c.startsAt) > 0));
+  const mine = homeCourses();
   const liveNow = mine.find(c => liveState(c) !== null && c.zoom);
   // Only the current slice: this week's tasks, minus what this phone marked as handed in
   const done = store.get('done-tasks', []);
@@ -904,7 +918,7 @@ function homeView() {
   const tasks = open.map(t => taskRow(t)).join('');
   return `
   <main class="wrap">
-    <header class="welcome">${greeting()}${liveNow ? '' : nextLine(nextMeeting(mine))}</header>
+    ${nextUp() ? `<div class="welcome">${nextUp()}</div>` : ''}
     ${liveNow ? `<div style="--course:${liveNow.color};--on-course:#fff">${liveBanner(liveNow)}</div>` : ''}
     <div class="cols home-cols">
       <section>
@@ -1087,6 +1101,7 @@ function render() {
       <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
     </button>
     <a class="bar-title" href="#home">${owl}ינשופים</a>
+    ${!course && route !== 'pick' ? `<div class="bar-hello">${greeting()}${nextUp()}</div>` : ''}
   </div></div>
   ${route === 'pick' ? pickView() : course ? (course.layout === 'rail' ? railView(course) : courseView(course)) : homeView()}`;
   document.getElementById('menu').onclick = () => overlay.innerHTML ? closeMenu() : openMenu(route);
