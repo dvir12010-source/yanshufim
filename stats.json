@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-25T19:26+02:00",
+ "updated": "2026-11-26T03:51+02:00",
  "failures": 0,
  "totals": {
   "people": 197,
-  "visits": 611,
+  "visits": 614,
   "returning": 159,
-  "from-homescreen": 139,
-  "scrolled": 297,
-  "act-task-done": 160
+  "from-homescreen": 140,
+  "scrolled": 299,
+  "act-task-done": 163
  },
  "days": [
   {
@@ -144,9 +144,15 @@
   },
   {
    "date": "2026-11-25",
-   "visits": 13,
+   "visits": 16,
    "devices": 12,
    "returning": 8
+  },
+  {
+   "date": "2026-11-26",
+   "visits": 0,
+   "devices": 0,
+   "returning": 0
   }
  ],
  "acts": {
@@ -154,7 +160,7 @@
   "folder": 23,
   "recording": 12,
   "zoom": 13,
-  "lemida": 55,
+  "lemida": 56,
   "calendar": 10,
   "gmail": 1,
   "copy-mail": 8,
@@ -162,8 +168,8 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 263,
-  "10-30s": 147,
+  "0-10s": 264,
+  "10-30s": 149,
   "30-60s": 75,
   "1-2m": 40,
   "2-5m": 36,
@@ -173,14 +179,14 @@
  "clicks": {
   "0": 250,
   "1": 106,
-  "2-3": 140,
+  "2-3": 142,
   "4-6": 37,
   "7-plus": 33
  },
  "os": {
-  "ios": 285,
+  "ios": 286,
   "android": 56,
-  "desktop": 224
+  "desktop": 226
  },
  "courses": [
   {
@@ -218,7 +224,7 @@
   {
    "id": "ai",
    "name": "בינה מלאכותית",
-   "opens": 65,
+   "opens": 66,
    "summaries": 4,
    "recordings": 0,
    "zoom": 0
@@ -706,6 +712,39 @@
     "ob": 99,
     "decisions": 117,
     "ai": 65,
+    "labor": 63,
+    "ketubah": 61,
+    "writing-eliav": 25
+   }
+  },
+  {
+   "date": "2026-11-26",
+   "totals": {
+    "people": 197,
+    "visits": 614,
+    "returning": 159,
+    "from-homescreen": 140,
+    "scrolled": 299,
+    "act-task-done": 163
+   },
+   "acts": {
+    "summary": 108,
+    "folder": 23,
+    "recording": 12,
+    "zoom": 13,
+    "lemida": 56,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 8,
+    "install": 7,
+    "other": 20
+   },
+   "opens": {
+    "micro": 103,
+    "change": 65,
+    "ob": 99,
+    "decisions": 117,
+    "ai": 66,
     "labor": 63,
     "ketubah": 61,
     "writing-eliav": 25
