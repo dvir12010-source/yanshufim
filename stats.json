@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-26T22:18+02:00",
+ "updated": "2026-11-27T04:58+02:00",
  "failures": 0,
  "totals": {
   "people": 201,
-  "visits": 630,
-  "returning": 166,
-  "from-homescreen": 142,
-  "scrolled": 305,
+  "visits": 636,
+  "returning": 168,
+  "from-homescreen": 144,
+  "scrolled": 307,
   "act-task-done": 170
  },
  "days": [
@@ -150,9 +150,15 @@
   },
   {
    "date": "2026-11-26",
-   "visits": 17,
+   "visits": 18,
    "devices": 10,
    "returning": 8
+  },
+  {
+   "date": "2026-11-27",
+   "visits": 5,
+   "devices": 2,
+   "returning": 2
   }
  ],
  "acts": {
@@ -168,8 +174,8 @@
   "other": 20
  },
  "stay": {
-  "0-10s": 276,
-  "10-30s": 152,
+  "0-10s": 279,
+  "10-30s": 154,
   "30-60s": 75,
   "1-2m": 41,
   "2-5m": 37,
@@ -177,15 +183,15 @@
   "10m-plus": 2
  },
  "clicks": {
-  "0": 261,
-  "1": 106,
-  "2-3": 147,
+  "0": 262,
+  "1": 109,
+  "2-3": 148,
   "4-6": 37,
   "7-plus": 34
  },
  "os": {
-  "ios": 295,
-  "android": 60,
+  "ios": 297,
+  "android": 64,
   "desktop": 230
  },
  "courses": [
@@ -200,7 +206,7 @@
   {
    "id": "change",
    "name": "ניהול שינויים",
-   "opens": 65,
+   "opens": 66,
    "summaries": 13,
    "recordings": 0,
    "zoom": 5
@@ -208,7 +214,7 @@
   {
    "id": "ob",
    "name": "התנהגות ארגונית",
-   "opens": 100,
+   "opens": 101,
    "summaries": 43,
    "recordings": 0,
    "zoom": 0
@@ -743,6 +749,39 @@
     "micro": 106,
     "change": 65,
     "ob": 100,
+    "decisions": 119,
+    "ai": 69,
+    "labor": 65,
+    "ketubah": 61,
+    "writing-eliav": 25
+   }
+  },
+  {
+   "date": "2026-11-27",
+   "totals": {
+    "people": 201,
+    "visits": 636,
+    "returning": 168,
+    "from-homescreen": 144,
+    "scrolled": 307,
+    "act-task-done": 170
+   },
+   "acts": {
+    "summary": 108,
+    "folder": 23,
+    "recording": 12,
+    "zoom": 13,
+    "lemida": 56,
+    "calendar": 10,
+    "gmail": 1,
+    "copy-mail": 8,
+    "install": 7,
+    "other": 20
+   },
+   "opens": {
+    "micro": 106,
+    "change": 66,
+    "ob": 101,
     "decisions": 119,
     "ai": 69,
     "labor": 65,
