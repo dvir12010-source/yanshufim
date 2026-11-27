@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-27T14:48+02:00",
+ "updated": "2026-11-28T00:08+02:00",
  "failures": 0,
  "totals": {
   "people": 221,
-  "visits": 699,
-  "returning": 180,
-  "from-homescreen": 160,
-  "scrolled": 337,
+  "visits": 702,
+  "returning": 181,
+  "from-homescreen": 162,
+  "scrolled": 338,
   "act-task-done": 208
  },
  "days": [
@@ -156,9 +156,15 @@
   },
   {
    "date": "2026-11-27",
-   "visits": 69,
-   "devices": 35,
-   "returning": 15
+   "visits": 72,
+   "devices": 36,
+   "returning": 16
+  },
+  {
+   "date": "2026-11-28",
+   "visits": 0,
+   "devices": 0,
+   "returning": 0
   }
  ],
  "acts": {
@@ -168,14 +174,14 @@
   "zoom": 17,
   "lemida": 59,
   "calendar": 10,
-  "gmail": 1,
+  "gmail": 3,
   "copy-mail": 8,
   "install": 7,
   "other": 23
  },
  "stay": {
-  "0-10s": 297,
-  "10-30s": 169,
+  "0-10s": 299,
+  "10-30s": 170,
   "30-60s": 87,
   "1-2m": 46,
   "2-5m": 45,
@@ -183,14 +189,14 @@
   "10m-plus": 3
  },
  "clicks": {
-  "0": 289,
+  "0": 292,
   "1": 119,
   "2-3": 160,
   "4-6": 40,
   "7-plus": 41
  },
  "os": {
-  "ios": 320,
+  "ios": 323,
   "android": 77,
   "desktop": 257
  },
@@ -206,7 +212,7 @@
   {
    "id": "change",
    "name": "ניהול שינויים",
-   "opens": 78,
+   "opens": 79,
    "summaries": 13,
    "recordings": 0,
    "zoom": 5
@@ -781,6 +787,39 @@
    "opens": {
     "micro": 111,
     "change": 78,
+    "ob": 104,
+    "decisions": 125,
+    "ai": 78,
+    "labor": 68,
+    "ketubah": 64,
+    "writing-eliav": 25
+   }
+  },
+  {
+   "date": "2026-11-28",
+   "totals": {
+    "people": 221,
+    "visits": 702,
+    "returning": 181,
+    "from-homescreen": 162,
+    "scrolled": 338,
+    "act-task-done": 208
+   },
+   "acts": {
+    "summary": 108,
+    "folder": 23,
+    "recording": 12,
+    "zoom": 17,
+    "lemida": 59,
+    "calendar": 10,
+    "gmail": 3,
+    "copy-mail": 8,
+    "install": 7,
+    "other": 23
+   },
+   "opens": {
+    "micro": 111,
+    "change": 79,
     "ob": 104,
     "decisions": 125,
     "ai": 78,
