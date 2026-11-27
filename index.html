@@ -102,6 +102,7 @@ h1 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 7vw, 
 .reader small { font-size: 13px; color: var(--muted); line-height: 1.2; }
 .reader b { font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.15; color: var(--course); }
 .reader span { font-size: 13px; color: var(--muted); }
+.practice-note { margin: 12px 0 0; font-size: 14px; opacity: .9; }
 .btn.ghost { background: transparent; color: var(--on-course); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.65); }
 .live { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 12px 14px; border-radius: 12px; background: var(--surface); color: var(--fg); box-shadow: var(--sheet); }
 .live b { font-family: var(--title); font-weight: 700; font-size: 18px; }
@@ -716,6 +717,7 @@ function courseView(c) {
       ${c.workbook ? `<a class="btn ghost" href="${esc(c.workbook.url)}" target="_blank" rel="noopener">${esc(c.workbook.label || 'חוברת תרגילים')}</a>` : ''}
     </div>
     ${c.readers ? `<div class="readers" aria-label="סיכומים">${c.readers.map(r => `<a class="reader" href="${esc(r.url)}" aria-label="הסיכום של ${esc(r.name)}"><small>הסיכום של</small><b>${esc(r.name)}</b>${r.range ? `<span>${esc(r.range)}</span>` : ''}</a>`).join('')}</div>` : ''}
+    ${(c.lessons || []).filter(l => l.practice && daysFrom(l.date) < 0).map(l => `<p class="practice-note">שיעור ${l.n} (${short(l.date)}) היה תרגול, ולכן אין לו סיכום.</p>`).join('')}
   </div></header>
   <main class="wrap">
     <div class="cols course-cols">
