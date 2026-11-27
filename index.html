@@ -231,6 +231,7 @@ h2 { font-family: var(--display); font-weight: 400; font-size: 23px; margin: 0; 
 .undo { justify-self: start; min-height: 44px; padding: 0 2px; background: none; border: 0; color: var(--muted); font: 600 15px var(--body); text-decoration: underline; cursor: pointer; }
 /* Course page built around a weekly assignment rail (layout "rail"): light top, one row of numbered nodes, Lemida chip on the left above it */
 .feat { align-items: start; padding-block: 14px; }
+.task.feat { grid-template-columns: 44px minmax(0,1fr); }
 .feat .task-tick { margin-top: 2px; }
 .feat-title { font-family: var(--title); font-weight: 700; font-size: 19px; line-height: 1.25; }
 .feat-status { display: inline-block; margin-top: 4px; padding: 1px 9px; border-radius: 999px; background: var(--soft); color: var(--c); font-size: 13.5px; font-weight: 700; }
@@ -255,9 +256,20 @@ h2 { font-family: var(--display); font-weight: 400; font-size: 23px; margin: 0; 
 .rail-top .wrap { display: grid; gap: 4px; }
 .rail-top h1 { padding-inline-end: 0; color: var(--course); font-size: clamp(28px, 7vw, 40px); }
 .rail-top .sub { padding-inline-end: 0; color: var(--muted); }
-.lemida-chip { display: flex; justify-content: flex-end; }
-.lemida-chip a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 14px 4px 12px; border-radius: 12px; background: var(--surface); box-shadow: var(--sheet), inset 0 0 0 1.5px var(--course); color: var(--course); font-weight: 700; font-size: 16px; text-decoration: none; }
+.rail-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; }
+.lemida-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 14px 4px 12px; border-radius: 12px; background: var(--surface); box-shadow: var(--sheet), inset 0 0 0 1.5px var(--course); color: var(--course); font-weight: 700; font-size: 15px; text-decoration: none; }
 .lemida-chip img { flex: none; }
+.rail button.n { background: none; border: 0; padding: 0; min-height: 44px; cursor: pointer; font: inherit; }
+.rail button.n:hover i { box-shadow: 0 0 0 5px color-mix(in srgb, var(--course) 14%, transparent); }
+.feat-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; }
+.feat-main { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 6px 12px; border-radius: 12px; background: var(--c); color: #fff; font-weight: 700; text-decoration: none; }
+.feat-main img { background: #fff; border-radius: 6px; padding: 2px; box-sizing: content-box; }
+.feat-chip { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 4px 10px; border-radius: 12px; background: var(--soft); color: var(--c); font-weight: 700; font-size: 15px; text-decoration: none; }
+.feat-chip .mini-pdf { height: 16px; font-size: 9px; }
+@media (max-width: 420px) { .feat-chip .ct { display: none; } .feat-chip { min-width: 44px; justify-content: center; } }
+.task.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { 0% { background: color-mix(in srgb, var(--c) 22%, transparent); } 100% { background: transparent; } }
+.readers.light { grid-template-columns: repeat(auto-fill, minmax(140px, 180px)); }
 .rail { position: relative; display: flex; align-items: center; margin: 18px 0 4px; }
 .rail::before { content: ""; position: absolute; inset: 50% 10px auto 10px; height: 3px; background: var(--line); transform: translateY(-50%); }
 .rail .n { flex: 1; position: relative; display: grid; place-items: center; }
@@ -703,7 +715,7 @@ function courseView(c) {
       ${c.summariesFolder && !c.readers ? `<a class="btn ghost" href="${esc(c.summariesFolder)}" target="_blank" rel="noopener">כל הסיכומים</a>` : ''}
       ${c.workbook ? `<a class="btn ghost" href="${esc(c.workbook.url)}" target="_blank" rel="noopener">${esc(c.workbook.label || 'חוברת תרגילים')}</a>` : ''}
     </div>
-    ${c.readers ? `<div class="readers" aria-label="סיכומים">${c.readers.map(r => `<a class="reader" href="${esc(r.url)}"><small>הסיכום של</small><b>${esc(r.name)}</b>${r.range ? `<span>${esc(r.range)}</span>` : ''}</a>`).join('')}</div>` : ''}
+    ${c.readers ? `<div class="readers" aria-label="סיכומים">${c.readers.map(r => `<a class="reader" href="${esc(r.url)}" aria-label="הסיכום של ${esc(r.name)}"><small>הסיכום של</small><b>${esc(r.name)}</b>${r.range ? `<span>${esc(r.range)}</span>` : ''}</a>`).join('')}</div>` : ''}
   </div></header>
   <main class="wrap">
     <div class="cols course-cols">
@@ -776,12 +788,15 @@ function taskRow(t, inCourse) {
   }
   if (t.video || t.file) {
     const how = t.how ? `<p class="task-how"><b>מה מגישים:</b> ${esc(t.how)}</p>` : '';
-    return `<div class="task feat" style="--c:${c ? c.color : 'var(--due)'}">
+    // One main action (handing in) and the video and explanation as small chips beside it, so the text keeps the full width
+    return `<div class="task feat" id="task-${esc(t.id)}" style="--c:${c ? c.color : 'var(--due)'}">
     <button class="task-tick" type="button" data-done="${esc(t.id)}" aria-label="הגשתי: ${esc(t.text)}"></button>
     <div>${name}<p class="feat-title">${esc(t.text)}</p>${t.due ? `<small class="feat-status${late(t.due) ? ' late' : ''}">עד ${short(t.due)} ·${esc(leftText(daysFrom(t.due)))}</small>` : ''}${t.status ? `<small class="feat-status">${esc(t.status)}</small>` : ''}${how}
-      ${t.video ? `<a class="feat-video" href="${esc(t.video.url)}" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>${esc(t.video.label)}</a>` : ''}
-      ${t.submit ? `<a class="feat-submit" href="${esc(t.submit)}" target="_blank" rel="noopener">להגשה בלמדה ←</a>` : ''}</div>
-    ${t.file ? `<a class="pdf-chip" href="${esc(t.file.url)}" target="_blank" rel="noopener" aria-label="${esc(t.file.label)} (PDF)"><span class="pdf-ico" aria-hidden="true"><b>PDF</b></span><span>${esc(t.file.label)}</span></a>` : ''}</div>`;
+      <div class="feat-acts">
+      ${t.submit ? `<a class="feat-main" href="${esc(t.submit)}" target="_blank" rel="noopener">${lemidaLogo(18)}להגשה בלמדה</a>` : ''}
+      ${t.video ? `<a class="feat-chip" href="${esc(t.video.url)}" target="_blank" rel="noopener" aria-label="${esc(t.video.label)}"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg><span class="ct">וידאו</span></a>` : ''}
+      ${t.file ? `<a class="feat-chip" href="${esc(t.file.url)}" aria-label="${esc(t.file.label)} (PDF)"><span class="mini-pdf" aria-hidden="true">PDF</span><span class="ct">הסבר</span></a>` : ''}
+      </div></div></div>`;
   }
   return `<div class="task" style="--c:${c ? c.color : 'var(--due)'}">
     <button class="task-tick" type="button" data-done="${esc(t.id)}" aria-label="הגשתי: ${esc(t.text)}"></button>
@@ -795,38 +810,41 @@ const lemidaLogo = (size = 26) => `<img src="lemida.png" width="${size}" height=
 function railView(c) {
   const R = c.rail || { items: [] };
   const done = store.get('done-tasks', []);
-  const node = i => {
-    const ticked = i.id && done.includes(i.id);
-    const cls = i.n === R.current ? 'now' : (i.past || ticked) ? 'done' : i.id ? 'open' : '';
-    return `<div class="n ${cls}"><i>${i.n}</i></div>`;
-  };
-  const cur = R.items.find(i => i.n === R.current);
-  // The task with its own video or file is the one on the rail now, so it comes first
-  const week = weekTasks().filter(t => t.course === c.id).sort((a, b) => !!(b.video || b.file) - !!(a.video || a.file));
+  // Tasks by due date. "Now" on the rail is the first task not marked handed in whose date has not passed
+  const week = weekTasks().filter(t => t.course === c.id).sort((a, b) => (a.due || '9').localeCompare(b.due || '9'));
   const open = week.filter(t => !done.includes(t.id));
   const hidden = week.length - open.length;
+  const nowTask = open.find(t => !late(t.due)) || open[0];
+  const nowNode = nowTask && R.items.find(i => i.id === nowTask.id);
+  const node = i => {
+    const ticked = i.id && done.includes(i.id);
+    const cls = nowNode === i ? 'now' : (i.past || ticked) ? 'done' : i.id ? 'open' : '';
+    // A node with a task on the page scrolls to it (a button, since every #link here is a page of the site)
+    return i.id && open.some(t => t.id === i.id)
+      ? `<button class="n ${cls}" type="button" data-goto="task-${esc(i.id)}" aria-label="מטלה ${i.n}"><i>${i.n}</i></button>`
+      : `<div class="n ${cls}"><i>${i.n}</i></div>`;
+  };
   const grade = ((c.faq || []).find(f => f.grade) || {});
   const g = grade.grade;
+  const lem = (c.lemida || [])[0];
   return `
   <header class="rail-top"><div class="wrap">
-    ${(c.lemida || []).slice(0, 1).map(l => `<div class="lemida-chip"><a href="${esc(l.url)}" target="_blank" rel="noopener">${lemidaLogo(26)}${esc(l.label)}</a></div>`).join('')}
     <h1>${esc(c.name)}</h1>
-    <p class="sub">${esc(c.lecturer)} · ${R.items.length} מטלות לאורך הסמסטר</p>
+    <div class="rail-meta"><p class="sub">${esc(c.lecturer)} · ${esc(c.kind || '')} · ${R.items.length} מטלות</p>
+    ${lem ? `<a class="lemida-chip" href="${esc(lem.url)}" target="_blank" rel="noopener">${lemidaLogo(22)}${esc(lem.label)}</a>` : ''}</div>
     <div class="rail">${R.items.map(node).join('')}</div>
-    <div class="rail-cap"><span>מטלה 1</span><span>${R.current ? 'עכשיו: מטלה ' + R.current : ''}</span><span>מטלה ${R.items.length}</span></div>
+    <div class="rail-cap"><span>מטלה 1</span><span>${nowNode ? 'עכשיו: מטלה ' + nowNode.n : ''}</span><span>מטלה ${R.items.length}</span></div>
   </div></header>
   <main class="wrap">
-    ${cur && cur.url ? `<a class="now-btn" href="${esc(cur.url)}" target="_blank" rel="noopener">${lemidaLogo(40)}<div><b>למטלה ${cur.n} בלמדה</b><span>ישר לדף המטלה</span></div><em>←</em></a>` : ''}
     <section>
       <h2>מה להגיש</h2>
       ${open.length ? `<div class="sheet tasks">${open.map(t => taskRow(t, true)).join('')}</div>` : '<p class="note">הכל הוגש. כל הכבוד.</p>'}
       ${hidden ? `<button class="undo" type="button" id="undo-tasks">סימנת ${hidden} כהוגשו · להחזיר</button>` : ''}
     </section>
-    ${c.digest ? `<section><h2>הסיכום של שירי</h2><div class="sheet"><article class="lesson"><div class="links"><a class="chip" href="${esc(c.digest.url)}" target="_blank" rel="noopener">${esc(c.digest.label.replace('הסיכום של שירי, ', ''))}</a></div></article></div></section>` : ''}
+    ${c.digest ? `<section><h2>סיכומים</h2><div class="readers light"><a class="reader" href="${esc(c.digest.url)}" aria-label="הסיכום של שירי"><small>הסיכום של</small><b>שירי</b><span>${esc(c.digest.label.replace('הסיכום של שירי, ', ''))}</span></a></div></section>` : ''}
     ${g ? `<section><h2>איך מורכב הציון</h2>
       <div class="grade-big"><span style="flex:${g[0].v};background:color-mix(in srgb, var(--course) 70%, #000)">${esc(g[0].k)} ${g[0].v}%</span><span style="flex:${g[1].v};background:var(--course)">${esc(g[1].k)} ${g[1].v}%</span></div>
       <p class="note">${esc(grade.a)}</p></section>` : ''}
-    ${c.taAsk ? `<section><h2>המייל של המתרגל שלי</h2><div class="sheet ta-box" id="ta-box"></div></section>` : ''}
     ${footer()}
   </main>`;
 }
@@ -1127,6 +1145,12 @@ function render() {
     hit('act-task-done');
     const y = scrollY; render(); scrollTo(0, y);
   });
+  app.querySelectorAll('[data-goto]').forEach(b => b.onclick = () => {
+    const el = document.getElementById(b.dataset.goto);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  });
   const undo = document.getElementById('undo-tasks');
   if (undo) undo.onclick = () => { store.set('done-tasks', []); const y = scrollY; render(); scrollTo(0, y); };
   app.querySelectorAll('.pick input').forEach(box => {
@@ -1283,7 +1307,7 @@ render();
     window.scrollTo(0, 0);
   }
 
-  function open(url, a) {
+  function open(url, a, orig) {
     let t = tabs.find(x => x.url === url);
     if (!t) {
       const pdf = /\.pdf$/i.test(new URL(url).pathname);
@@ -1291,7 +1315,11 @@ render();
       const frame = document.createElement(drawn ? 'div' : 'iframe');
       frame.className = drawn ? 'file-view pdf-view' : 'file-view';
       if (!drawn) frame.src = url;
-      frame.title = nameFor(url, a);
+      // A summary page's "back to the course" would load the whole site inside the tab; here it goes back to the first tab
+      if (!drawn) frame.addEventListener('load', () => {
+        try { frame.contentDocument.querySelectorAll('a.back').forEach(b => b.addEventListener('click', ev => { ev.preventDefault(); goHome(); })); } catch (_) {}
+      });
+      frame.title = nameFor(orig || url, a);
       views.appendChild(frame);
       t = { url, name: frame.title, pdf, drawn, frame };
       tabs.push(t);
@@ -1317,9 +1345,23 @@ render();
     const a = e.target.closest('a[href]');
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
     const u = new URL(a.href, location.href);
-    if (u.origin !== location.origin || !/\/(files\/[^/]+\.pdf|tools\/[^/]+\.html)$/i.test(u.pathname)) return;
-    e.preventDefault();
-    open(u.href, a);
+    // Inside the site: its PDFs, the students' tools and the summary pages
+    if (u.origin === location.origin && /\/(files\/[^/]+\.pdf|tools\/[^/]+\.html|s\/[^/]+\.html)$/i.test(u.pathname)) {
+      e.preventDefault();
+      open(u.href, a);
+      return;
+    }
+    // Google Drive opens inside too, through its embeddable views (public files, no sign-in).
+    // Lemida does not: its sign-in cookie is not sent inside another site, so it would ask to sign in every time
+    if (u.hostname === 'drive.google.com') {
+      const file = u.pathname.match(/^\/file\/d\/([^/]+)/);
+      const folder = u.pathname.match(/^\/drive\/(?:u\/\d+\/)?folders\/([^/?]+)/);
+      const embed = file ? `https://drive.google.com/file/d/${file[1]}/preview`
+        : folder ? `https://drive.google.com/embeddedfolderview?id=${folder[1]}#list` : '';
+      if (!embed) return;
+      e.preventDefault();
+      open(embed, a, u.href);
+    }
   });
 
   // Moving to another page inside the site renames the first tab
